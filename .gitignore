@@ -1,0 +1,42 @@
+# Data (too large for git)
+data/raw/
+data/processed/glove.6B.*
+data/processed/cleaned_corpus.txt
+data/processed/merged_corpus.json
+data/processed/english_anchors.json
+data/dictionaries/
+
+# Models (too large for git)
+models/
+
+# Results (regenerable)
+results/
+
+# Production vectors (too large for git)
+final_output/*.npz
+final_output/*.pkl
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
