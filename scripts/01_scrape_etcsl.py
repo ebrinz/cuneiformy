@@ -6,6 +6,7 @@ Format: TEI P4 XML with transliterations linked to translations via id/corresp a
 """
 import json
 import os
+import re
 import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -41,38 +42,48 @@ def download_etcsl(output_dir: Path) -> Path:
     return zip_path
 
 
-def extract_xml_files(zip_path: Path) -> list[str]:
-    """Extract XML content from ETCSL ZIP archive."""
-    xml_contents = []
+def load_etcsl_files(zip_path: Path) -> tuple[dict[str, str], dict[str, str]]:
+    """Load transliteration and translation XML files from ETCSL ZIP, keyed by composition ID."""
+    transliterations = {}
+    translations = {}
     with zipfile.ZipFile(zip_path) as zf:
         for name in zf.namelist():
-            if name.endswith(".xml"):
-                xml_contents.append(zf.read(name).decode("utf-8", errors="replace"))
-    return xml_contents
+            if not name.endswith(".xml"):
+                continue
+            content = zf.read(name).decode("utf-8", errors="replace")
+            if "/transliterations/" in name:
+                # e.g., etcsl/transliterations/c.2.5.5.4.xml -> c.2.5.5.4
+                comp_id = Path(name).stem
+                transliterations[comp_id] = content
+            elif "/translations/" in name:
+                # e.g., etcsl/translations/t.4.08.32.xml -> t.4.08.32
+                comp_id = Path(name).stem
+                translations[comp_id] = content
+    return transliterations, translations
+
+
+def _comp_id_to_translation_key(comp_id: str) -> str:
+    """Convert transliteration comp_id to translation comp_id. c.X.X.X -> t.X.X.X"""
+    return "t." + comp_id[2:] if comp_id.startswith("c.") else comp_id
 
 
 def parse_etcsl_xml(xml_content: str) -> list[dict]:
     """
-    Parse ETCSL TEI P4 XML and extract transliteration-translation pairs.
+    Parse a single ETCSL transliteration XML file.
 
-    Transliterations are in <l id="c.X.X.X.N"> tags.
-    Translations are in <p corresp="c.X.X.X.N"> tags.
-    They link via the id/corresp attribute.
+    Real ETCSL format:
+    - Transliteration files have <l> tags containing <w form="word"> tags
+    - The transliteration text is extracted from w/@form attributes
+    - Line IDs like "c2554.A.1" with corresp like "t2554.p1"
     """
     xml_content = xml_content.replace(' xmlns="', ' xmlns:ignore="')
+    # Replace undefined HTML entities (e.g., &c; &aacute; &commat;) that aren't valid XML
+    xml_content = re.sub(r"&(?!amp;|lt;|gt;|quot;|apos;)([a-zA-Z0-9]+);", r"_\1_", xml_content)
 
     try:
         root = ET.fromstring(xml_content)
     except ET.ParseError:
         return []
-
-    translations = {}
-    for p_tag in root.iter("p"):
-        corresp = p_tag.get("corresp")
-        if corresp:
-            text = "".join(p_tag.itertext()).strip()
-            if text:
-                translations[corresp] = text
 
     texts = []
     for l_tag in root.iter("l"):
@@ -80,20 +91,79 @@ def parse_etcsl_xml(xml_content: str) -> list[dict]:
         if not line_id:
             continue
 
-        transliteration = "".join(l_tag.itertext()).strip()
+        # Extract word forms from <w> tags
+        w_tags = l_tag.findall(".//w")
+        if w_tags:
+            forms = []
+            for w in w_tags:
+                form = w.get("form", "")
+                if form and form != "X" and form != "&X;":
+                    forms.append(form)
+            transliteration = " ".join(forms)
+        else:
+            # Fallback: plain text content
+            transliteration = "".join(l_tag.itertext()).strip()
+
         if not transliteration:
             continue
 
-        translation = translations.get(line_id)
+        corresp = l_tag.get("corresp")
 
         texts.append({
             "transliteration": transliteration,
-            "translation": translation,
+            "translation": None,  # filled in by match_translations
             "line_id": line_id,
+            "corresp": corresp,
             "source": "ETCSL",
         })
 
     return texts
+
+
+def parse_translation_xml(xml_content: str) -> dict[str, str]:
+    """
+    Parse a translation XML file. Returns {paragraph_id: translation_text}.
+
+    Translation <p> tags have id like "t40832.p1" and corresp like "c40832.1"
+    pointing to the first line of the transliteration range.
+    """
+    xml_content = xml_content.replace(' xmlns="', ' xmlns:ignore="')
+    xml_content = re.sub(r"&(?!amp;|lt;|gt;|quot;|apos;)([a-zA-Z0-9]+);", r"_\1_", xml_content)
+
+    try:
+        root = ET.fromstring(xml_content)
+    except ET.ParseError:
+        return {}
+
+    translations = {}
+    for p_tag in root.iter("p"):
+        p_id = p_tag.get("id")
+        corresp = p_tag.get("corresp")
+        if p_id and corresp:
+            text = "".join(p_tag.itertext()).strip()
+            if text:
+                # Key by the corresp which points to transliteration line
+                translations[corresp] = text
+                # Also key by the paragraph id
+                translations[p_id] = text
+    return translations
+
+
+def match_translations(lines: list[dict], translations: dict[str, str]) -> None:
+    """Match translation paragraphs to transliteration lines."""
+    for line in lines:
+        corresp = line.get("corresp")
+        line_id = line.get("line_id", "")
+
+        # Try direct corresp match (line's corresp -> translation paragraph id)
+        if corresp and corresp in translations:
+            line["translation"] = translations[corresp]
+            continue
+
+        # Try matching line_id as a translation corresp target
+        # Translation corresp points to line IDs like "c40832.1"
+        if line_id in translations:
+            line["translation"] = translations[line_id]
 
 
 def save_texts(texts: list[dict], output_path: str) -> None:
@@ -106,13 +176,24 @@ def save_texts(texts: list[dict], output_path: str) -> None:
 
 def main():
     zip_path = download_etcsl(DATA_RAW)
-    xml_files = extract_xml_files(zip_path)
-    print(f"Found {len(xml_files)} XML files in archive")
+    transliteration_files, translation_files = load_etcsl_files(zip_path)
+    print(f"Found {len(transliteration_files)} transliteration files, {len(translation_files)} translation files")
 
     all_texts = []
-    for xml_content in tqdm(xml_files, desc="Parsing XML"):
-        texts = parse_etcsl_xml(xml_content)
-        all_texts.extend(texts)
+    for comp_id, xml_content in tqdm(transliteration_files.items(), desc="Parsing transliterations"):
+        lines = parse_etcsl_xml(xml_content)
+
+        # Find matching translation file
+        trans_key = _comp_id_to_translation_key(comp_id)
+        if trans_key in translation_files:
+            translations = parse_translation_xml(translation_files[trans_key])
+            match_translations(lines, translations)
+
+        all_texts.extend(lines)
+
+    # Clean up: remove corresp field from output
+    for t in all_texts:
+        t.pop("corresp", None)
 
     output_path = DATA_RAW / "etcsl_texts.json"
     save_texts(all_texts, str(output_path))

@@ -9,5 +9,8 @@ _mod = module_from_spec(_spec)
 _spec.loader.exec_module(_mod)
 
 parse_etcsl_xml = _mod.parse_etcsl_xml
+parse_translation_xml = _mod.parse_translation_xml
+match_translations = _mod.match_translations
 save_texts = _mod.save_texts
 download_etcsl = _mod.download_etcsl
+load_etcsl_files = _mod.load_etcsl_files

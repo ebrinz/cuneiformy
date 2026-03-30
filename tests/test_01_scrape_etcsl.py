@@ -1,71 +1,79 @@
 import json
 import os
 import tempfile
-from unittest.mock import patch, MagicMock
 import pytest
 
 
-SAMPLE_ETCSL_XML = """<?xml version="1.0" encoding="UTF-8"?>
-<teiCorpus.2>
-<TEI.2>
-<teiHeader>
-<fileDesc>
-<titleStmt><title>Enki and Ninhursag -- ancient transliteration</title></titleStmt>
-</fileDesc>
-</teiHeader>
-<text>
-<group>
-<text n="t.1.1.1">
-<body>
-<l id="c.1.1.1.1" n="1">ud re-a ud sud-ra2 re-a</l>
-<l id="c.1.1.1.2" n="2">gi6 re-a gi6 ba9-ra2 re-a</l>
-<l id="c.1.1.1.3" n="3">mu re-a mu sud-ra2 re-a</l>
-</body>
-</text>
-<text n="t.1.1.1.e">
-<body>
-<p corresp="c.1.1.1.1">In those days, in those far-off days,</p>
-<p corresp="c.1.1.1.2">In those nights, in those far-off nights,</p>
-<p corresp="c.1.1.1.3">In those years, in those far-off years,</p>
-</body>
-</text>
-</group>
-</text>
+# Real ETCSL format: transliterations have <w form="..."> tags inside <l> tags
+SAMPLE_TRANSLITERATION_XML = """<TEI.2 id="c.1.1.1">
+<teiHeader lang="eng"><fileDesc><titleStmt>
+<title>Enki and Ninhursag -- composite transliteration</title>
+</titleStmt></fileDesc></teiHeader>
+<text><body>
+<l id="c111.1" n="1" corresp="t111.p1">
+<w form="ud" lemma="ud" pos="N" label="day">ud</w>
+<w form="re-a" lemma="re" pos="V" label="distant">re-a</w>
+<w form="ud" lemma="ud" pos="N" label="day">ud</w>
+<w form="sud-ra2" lemma="sud" pos="V" label="distant">sud-ra2</w>
+<w form="re-a" lemma="re" pos="V" label="distant">re-a</w>
+</l>
+<l id="c111.2" n="2" corresp="t111.p1">
+<w form="gi6" lemma="gi6" pos="N" label="night">gi6</w>
+<w form="re-a" lemma="re" pos="V" label="distant">re-a</w>
+</l>
+<l id="c111.3" n="3" corresp="t111.p2">
+<w form="mu" lemma="mu" pos="N" label="year">mu</w>
+<w form="re-a" lemma="re" pos="V" label="distant">re-a</w>
+</l>
+</body></text>
 </TEI.2>
-</teiCorpus.2>
+"""
+
+SAMPLE_TRANSLATION_XML = """<TEI.2 id="t.1.1.1">
+<teiHeader lang="eng"><fileDesc><titleStmt>
+<title>Enki and Ninhursag -- English translation</title>
+</titleStmt></fileDesc></teiHeader>
+<text><body>
+<p id="t111.p1" n="1-2" corresp="c111.1">In those days, in those far-off days,</p>
+<p id="t111.p2" n="3" corresp="c111.3">In those years, in those far-off years,</p>
+</body></text>
+</TEI.2>
 """
 
 
-def test_parse_etcsl_xml():
-    """Parse ETCSL XML and extract transliteration-translation pairs."""
+def test_parse_etcsl_transliteration():
+    """Parse ETCSL transliteration XML and extract word forms from <w> tags."""
     from scripts.scrape_etcsl_01 import parse_etcsl_xml
 
-    texts = parse_etcsl_xml(SAMPLE_ETCSL_XML)
+    texts = parse_etcsl_xml(SAMPLE_TRANSLITERATION_XML)
 
     assert len(texts) == 3
     assert texts[0]["transliteration"] == "ud re-a ud sud-ra2 re-a"
-    assert texts[0]["translation"] == "In those days, in those far-off days,"
-    assert texts[0]["line_id"] == "c.1.1.1.1"
+    assert texts[0]["line_id"] == "c111.1"
+    assert texts[1]["transliteration"] == "gi6 re-a"
 
 
-def test_parse_etcsl_xml_unmatched_lines():
-    """Lines without matching translations should still be included."""
+def test_parse_translation_and_match():
+    """Parse translation XML and match to transliteration lines."""
+    from scripts.scrape_etcsl_01 import parse_etcsl_xml, parse_translation_xml, match_translations
+
+    lines = parse_etcsl_xml(SAMPLE_TRANSLITERATION_XML)
+    translations = parse_translation_xml(SAMPLE_TRANSLATION_XML)
+    match_translations(lines, translations)
+
+    # Line 1 corresp=t111.p1 -> "In those days..."
+    assert lines[0]["translation"] == "In those days, in those far-off days,"
+    # Line 3 corresp=t111.p2 -> "In those years..."
+    assert lines[2]["translation"] == "In those years, in those far-off years,"
+
+
+def test_parse_etcsl_xml_no_w_tags_fallback():
+    """Lines without <w> tags should fall back to plain text."""
     from scripts.scrape_etcsl_01 import parse_etcsl_xml
 
-    xml = """<?xml version="1.0" encoding="UTF-8"?>
-    <teiCorpus.2>
-    <TEI.2>
-    <text><group>
-    <text n="t.1.1.1">
-    <body>
-    <l id="c.1.1.1.1" n="1">lugal-e mu-un-na-ni-ib-gi4-gi4</l>
-    </body>
-    </text>
-    <text n="t.1.1.1.e"><body></body></text>
-    </group></text>
-    </TEI.2>
-    </teiCorpus.2>
-    """
+    xml = """<TEI.2 id="c.1.1.1"><text><body>
+    <l id="c111.1" n="1">lugal-e mu-un-na-ni-ib-gi4-gi4</l>
+    </body></text></TEI.2>"""
     texts = parse_etcsl_xml(xml)
 
     assert len(texts) == 1
