@@ -2,15 +2,35 @@ import pytest
 
 
 def test_clean_atf_line():
-    """Clean ATF editorial markers and normalize."""
+    """Clean ATF editorial markers and normalize transliteration."""
     from scripts.clean_05 import clean_atf_line
 
-    assert clean_atf_line("1(disz) geme2 u4 1(disz)-sze3") == "1(disz) geme2 u4 1(disz) sze3"
-    assert clean_atf_line("ki-masz{ki}") == "ki masz ki"
+    # sz -> c normalization, subscript handling
+    assert clean_atf_line("1(disz) geme2 u4 1(disz)-sze3") == "1(dic) geme2 u4 1(dic) ce3"
+    assert clean_atf_line("ki-masz{ki}") == "ki mac ki"
     assert clean_atf_line("[lugal]-e") == "lugal e"
     assert clean_atf_line("mu!(BU)") == "mu"
     assert clean_atf_line("dingir#") == "dingir"
     assert clean_atf_line("a?-ba") == "a ba"
+
+
+def test_clean_atf_removes_compound_signs():
+    """Compound signs and semantic markers should be removed."""
+    from scripts.clean_05 import clean_atf_line
+
+    assert "|" not in clean_atf_line("|GA2xAN| lugal")
+    assert "_" not in clean_atf_line("_d_nin lugal")
+    assert "<" not in clean_atf_line("<szum2> lugal")
+
+
+def test_clean_atf_normalizes_transliteration():
+    """ATF sz convention should normalize to ORACC c convention."""
+    from scripts.clean_05 import normalize_transliteration
+
+    assert normalize_transliteration("sze") == "ce"
+    assert normalize_transliteration("szu") == "cu"
+    assert normalize_transliteration("gesz") == "gec"
+    assert normalize_transliteration("lu₂") == "lu2"
 
 
 def test_clean_atf_line_whitespace():

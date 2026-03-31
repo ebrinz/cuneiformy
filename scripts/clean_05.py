@@ -10,3 +10,4 @@ _spec.loader.exec_module(_mod)
 
 clean_atf_line = _mod.clean_atf_line
 build_corpus = _mod.build_corpus
+normalize_transliteration = _mod.normalize_transliteration

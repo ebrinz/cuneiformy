@@ -26,12 +26,28 @@ def extract_epsd2_anchors(lemmas: list[dict], min_occurrences: int = 5) -> list[
     for lemma in lemmas:
         cf = lemma.get("cf", "").strip().lower()
         gw = lemma.get("gw", "").strip().lower()
-        if cf and gw and gw != "x":
+        if cf and gw:
             pair_counts[(cf, gw)] += 1
+
+    # Junk English values to filter out
+    junk_english = {
+        "x", "xx", "0", "00", "1", "n", "c", "e", "i", "u",
+        "unmng", "~sheep", "~grain", "~cow",
+    }
 
     anchors = []
     for (cf, gw), count in pair_counts.items():
         if count >= min_occurrences:
+            # Filter: skip junk English, single-char, purely numeric
+            if gw in junk_english:
+                continue
+            if len(gw) <= 1:
+                continue
+            if gw.isdigit():
+                continue
+            if gw.startswith("~"):
+                continue
+
             confidence = min(0.95, 0.5 + (count / 100))
             anchors.append({
                 "sumerian": cf,
