@@ -23,23 +23,10 @@ DATA_PROCESSED = Path(__file__).parent.parent / "data" / "processed"
 _SUBSCRIPT_MAP = str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
 
 # ATF-to-ORACC transliteration normalization
-_TRANSLIT_REPLACEMENTS = [
-    ("sz", "c"),      # shin: sz (ATF) -> c (ORACC)
-    ("s,", "s"),      # tsade: s, (ATF) -> s (ORACC) - note: must come before generic comma strip
-    ("t,", "t"),      # emphatic t
-    ("SZ", "C"),      # uppercase
-]
-
-
 def normalize_transliteration(word: str) -> str:
-    """Normalize ATF transliteration conventions to match ORACC citation forms."""
+    """Normalize ATF transliteration: lowercase and convert subscript digits."""
     # Convert subscript digits to ASCII
     word = word.translate(_SUBSCRIPT_MAP)
-
-    # ATF -> ORACC convention mapping
-    for old, new in _TRANSLIT_REPLACEMENTS:
-        word = word.replace(old, new)
-
     return word.lower()
 
 
@@ -81,8 +68,19 @@ def clean_atf_line(line: str) -> str:
     # Handle determinatives {ki}, {d}, etc. - keep the content
     line = re.sub(r"\{([^}]*)\}", r" \1 ", line)
 
-    # Replace hyphens with spaces (morpheme boundaries)
-    line = line.replace("-", " ")
+    # For hyphens: emit both the compound form and split morphemes
+    # e.g., "lugal-e" becomes "lugal-e lugal e"
+    # This preserves compound words for anchor matching while also
+    # giving FastText the morpheme-level tokens
+    tokens = line.split()
+    expanded = []
+    for tok in tokens:
+        if "-" in tok:
+            expanded.append(tok.replace("-", ""))  # compound: lugale
+            expanded.extend(tok.split("-"))         # morphemes: lugal, e
+        else:
+            expanded.append(tok)
+    line = " ".join(expanded)
 
     # Replace dots used as separators (but not in numbers like 1.0)
     line = re.sub(r"(?<!\d)\.(?!\d)", " ", line)
@@ -98,9 +96,18 @@ def clean_atf_line(line: str) -> str:
     normalized = []
     for tok in tokens:
         tok = normalize_transliteration(tok)
-        # Skip pure numbers, single chars that are likely noise, ALL-CAPS (sign names)
-        if tok and not tok.isupper() and len(tok) > 0:
-            normalized.append(tok)
+        # Skip noise tokens
+        if not tok:
+            continue
+        if tok.isupper():  # ALL-CAPS sign names (GAN2, DUR2, etc.)
+            continue
+        if tok.startswith("$") or tok.startswith("%") or tok.startswith("&"):
+            continue
+        if tok.startswith("+") or tok.startswith("'"):
+            continue
+        if len(tok) == 1 and not tok.isalpha():
+            continue
+        normalized.append(tok)
 
     return " ".join(normalized)
 

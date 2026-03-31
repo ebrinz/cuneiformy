@@ -129,8 +129,8 @@ def main():
     )
     print(f"Train: {len(X_train)}, Test: {len(X_test)}")
 
-    print("Training Ridge regression (alpha=0.001)...")
-    model = train_ridge(X_train, Y_train, alpha=0.001)
+    print("Training Ridge regression (alpha=100)...")
+    model = train_ridge(X_train, Y_train, alpha=100)
 
     Y_pred = model.predict(X_test)
 
