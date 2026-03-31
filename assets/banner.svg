@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f0d68a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c9a84c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="clay" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4a574;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#8b6914;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bg)" rx="8"/>
+
+  <!-- Cuneiform-style wedge decorations -->
+  <g opacity="0.15" fill="#f0d68a">
+    <!-- Left side wedge pattern -->
+    <polygon points="40,60 55,55 45,70"/>
+    <polygon points="60,80 75,75 65,90"/>
+    <polygon points="35,100 50,95 40,110"/>
+    <polygon points="55,120 70,115 60,130"/>
+    <polygon points="45,140 60,135 50,150"/>
+    <polygon points="65,160 80,155 70,170"/>
+    <polygon points="40,180 55,175 45,190"/>
+    <polygon points="60,200 75,195 65,210"/>
+    <polygon points="35,220 50,215 40,230"/>
+
+    <!-- Right side wedge pattern -->
+    <polygon points="1140,70 1155,65 1145,80"/>
+    <polygon points="1160,90 1175,85 1165,100"/>
+    <polygon points="1135,110 1150,105 1140,120"/>
+    <polygon points="1155,130 1170,125 1160,140"/>
+    <polygon points="1145,150 1160,145 1150,160"/>
+    <polygon points="1165,170 1180,165 1170,180"/>
+    <polygon points="1140,190 1155,185 1145,200"/>
+    <polygon points="1160,210 1175,205 1165,220"/>
+    <polygon points="1135,230 1150,225 1140,240"/>
+  </g>
+
+  <!-- Tablet outline suggestion -->
+  <rect x="100" y="40" width="1000" height="220" rx="20" ry="20"
+        fill="url(#clay)" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+
+  <!-- Main title -->
+  <text x="600" y="120" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="72" font-weight="bold" fill="url(#gold)"
+        letter-spacing="6">CUNEIFORMY</text>
+
+  <!-- Cuneiform characters as decoration around title -->
+  <text x="180" y="128" text-anchor="middle" font-size="48" fill="#c9a84c" opacity="0.6">&#x12000;</text>
+  <text x="230" y="128" text-anchor="middle" font-size="48" fill="#c9a84c" opacity="0.5">&#x12038;</text>
+  <text x="970" y="128" text-anchor="middle" font-size="48" fill="#c9a84c" opacity="0.5">&#x120AD;</text>
+  <text x="1020" y="128" text-anchor="middle" font-size="48" fill="#c9a84c" opacity="0.6">&#x12197;</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="165" text-anchor="middle"
+        font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="20" fill="#8fa8c8" letter-spacing="4">
+    SUMERIAN-ENGLISH EMBEDDING ALIGNMENT
+  </text>
+
+  <!-- Diagram: pipeline visualization -->
+  <g transform="translate(250, 195)">
+    <!-- Pipeline boxes -->
+    <rect x="0" y="0" width="90" height="30" rx="4" fill="none" stroke="#5b7ea8" stroke-width="1.5"/>
+    <text x="45" y="20" text-anchor="middle" font-family="monospace" font-size="11" fill="#8fa8c8">FastText</text>
+
+    <line x1="95" y1="15" x2="120" y2="15" stroke="#5b7ea8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="125" y="0" width="90" height="30" rx="4" fill="none" stroke="#5b7ea8" stroke-width="1.5"/>
+    <text x="170" y="20" text-anchor="middle" font-family="monospace" font-size="11" fill="#8fa8c8">768d+768d</text>
+
+    <line x1="220" y1="15" x2="245" y2="15" stroke="#5b7ea8" stroke-width="1.5"/>
+
+    <rect x="250" y="0" width="90" height="30" rx="4" fill="none" stroke="#5b7ea8" stroke-width="1.5"/>
+    <text x="295" y="20" text-anchor="middle" font-family="monospace" font-size="11" fill="#8fa8c8">Ridge</text>
+
+    <line x1="345" y1="15" x2="370" y2="15" stroke="#5b7ea8" stroke-width="1.5"/>
+
+    <rect x="375" y="0" width="90" height="30" rx="4" fill="none" stroke="#5b7ea8" stroke-width="1.5"/>
+    <text x="420" y="20" text-anchor="middle" font-family="monospace" font-size="11" fill="#8fa8c8">GloVe 300d</text>
+
+    <line x1="470" y1="15" x2="495" y2="15" stroke="#5b7ea8" stroke-width="1.5"/>
+
+    <rect x="500" y="0" width="90" height="30" rx="4" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+    <text x="545" y="20" text-anchor="middle" font-family="monospace" font-size="11" fill="#f0d68a">17.30%</text>
+  </g>
+
+  <!-- Version tag -->
+  <rect x="1050" y="250" width="100" height="24" rx="12" fill="#c9a84c" opacity="0.2"/>
+  <text x="1100" y="267" text-anchor="middle"
+        font-family="monospace" font-size="12" fill="#c9a84c">v1.0 baseline</text>
+</svg>
