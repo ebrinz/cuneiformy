@@ -30,10 +30,9 @@ ORACC_PROJECTS = [
     "epsd2/literary",
     "etcsri",
     "dcclt",
-    "cams",
 ]
 
-ORACC_BASE_URL = "http://oracc.museum.upenn.edu"
+ORACC_BASE_URL = "https://oracc.museum.upenn.edu/json"
 
 
 def download_project_json(project: str, output_dir: Path) -> Path | None:
@@ -42,14 +41,23 @@ def download_project_json(project: str, output_dir: Path) -> Path | None:
     zip_path = output_dir / f"oracc_{project.replace('/', '_')}.zip"
 
     if zip_path.exists():
+        print(f"  Already downloaded: {zip_path}")
         return zip_path
 
-    url = f"{ORACC_BASE_URL}/{project}/json.zip"
+    # ORACC JSON downloads use dashes instead of slashes: epsd2/admin/ur3 -> epsd2-admin-ur3
+    slug = project.replace("/", "-")
+    url = f"{ORACC_BASE_URL}/{slug}.zip"
     try:
-        response = requests.get(url, timeout=120)
+        response = requests.get(url, timeout=600, verify=False, stream=True)
         response.raise_for_status()
+
+        total = int(response.headers.get("content-length", 0))
         with open(zip_path, "wb") as f:
-            f.write(response.content)
+            with tqdm(total=total, unit="B", unit_scale=True, desc=f"  {slug}", leave=False) as pbar:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+                    pbar.update(len(chunk))
+
         return zip_path
     except requests.RequestException as e:
         print(f"  Failed to download {project}: {e}")
