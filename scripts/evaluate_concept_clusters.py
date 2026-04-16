@@ -12,6 +12,7 @@ concept clusters. No automated pass/fail.
 
 See: docs/superpowers/specs/2026-04-16-gemma-embed-alignment-design.md
 """
+import pickle
 import sys
 from pathlib import Path
 
@@ -48,8 +49,9 @@ def load_glove_space():
     eng_vectors = np.array(eng_vec_list)
 
     aligned = np.load(str(FINAL_OUTPUT_DIR / "sumerian_aligned_vectors.npz"))
-    sum_vocab = [str(w) for w in aligned["vocab"]]
     sum_aligned = aligned["vectors"].astype(np.float32)
+    with open(FINAL_OUTPUT_DIR / "sumerian_aligned_vocab.pkl", "rb") as f:
+        sum_vocab = [str(w) for w in pickle.load(f)]
 
     return eng_vocab, eng_vectors, sum_vocab, sum_aligned
 
@@ -155,6 +157,7 @@ def main():
 
     required = [
         FINAL_OUTPUT_DIR / "sumerian_aligned_vectors.npz",
+        FINAL_OUTPUT_DIR / "sumerian_aligned_vocab.pkl",
         MODELS_DIR / "english_gemma_768d.npz",
         MODELS_DIR / "ridge_weights_gemma.npz",
         MODELS_DIR / "fused_embeddings_1536d.npz",
