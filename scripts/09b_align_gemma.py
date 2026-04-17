@@ -27,8 +27,18 @@ DATA_PROCESSED = ROOT / "data" / "processed"
 RESULTS_DIR = ROOT / "results"
 
 FUSED_PATH = MODELS_DIR / "fused_embeddings_1536d.npz"
-ENGLISH_GEMMA_GLOSS_PATH = MODELS_DIR / "english_gemma_768d.npz"
-ENGLISH_GEMMA_BARE_PATH = MODELS_DIR / "english_gemma_bare_768d.npz"
+ENGLISH_GEMMA_PATHS = {
+    "gloss": MODELS_DIR / "english_gemma_768d.npz",
+    "bare": MODELS_DIR / "english_gemma_bare_768d.npz",
+    "whitened": MODELS_DIR / "english_gemma_whitened_768d.npz",
+    "bare_whitened": MODELS_DIR / "english_gemma_bare_whitened_768d.npz",
+}
+RESULTS_SUFFIXES = {
+    "gloss": "",
+    "bare": "_bare",
+    "whitened": "_whitened",
+    "bare_whitened": "_bare_whitened",
+}
 ANCHOR_PATH = DATA_PROCESSED / "english_anchors.json"
 GLOVE_BASELINE_PATH = RESULTS_DIR / "alignment_results.json"
 
@@ -41,22 +51,34 @@ EXPECTED_TARGET_DIM = 768
 def main():
     parser = argparse.ArgumentParser(description="Ridge alignment: Sumerian FastText -> EmbeddingGemma 768d.")
     parser.add_argument(
+        "--mode",
+        choices=list(ENGLISH_GEMMA_PATHS.keys()),
+        default="gloss",
+        help="Which English Gemma cache to use as the target.",
+    )
+    parser.add_argument(
         "--bare",
         action="store_true",
-        help="Use bare-word encoded Gemma cache instead of the WordNet-gloss cache.",
+        help="Shortcut for --mode bare (kept for backwards compatibility).",
     )
     args = parser.parse_args()
-    mode_label = "bare" if args.bare else "gloss"
-    english_gemma_path = ENGLISH_GEMMA_BARE_PATH if args.bare else ENGLISH_GEMMA_GLOSS_PATH
-    ridge_out_path = MODELS_DIR / ("ridge_weights_gemma_bare.npz" if args.bare else "ridge_weights_gemma.npz")
-    results_out_path = RESULTS_DIR / ("alignment_results_gemma_bare.json" if args.bare else "alignment_results_gemma.json")
+    mode_label = "bare" if args.bare else args.mode
+    english_gemma_path = ENGLISH_GEMMA_PATHS[mode_label]
+    suffix = RESULTS_SUFFIXES[mode_label]
+    ridge_out_path = MODELS_DIR / f"ridge_weights_gemma{suffix}.npz"
+    results_out_path = RESULTS_DIR / f"alignment_results_gemma{suffix}.json"
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
     if not english_gemma_path.exists():
         print(f"ERROR: English Gemma {mode_label} cache not found at {english_gemma_path}", file=sys.stderr)
-        suffix = " --bare" if args.bare else ""
-        print(f"Run: python scripts/embed_english_gemma.py{suffix}", file=sys.stderr)
+        if mode_label in ("gloss", "bare"):
+            hint = " --bare" if mode_label == "bare" else ""
+            print(f"Run: python scripts/embed_english_gemma.py{hint}", file=sys.stderr)
+        elif mode_label == "whitened":
+            print("Run: python scripts/whiten_gemma.py", file=sys.stderr)
+        elif mode_label == "bare_whitened":
+            print("Run: python scripts/whiten_gemma.py --source bare", file=sys.stderr)
         sys.exit(1)
 
     print(f"Mode: {mode_label}")
