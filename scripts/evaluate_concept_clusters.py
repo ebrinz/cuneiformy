@@ -12,6 +12,7 @@ concept clusters. No automated pass/fail.
 
 See: docs/superpowers/specs/2026-04-16-gemma-embed-alignment-design.md
 """
+import argparse
 import pickle
 import sys
 from pathlib import Path
@@ -34,7 +35,18 @@ SEED_WORDS = {
 K_SUMERIAN = 10
 K_ENGLISH_REPROJECTION = 5
 
-REPORT_PATH = RESULTS_DIR / "concept_clusters_comparison.md"
+GEMMA_CACHES = {
+    "gloss": MODELS_DIR / "english_gemma_768d.npz",
+    "bare": MODELS_DIR / "english_gemma_bare_768d.npz",
+    "whitened": MODELS_DIR / "english_gemma_whitened_768d.npz",
+    "bare_whitened": MODELS_DIR / "english_gemma_bare_whitened_768d.npz",
+}
+RIDGE_WEIGHT_PATHS = {
+    "gloss": MODELS_DIR / "ridge_weights_gemma.npz",
+    "bare": MODELS_DIR / "ridge_weights_gemma_bare.npz",
+    "whitened": MODELS_DIR / "ridge_weights_gemma_whitened.npz",
+    "bare_whitened": MODELS_DIR / "ridge_weights_gemma_bare_whitened.npz",
+}
 
 
 def load_glove_space():
@@ -56,9 +68,9 @@ def load_glove_space():
     return eng_vocab, eng_vectors, sum_vocab, sum_aligned
 
 
-def load_gemma_space():
+def load_gemma_space(mode: str = "gloss"):
     """Return (eng_vocab, eng_vectors, sum_vocab, sum_aligned_vectors) for Gemma space."""
-    gemma = np.load(str(MODELS_DIR / "english_gemma_768d.npz"))
+    gemma = np.load(str(GEMMA_CACHES[mode]))
     eng_vocab = [str(w) for w in gemma["vocab"]]
     eng_vectors = gemma["vectors"].astype(np.float32)
 
@@ -66,7 +78,7 @@ def load_gemma_space():
     sum_vocab = [str(w) for w in fused["vocab"]]
     sum_fused = fused["vectors"].astype(np.float32)
 
-    ridge = np.load(str(MODELS_DIR / "ridge_weights_gemma.npz"))
+    ridge = np.load(str(RIDGE_WEIGHT_PATHS[mode]))
     coef = ridge["coef"]
     intercept = ridge["intercept"]
     sum_aligned = sum_fused @ coef.T + intercept
@@ -153,13 +165,24 @@ def format_cluster_markdown(glove_result: dict, gemma_result: dict) -> str:
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Qualitative concept-cluster comparison: GloVe vs Gemma.")
+    parser.add_argument(
+        "--gemma-mode",
+        choices=list(GEMMA_CACHES.keys()),
+        default="gloss",
+        help="Which Gemma variant to compare against GloVe.",
+    )
+    args = parser.parse_args()
+    mode = args.gemma_mode
+    report_path = RESULTS_DIR / f"concept_clusters_comparison_{mode}.md"
+
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
     required = [
         FINAL_OUTPUT_DIR / "sumerian_aligned_vectors.npz",
         FINAL_OUTPUT_DIR / "sumerian_aligned_vocab.pkl",
-        MODELS_DIR / "english_gemma_768d.npz",
-        MODELS_DIR / "ridge_weights_gemma.npz",
+        GEMMA_CACHES[mode],
+        RIDGE_WEIGHT_PATHS[mode],
         MODELS_DIR / "fused_embeddings_1536d.npz",
         DATA_PROCESSED / "glove.6B.300d.txt",
     ]
@@ -173,9 +196,9 @@ def main():
     g_eng_vocab, g_eng_vec, g_sum_vocab, g_sum_aligned = load_glove_space()
     print(f"GloVe: {len(g_eng_vocab)} English, {len(g_sum_vocab)} Sumerian aligned")
 
-    print("Loading Gemma space...")
-    m_eng_vocab, m_eng_vec, m_sum_vocab, m_sum_aligned = load_gemma_space()
-    print(f"Gemma: {len(m_eng_vocab)} English, {len(m_sum_vocab)} Sumerian aligned")
+    print(f"Loading Gemma {mode} space...")
+    m_eng_vocab, m_eng_vec, m_sum_vocab, m_sum_aligned = load_gemma_space(mode)
+    print(f"Gemma ({mode}): {len(m_eng_vocab)} English, {len(m_sum_vocab)} Sumerian aligned")
 
     sections = []
     sections.append("# Concept Cluster Comparison: GloVe vs EmbeddingGemma")
@@ -206,8 +229,8 @@ def main():
             )
             sections.append(format_cluster_markdown(g_res, m_res))
 
-    REPORT_PATH.write_text("\n".join(sections))
-    print(f"Report written to: {REPORT_PATH}")
+    report_path.write_text("\n".join(sections))
+    print(f"Report written to: {report_path}")
 
 
 if __name__ == "__main__":
