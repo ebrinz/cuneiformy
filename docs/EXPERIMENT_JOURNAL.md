@@ -15,6 +15,35 @@ Entry format:
 
 ---
 
+## 2026-04-16 — Phase A retry #3: Ridge alpha sweep on whitened target
+
+**Hypothesis:** Whitening hit 19.85% top-1 at the default alpha=100. Maybe a different regularization value recovers the last 0.5pp needed to cross the +3pp gate.
+
+**Method:** `scripts/ridge_alpha_sweep.py` evaluates alpha in {0.01, 0.1, 1, 10, 100, 1000, 10000, 100000} on the whitened-gloss cache. Everything else identical to the main 09b run.
+
+**Result:**
+
+| alpha | top-1 | top-5 | top-10 | Δ top-1 vs GloVe |
+|---|---|---|---|---|
+| 0.01 | 18.58% | 21.88% | 24.17% | +1.27pp |
+| 0.1 | 18.83% | 22.39% | 24.68% | +1.53pp |
+| 1 | 19.08% | 23.66% | 25.95% | +1.78pp |
+| **10** | **19.85%** | 23.16% | 25.95% | **+2.54pp** |
+| **100** | **19.85%** | **23.66%** | **26.21%** | **+2.54pp** |
+| 1000 | 17.56% | 17.81% | 18.32% | +0.25pp |
+| 10000 | 17.56% | 17.56% | 17.56% | +0.25pp |
+| 100000 | 17.56% | 17.56% | 17.56% | +0.25pp |
+
+**Takeaway:** The top-1 plateau at alpha ∈ [10, 100] is the real ceiling for this target. The extra 0.5pp isn't hiding in regularization. Alphas ≥ 1000 collapse to a mean-prediction floor at 17.56% (which happens to coincide with GloVe's baseline — a useful sanity check that ridge is working, since predicting the centroid of the training targets is a reasonable-ish baseline).
+
+**Gate status:** formally FAIL (+2.54 < +3pp) and not rescuable by alpha tuning. The decision between "proceed to phase B anyway because +2.54 is a clean real win" vs "pivot to Sumerian-side work" now has to be made without further target-space retries.
+
+**Artifacts / commits:**
+- `scripts/ridge_alpha_sweep.py`
+- `results/ridge_alpha_sweep.json`
+
+---
+
 ## 2026-04-16 — Phase A retry #2: Whitening the EmbeddingGemma target
 
 **Hypothesis:** Both prior Gemma runs failed because contextual embeddings are anisotropic — they cluster in a narrow cone where a single shared direction dominates, inflating cosine similarity between unrelated words and drowning real semantic signal. Centering (subtract global mean) and whitening (scale each direction to unit variance, BERT-whitening, Su et al. 2021) should expose the actual concept structure. 30-second matrix-math retry on already-cached vectors — no re-encoding.
