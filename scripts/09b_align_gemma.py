@@ -7,6 +7,7 @@ keep the comparison apples-to-apples.
 
 See: docs/superpowers/specs/2026-04-16-gemma-embed-alignment-design.md
 """
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -26,10 +27,9 @@ DATA_PROCESSED = ROOT / "data" / "processed"
 RESULTS_DIR = ROOT / "results"
 
 FUSED_PATH = MODELS_DIR / "fused_embeddings_1536d.npz"
-ENGLISH_GEMMA_PATH = MODELS_DIR / "english_gemma_768d.npz"
+ENGLISH_GEMMA_GLOSS_PATH = MODELS_DIR / "english_gemma_768d.npz"
+ENGLISH_GEMMA_BARE_PATH = MODELS_DIR / "english_gemma_bare_768d.npz"
 ANCHOR_PATH = DATA_PROCESSED / "english_anchors.json"
-RIDGE_OUT_PATH = MODELS_DIR / "ridge_weights_gemma.npz"
-RESULTS_OUT_PATH = RESULTS_DIR / "alignment_results_gemma.json"
 GLOVE_BASELINE_PATH = RESULTS_DIR / "alignment_results.json"
 
 RIDGE_ALPHA = 100
@@ -39,13 +39,27 @@ EXPECTED_TARGET_DIM = 768
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Ridge alignment: Sumerian FastText -> EmbeddingGemma 768d.")
+    parser.add_argument(
+        "--bare",
+        action="store_true",
+        help="Use bare-word encoded Gemma cache instead of the WordNet-gloss cache.",
+    )
+    args = parser.parse_args()
+    mode_label = "bare" if args.bare else "gloss"
+    english_gemma_path = ENGLISH_GEMMA_BARE_PATH if args.bare else ENGLISH_GEMMA_GLOSS_PATH
+    ridge_out_path = MODELS_DIR / ("ridge_weights_gemma_bare.npz" if args.bare else "ridge_weights_gemma.npz")
+    results_out_path = RESULTS_DIR / ("alignment_results_gemma_bare.json" if args.bare else "alignment_results_gemma.json")
+
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    if not ENGLISH_GEMMA_PATH.exists():
-        print(f"ERROR: English Gemma cache not found at {ENGLISH_GEMMA_PATH}", file=sys.stderr)
-        print("Run: python scripts/embed_english_gemma.py", file=sys.stderr)
+    if not english_gemma_path.exists():
+        print(f"ERROR: English Gemma {mode_label} cache not found at {english_gemma_path}", file=sys.stderr)
+        suffix = " --bare" if args.bare else ""
+        print(f"Run: python scripts/embed_english_gemma.py{suffix}", file=sys.stderr)
         sys.exit(1)
 
+    print(f"Mode: {mode_label}")
     print(f"Loading fused Sumerian vectors from {FUSED_PATH}")
     fused = np.load(str(FUSED_PATH))
     sum_vectors = fused["vectors"]
@@ -53,8 +67,8 @@ def main():
     sum_vocab = {w: i for i, w in enumerate(sum_vocab_list)}
     print(f"Sumerian vocab: {len(sum_vocab)} words, {sum_vectors.shape[1]}d")
 
-    print(f"Loading Gemma English vectors from {ENGLISH_GEMMA_PATH}")
-    gemma = np.load(str(ENGLISH_GEMMA_PATH))
+    print(f"Loading Gemma English vectors from {english_gemma_path}")
+    gemma = np.load(str(english_gemma_path))
     eng_vectors = gemma["vectors"]
     eng_vocab_list = [str(w) for w in gemma["vocab"]]
     eng_vocab = {w: i for i, w in enumerate(eng_vocab_list)}
@@ -132,19 +146,20 @@ def main():
             "target_dim": int(eng_vectors.shape[1]),
             "gemma_model": gemma_model,
             "gloss_hit_rate": gloss_hit_rate,
+            "mode": mode_label,
         },
     }
 
-    with open(RESULTS_OUT_PATH, "w") as f:
+    with open(results_out_path, "w") as f:
         json.dump(full_results, f, indent=2)
-    print(f"\nResults saved to: {RESULTS_OUT_PATH}")
+    print(f"\nResults saved to: {results_out_path}")
 
     np.savez_compressed(
-        str(RIDGE_OUT_PATH),
+        str(ridge_out_path),
         coef=model.coef_,
         intercept=model.intercept_,
     )
-    print(f"Ridge weights saved to: {RIDGE_OUT_PATH}")
+    print(f"Ridge weights saved to: {ridge_out_path}")
 
 
 if __name__ == "__main__":

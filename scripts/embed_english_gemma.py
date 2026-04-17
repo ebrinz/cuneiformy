@@ -6,6 +6,7 @@ models/english_gemma_768d.npz and reused by 09b_align_gemma.py.
 
 See: docs/superpowers/specs/2026-04-16-gemma-embed-alignment-design.md
 """
+import argparse
 import sys
 from pathlib import Path
 
@@ -21,7 +22,8 @@ EMBED_DIM = 768
 
 ROOT = Path(__file__).parent.parent
 GLOVE_PATH = ROOT / "data" / "processed" / "glove.6B.300d.txt"
-OUTPUT_PATH = ROOT / "models" / "english_gemma_768d.npz"
+GLOSS_OUTPUT_PATH = ROOT / "models" / "english_gemma_768d.npz"
+BARE_OUTPUT_PATH = ROOT / "models" / "english_gemma_bare_768d.npz"
 
 
 def format_gloss(word: str, definition: str | None) -> str:
@@ -98,36 +100,54 @@ def encode_batch_with_retry(
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Precompute EmbeddingGemma vectors for GloVe vocab.")
+    parser.add_argument(
+        "--bare",
+        action="store_true",
+        help="Skip WordNet glosses — encode each word as bare text. Retry after gloss run underperformed.",
+    )
+    args = parser.parse_args()
+    use_gloss = not args.bare
+    output_path = GLOSS_OUTPUT_PATH if use_gloss else BARE_OUTPUT_PATH
+    mode_label = "gloss" if use_gloss else "bare"
+
     if not GLOVE_PATH.exists():
         print(f"ERROR: GloVe file not found at {GLOVE_PATH}", file=sys.stderr)
         print("Run scripts/download_glove.py first.", file=sys.stderr)
         sys.exit(1)
 
-    try:
-        wordnet.synsets("test")
-    except LookupError:
-        print("ERROR: WordNet data not installed.", file=sys.stderr)
-        print("Run: python -c \"import nltk; nltk.download('wordnet')\"", file=sys.stderr)
-        sys.exit(1)
+    if use_gloss:
+        try:
+            wordnet.synsets("test")
+        except LookupError:
+            print("ERROR: WordNet data not installed.", file=sys.stderr)
+            print("Run: python -c \"import nltk; nltk.download('wordnet')\"", file=sys.stderr)
+            sys.exit(1)
 
+    print(f"Mode: {mode_label}")
     print(f"Loading GloVe vocab from {GLOVE_PATH}")
     vocab = load_glove_vocab(GLOVE_PATH)
     print(f"GloVe vocab: {len(vocab)} words")
 
-    if output_is_up_to_date(OUTPUT_PATH, vocab):
-        print(f"Output already up-to-date at {OUTPUT_PATH}, skipping.")
+    if output_is_up_to_date(output_path, vocab):
+        print(f"Output already up-to-date at {output_path}, skipping.")
         sys.exit(0)
 
-    print("Looking up WordNet glosses...")
-    glosses = []
-    hits = 0
-    for word in tqdm(vocab, desc="WordNet"):
-        definition = lookup_gloss(word)
-        if definition:
-            hits += 1
-        glosses.append(format_gloss(word, definition))
-    hit_rate = hits / len(vocab) * 100
-    print(f"WordNet hits: {hits}/{len(vocab)} ({hit_rate:.1f}%)")
+    if use_gloss:
+        print("Looking up WordNet glosses...")
+        glosses = []
+        hits = 0
+        for word in tqdm(vocab, desc="WordNet"):
+            definition = lookup_gloss(word)
+            if definition:
+                hits += 1
+            glosses.append(format_gloss(word, definition))
+        hit_rate = hits / len(vocab) * 100
+        print(f"WordNet hits: {hits}/{len(vocab)} ({hit_rate:.1f}%)")
+    else:
+        print("Bare-word mode: skipping WordNet lookup.")
+        glosses = list(vocab)
+        hit_rate = 0.0
 
     print(f"Loading {GEMMA_MODEL}...")
     model = SentenceTransformer(GEMMA_MODEL)
@@ -141,16 +161,18 @@ def main():
         vecs = encode_batch_with_retry(model, batch, BATCH_SIZE)
         all_vectors[start:end] = vecs.astype(np.float32)
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
-        str(OUTPUT_PATH),
+        str(output_path),
         vocab=np.array(vocab),
         vectors=all_vectors,
         gloss_hit_rate=np.float32(hit_rate),
         gemma_model=np.array(GEMMA_MODEL),
+        mode=np.array(mode_label),
     )
-    print(f"Saved {all_vectors.shape} to {OUTPUT_PATH}")
-    print(f"Gloss hit rate: {hit_rate:.2f}%")
+    print(f"Saved {all_vectors.shape} to {output_path}")
+    if use_gloss:
+        print(f"Gloss hit rate: {hit_rate:.2f}%")
 
 
 if __name__ == "__main__":
