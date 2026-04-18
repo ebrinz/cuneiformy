@@ -24,7 +24,11 @@ SCHEMA_VERSION = _mod.SCHEMA_VERSION
 def main():
     """Delegate to _mod.main but inject this module's patchable path attrs first."""
     _this = sys.modules[__name__]
+    saved = (_mod.MODELS_DIR, _mod.RESULTS_DIR, _mod.FINAL_OUTPUT)
     _mod.MODELS_DIR = _this.MODELS_DIR
     _mod.RESULTS_DIR = _this.RESULTS_DIR
     _mod.FINAL_OUTPUT = _this.FINAL_OUTPUT
-    _mod.main()
+    try:
+        _mod.main()
+    finally:
+        _mod.MODELS_DIR, _mod.RESULTS_DIR, _mod.FINAL_OUTPUT = saved

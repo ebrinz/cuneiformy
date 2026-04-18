@@ -185,7 +185,7 @@ def test_export_writes_both_spaces_and_v2_metadata(tmp_path, monkeypatch):
         "accuracy": {"top1": 17.30, "top5": 22.90, "top10": 25.19},
         "config": {
             "alignment": "Ridge", "alpha": 100, "train_size": 1572,
-            "test_size_count": 393, "valid_anchors": 1965, "total_anchors": 13886,
+            "test_size": 393, "valid_anchors": 1965, "total_anchors": 13886,
             "sumerian_vocab": 35508, "fused_dim": 1536,
         },
     }))
@@ -194,6 +194,8 @@ def test_export_writes_both_spaces_and_v2_metadata(tmp_path, monkeypatch):
         "config": {
             "alignment": "Ridge", "alpha": 100, "mode": "whitened",
             "gemma_model": "google/embeddinggemma-300m", "gloss_hit_rate": 21.39,
+            "test_size_count": 393, "train_size": 1572, "valid_anchors": 1965,
+            "total_anchors": 13886, "random_state": 42,
         },
     }))
 
@@ -223,3 +225,5 @@ def test_export_writes_both_spaces_and_v2_metadata(tmp_path, monkeypatch):
     assert metadata["spaces"]["glove"]["ridge_alpha"] == 100
     assert metadata["spaces"]["gemma"]["accuracy"]["top1"] == 19.85
     assert metadata["spaces"]["glove"]["accuracy"]["top1"] == 17.30
+    assert metadata["shared"]["test_size_count"] == 393
+    assert metadata["shared"]["train_size"] == 1572

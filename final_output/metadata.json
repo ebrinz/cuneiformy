@@ -6,7 +6,7 @@
     "sumerian_fused_dim": 1536,
     "random_state": 42,
     "train_size": 1572,
-    "test_size_count": null,
+    "test_size_count": 393,
     "valid_anchors": 1965,
     "total_anchors": 13886
   },
