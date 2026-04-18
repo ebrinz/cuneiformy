@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "methodology": "Cuneiformy dual-view (Sumerian 1536d -> whitened-EmbeddingGemma 768d primary, GloVe 300d secondary)",
+  "shared": {
+    "vocab_size": 35508,
+    "sumerian_fused_dim": 1536,
+    "random_state": 42,
+    "train_size": 1572,
+    "test_size_count": null,
+    "valid_anchors": 1965,
+    "total_anchors": 13886
+  },
+  "spaces": {
+    "gemma": {
+      "dim": 768,
+      "dtype": "float16",
+      "ridge_alpha": 100,
+      "ridge_source": "models/ridge_weights_gemma_whitened.npz",
+      "target_source": "models/english_gemma_whitened_768d.npz",
+      "whitening_transform": "models/gemma_whitening_transform.npz",
+      "encoder_model": null,
+      "encoder_prompt": "Retrieval-document",
+      "gloss_source": "WordNet first synset",
+      "gloss_hit_rate_pct": null,
+      "accuracy": {
+        "top1": 19.84732824427481,
+        "top5": 23.66412213740458,
+        "top10": 26.208651399491096
+      }
+    },
+    "glove": {
+      "dim": 300,
+      "dtype": "float16",
+      "ridge_alpha": 0.001,
+      "ridge_source": "models/ridge_weights.npz",
+      "target_source": "data/processed/glove.6B.300d.txt",
+      "accuracy": {
+        "top1": 17.302798982188293,
+        "top5": 22.900763358778626,
+        "top10": 25.190839694656486
+      }
+    }
+  }
+}
