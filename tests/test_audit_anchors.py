@@ -190,3 +190,105 @@ def test_venn_accounting_over_single_token_anchors():
     assert venn["in_glove_not_gemma"] == 1
     assert venn["not_glove_in_gemma"] == 1
     assert venn["not_glove_not_gemma"] == 1
+
+
+# --- Render tests ----------------------------------------------------------
+
+
+def _default_metadata():
+    return {
+        "audit_date": "2026-04-18",
+        "source_artifacts": {
+            "anchors_path": "data/processed/english_anchors.json",
+            "anchors_sha256": "0" * 64,
+            "fused_vocab_path": "models/fused_embeddings_1536d.npz",
+            "fused_vocab_size": 2,
+            "glove_path": "data/processed/glove.6B.300d.txt",
+            "glove_vocab_size": 2,
+            "gemma_path": "models/english_gemma_whitened_768d.npz",
+            "gemma_vocab_size": 2,
+            "seed": 42,
+        },
+    }
+
+
+def test_render_json_schema_version_and_structure():
+    from scripts.audit_anchors import classify_all, render_json
+
+    ctx = _default_ctx()
+    anchors = [{"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"}]
+    result = classify_all(anchors, ctx)
+    report = render_json(result, _default_metadata(), examples_per_bucket=1)
+
+    assert report["audit_schema_version"] == 1
+    assert report["audit_date"] == "2026-04-18"
+    assert "source_artifacts" in report
+    assert report["totals"]["merged"] == 1
+    assert set(report["buckets"].keys()) == {
+        "junk_sumerian", "duplicate_collision", "low_confidence",
+        "sumerian_vocab_miss", "multiword_english", "english_both_miss",
+        "english_glove_miss", "english_gemma_miss", "survives",
+    }
+    for bucket in report["buckets"].values():
+        assert "count" in bucket
+        assert "pct_total" in bucket
+        assert "examples" in bucket
+        assert isinstance(bucket["examples"], list)
+
+
+def test_render_json_is_deterministic_with_seed():
+    from scripts.audit_anchors import classify_all, render_json
+
+    ctx = _default_ctx(fused_vocab={f"s{i}" for i in range(20)})
+    anchors = [
+        {"sumerian": f"s{i}", "english": f"e{i}", "confidence": 0.9, "source": "ePSD2"}
+        for i in range(20)
+    ]
+    result = classify_all(anchors, ctx)
+    report_a = render_json(result, _default_metadata(), examples_per_bucket=5)
+    report_b = render_json(result, _default_metadata(), examples_per_bucket=5)
+
+    import json as _json
+    assert _json.dumps(report_a, sort_keys=True) == _json.dumps(report_b, sort_keys=True)
+
+
+def test_render_json_examples_respect_per_bucket_cap():
+    from scripts.audit_anchors import classify_all, render_json
+
+    ctx = _default_ctx(fused_vocab={f"s{i}" for i in range(20)})
+    anchors = [
+        {"sumerian": f"s{i}", "english": "king", "confidence": 0.9, "source": "ePSD2"}
+        for i in range(20)
+    ]
+    result = classify_all(anchors, ctx)
+    report = render_json(result, _default_metadata(), examples_per_bucket=3)
+    assert len(report["buckets"]["survives"]["examples"]) == 3
+
+
+def test_render_markdown_contains_required_sections():
+    from scripts.audit_anchors import classify_all, render_markdown
+
+    ctx = _default_ctx()
+    anchors = [{"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"}]
+    result = classify_all(anchors, ctx)
+    md = render_markdown(result, _default_metadata(), examples_per_bucket=1)
+
+    assert "# Anchor Audit" in md
+    assert "## Summary" in md
+    assert "## Dropout by bucket" in md
+    assert "## Cross-cut: English-side Venn" in md
+    assert "## Bucket examples" in md
+    assert "## Recoverability narrative" in md
+    for bucket_name in ("junk_sumerian", "survives", "sumerian_vocab_miss"):
+        assert bucket_name in md
+
+
+def test_render_markdown_recoverability_heuristics_present():
+    from scripts.audit_anchors import classify_all, render_markdown
+
+    ctx = _default_ctx()
+    anchors = [{"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"}]
+    result = classify_all(anchors, ctx)
+    md = render_markdown(result, _default_metadata(), examples_per_bucket=1)
+
+    assert "high" in md.lower() or "medium" in md.lower() or "low" in md.lower()
