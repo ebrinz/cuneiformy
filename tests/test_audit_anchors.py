@@ -72,6 +72,12 @@ def test_low_confidence_bucket():
     )
     assert bucket == "low_confidence"
 
+    # Confidence exactly at threshold is NOT low_confidence (strict <).
+    at_threshold = classify_anchor(
+        {"sumerian": "lugal", "english": "king", "confidence": 0.3, "source": "ETCSL"}, ctx
+    )
+    assert at_threshold != "low_confidence"
+
 
 def test_duplicate_collision_bucket():
     from scripts.audit_anchors import classify_anchor
@@ -113,6 +119,16 @@ def test_english_gemma_miss_when_only_glove_has_word():
         {"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"}, ctx
     )
     assert bucket == "english_gemma_miss"
+
+
+def test_english_glove_miss_when_only_gemma_has_word():
+    from scripts.audit_anchors import classify_anchor
+
+    ctx = _default_ctx(glove_vocab={"god"}, gemma_vocab={"king"})
+    bucket = classify_anchor(
+        {"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"}, ctx
+    )
+    assert bucket == "english_glove_miss"
 
 
 def test_english_lookup_is_case_insensitive():

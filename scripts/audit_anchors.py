@@ -38,11 +38,18 @@ DEFAULT_SEED = 42
 
 @dataclass(frozen=True)
 class AuditContext:
-    fused_vocab: set[str]
-    glove_vocab: set[str]
-    gemma_vocab: set[str]
-    collision_keys: set[str]
+    fused_vocab: frozenset[str]
+    glove_vocab: frozenset[str]
+    gemma_vocab: frozenset[str]
+    collision_keys: frozenset[str]
     low_conf_threshold: float = 0.3
+
+    def __post_init__(self):
+        # Coerce any set-like input to frozenset for true immutability.
+        for field_name in ("fused_vocab", "glove_vocab", "gemma_vocab", "collision_keys"):
+            value = getattr(self, field_name)
+            if not isinstance(value, frozenset):
+                object.__setattr__(self, field_name, frozenset(value))
 
 
 def _normalize_sumerian(raw) -> str:
@@ -68,7 +75,7 @@ def _is_multiword(english_raw: str) -> bool:
 def classify_anchor(anchor: dict, ctx: AuditContext) -> str:
     """Return the bucket name for a single anchor, per priority ordering."""
     sumerian_raw = _normalize_sumerian(anchor.get("sumerian"))
-    english_raw = str(anchor.get("english") or "")
+    english_raw = str(anchor.get("english") or "").strip()
     confidence = float(anchor.get("confidence") or 0.0)
 
     if _is_junk_sumerian(sumerian_raw):
@@ -95,7 +102,15 @@ def classify_anchor(anchor: dict, ctx: AuditContext) -> str:
 
 
 def classify_all(anchors: Iterable[dict], ctx: AuditContext) -> dict:
-    """Classify every anchor and return totals + per-bucket rows + Venn counts."""
+    """Classify every anchor and return totals + per-bucket rows + Venn counts.
+
+    The `english_venn` counts are computed ONLY over anchors that reached the
+    English-side membership check — i.e., the union of the three `english_*_miss`
+    buckets plus `survives`. Anchors that early-exited into junk, dedup-collision,
+    low-confidence, sumerian_vocab_miss, or multiword_english buckets do NOT
+    appear in the Venn. Therefore `sum(venn.values())` equals the size of those
+    four buckets combined, not `totals.merged`.
+    """
     anchors = list(anchors)
     buckets: dict[str, list[dict]] = {name: [] for name in BUCKET_ORDER}
 
