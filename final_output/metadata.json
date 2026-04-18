@@ -18,7 +18,7 @@
       "ridge_source": "models/ridge_weights_gemma_whitened.npz",
       "target_source": "models/english_gemma_whitened_768d.npz",
       "whitening_transform": "models/gemma_whitening_transform.npz",
-      "encoder_model": null,
+      "encoder_model": "google/embeddinggemma-300m",
       "encoder_prompt": "Retrieval-document",
       "gloss_source": "WordNet first synset",
       "gloss_hit_rate_pct": null,
