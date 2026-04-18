@@ -206,12 +206,17 @@ def render_json(result: dict, metadata: dict, examples_per_bucket: int = 10) -> 
     }
 
 
+def _escape_md_cell(s) -> str:
+    """Escape pipe characters so user-supplied fields don't break markdown tables."""
+    return str(s).replace("|", r"\|")
+
+
 def _format_row(row: dict) -> str:
     return (
-        f"| {row.get('sumerian','')} "
-        f"| {row.get('english','')} "
+        f"| {_escape_md_cell(row.get('sumerian', ''))} "
+        f"| {_escape_md_cell(row.get('english', ''))} "
         f"| {row.get('confidence', 0):.3f} "
-        f"| {row.get('source','')} |"
+        f"| {_escape_md_cell(row.get('source', ''))} |"
     )
 
 
@@ -310,7 +315,7 @@ def _recoverability_narrative(result: dict) -> str:
     )
 
     def pct(n: int) -> str:
-        return f"{n / dropped * 100:.1f}%" if dropped else "0.0%"
+        return f"{n / dropped * 100:.1f}%"
 
     return (
         f"Of the {dropped:,} dropped anchors, "

@@ -292,3 +292,19 @@ def test_render_markdown_recoverability_heuristics_present():
     md = render_markdown(result, _default_metadata(), examples_per_bucket=1)
 
     assert "high" in md.lower() or "medium" in md.lower() or "low" in md.lower()
+
+
+def test_render_markdown_escapes_pipe_characters_in_cells():
+    from scripts.audit_anchors import classify_all, render_markdown
+
+    ctx = _default_ctx(fused_vocab={"|an.usan|"}, glove_vocab={"night"}, gemma_vocab={"night"})
+    anchors = [
+        {"sumerian": "|an.usan|", "english": "night", "confidence": 0.9, "source": "ePSD2|ETCSL"},
+    ]
+    result = classify_all(anchors, ctx)
+    md = render_markdown(result, _default_metadata(), examples_per_bucket=1)
+
+    # Raw pipes from the fields should not appear unescaped in the examples table.
+    # The escaped form `\|` should be present instead.
+    assert r"\|an.usan\|" in md
+    assert r"ePSD2\|ETCSL" in md
