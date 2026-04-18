@@ -17,6 +17,10 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).parent.parent
+# Ensure repo root is importable when invoked directly (pytest.ini only affects pytest).
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 FINAL_OUTPUT = ROOT / "final_output"
 MODELS_DIR = ROOT / "models"
 DATA_PROCESSED = ROOT / "data" / "processed"
@@ -96,7 +100,9 @@ def main() -> int:
         print(result.stdout)
         print(result.stderr, file=sys.stderr)
         return 1
-    print(result.stdout.strip().splitlines()[-1])
+    lines = result.stdout.strip().splitlines()
+    if lines:
+        print(lines[-1])
 
     if not EXPECTED_REPORT.exists():
         print(f"ERROR: expected report at {EXPECTED_REPORT} — not found", file=sys.stderr)
