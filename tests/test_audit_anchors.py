@@ -308,3 +308,150 @@ def test_render_markdown_escapes_pipe_characters_in_cells():
     # The escaped form `\|` should be present instead.
     assert r"\|an.usan\|" in md
     assert r"ePSD2\|ETCSL" in md
+
+
+# --- Loader and main integration tests -------------------------------------
+
+
+def _write_anchors(tmp_path, rows):
+    path = tmp_path / "english_anchors.json"
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(rows, f)
+    return path
+
+
+def _write_fused_vocab(tmp_path, vocab):
+    path = tmp_path / "fused_embeddings_1536d.npz"
+    np.savez_compressed(
+        str(path),
+        vectors=np.zeros((len(vocab), 1536), dtype=np.float32),
+        vocab=np.array(vocab),
+    )
+    return path
+
+
+def _write_gemma_vocab(tmp_path, vocab):
+    path = tmp_path / "english_gemma_whitened_768d.npz"
+    np.savez_compressed(
+        str(path),
+        vectors=np.zeros((len(vocab), 768), dtype=np.float32),
+        vocab=np.array(vocab),
+    )
+    return path
+
+
+def _write_glove(tmp_path, vocab):
+    path = tmp_path / "glove.6B.300d.txt"
+    with open(path, "w", encoding="utf-8") as f:
+        for word in vocab:
+            zeros = " ".join(["0.0"] * 300)
+            f.write(f"{word} {zeros}\n")
+    return path
+
+
+def test_load_fused_vocab_enforces_shape():
+    from scripts.audit_anchors import _load_fused_vocab
+
+    with tempfile.TemporaryDirectory() as tmp:
+        import pathlib
+        tmp_path = pathlib.Path(tmp)
+        bad = tmp_path / "bad.npz"
+        np.savez_compressed(
+            str(bad),
+            vectors=np.zeros((3, 999), dtype=np.float32),
+            vocab=np.array(["a", "b", "c"]),
+        )
+        with pytest.raises(ValueError, match="1536"):
+            _load_fused_vocab(bad)
+
+
+def test_load_glove_vocab_reads_first_token_per_line():
+    from scripts.audit_anchors import _load_glove_vocab
+
+    with tempfile.TemporaryDirectory() as tmp:
+        import pathlib
+        tmp_path = pathlib.Path(tmp)
+        path = _write_glove(tmp_path, ["king", "god", "palace"])
+        vocab = _load_glove_vocab(path)
+        assert vocab == {"king", "god", "palace"}
+
+
+def test_load_glove_vocab_detects_malformed_row():
+    from scripts.audit_anchors import _load_glove_vocab
+
+    with tempfile.TemporaryDirectory() as tmp:
+        import pathlib
+        tmp_path = pathlib.Path(tmp)
+        path = tmp_path / "bad.txt"
+        with open(path, "w") as f:
+            f.write("king " + " ".join(["0.0"] * 299) + "\n")
+        with pytest.raises(ValueError, match="300"):
+            _load_glove_vocab(path)
+
+
+def test_main_writes_report_pair(tmp_path):
+    import scripts.audit_anchors as mod
+
+    anchors = [
+        {"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"},
+        {"sumerian": "", "english": "junk", "confidence": 0.9, "source": "ePSD2"},
+    ]
+    anchors_path = _write_anchors(tmp_path, anchors)
+    fused_path = _write_fused_vocab(tmp_path, ["lugal"])
+    gemma_path = _write_gemma_vocab(tmp_path, ["king"])
+    glove_path = _write_glove(tmp_path, ["king"])
+
+    out_dir = tmp_path / "results"
+    out_dir.mkdir()
+
+    exit_code = mod.run_audit(
+        anchors_path=anchors_path,
+        fused_path=fused_path,
+        gemma_path=gemma_path,
+        glove_path=glove_path,
+        raw_oracc_path=None,
+        raw_etcsl_path=None,
+        out_dir=out_dir,
+        audit_date="2026-04-18",
+    )
+
+    assert exit_code == 0
+    md_path = out_dir / "anchor_audit_2026-04-18.md"
+    json_path = out_dir / "anchor_audit_2026-04-18.json"
+    assert md_path.exists()
+    assert json_path.exists()
+
+    report = json.loads(json_path.read_text())
+    assert report["audit_schema_version"] == 1
+    assert report["totals"]["merged"] == 2
+    assert report["totals"]["survives"] == 1
+    assert report["buckets"]["junk_sumerian"]["count"] == 1
+
+
+def test_main_raises_on_missing_input(tmp_path):
+    import scripts.audit_anchors as mod
+
+    with pytest.raises(FileNotFoundError):
+        mod.run_audit(
+            anchors_path=tmp_path / "missing.json",
+            fused_path=tmp_path / "missing.npz",
+            gemma_path=tmp_path / "missing.npz",
+            glove_path=tmp_path / "missing.txt",
+            raw_oracc_path=None,
+            raw_etcsl_path=None,
+            out_dir=tmp_path,
+            audit_date="2026-04-18",
+        )
+
+
+def test_vocab_lowercase_sample_check_raises_on_mixed_case(tmp_path):
+    import scripts.audit_anchors as mod
+
+    path = tmp_path / "bad_case.npz"
+    np.savez_compressed(
+        str(path),
+        vectors=np.zeros((5, 768), dtype=np.float32),
+        vocab=np.array(["KING", "god", "Palace", "water", "sky"]),
+    )
+    with pytest.raises(ValueError, match="lowercase"):
+        mod._load_gemma_vocab(path)

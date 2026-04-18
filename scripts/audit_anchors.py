@@ -328,3 +328,266 @@ def _recoverability_narrative(result: dict) -> str:
         f"The remaining {pct(low)} ({low:,}) are low-recoverability — junk, "
         "by-design dedup losses, or specialist/untranslatable vocabulary."
     )
+
+
+# --- Artifact loaders -------------------------------------------------------
+
+import argparse  # noqa: E402
+import datetime as _dt  # noqa: E402
+import hashlib  # noqa: E402
+import json  # noqa: E402
+import sys  # noqa: E402
+from pathlib import Path  # noqa: E402
+
+
+def _assert_lowercase_sample(vocab: list[str], source: str, sample_size: int = 100) -> None:
+    sample = vocab[:sample_size]
+    for word in sample:
+        if word != word.lower():
+            raise ValueError(
+                f"{source} vocab is not lowercase — saw {word!r}. "
+                "Audit expects pre-lowercased caches."
+            )
+
+
+def _load_fused_vocab(path: Path) -> set[str]:
+    data = np.load(str(path), allow_pickle=True)
+    vectors = data["vectors"]
+    vocab = [str(w) for w in data["vocab"]]
+    if vectors.shape[1] != 1536:
+        raise ValueError(
+            f"Fused vocab vectors dim {vectors.shape[1]} != 1536 — "
+            "regenerate via scripts/08_fuse_embeddings.py"
+        )
+    if len(vocab) != vectors.shape[0]:
+        raise ValueError("Fused vocab row/vector count mismatch")
+    return set(vocab)
+
+
+def _load_gemma_vocab(path: Path) -> set[str]:
+    data = np.load(str(path))
+    vectors = data["vectors"]
+    vocab = [str(w) for w in data["vocab"]]
+    if vectors.shape[1] != 768:
+        raise ValueError(
+            f"Gemma vocab vectors dim {vectors.shape[1]} != 768 — "
+            "regenerate via scripts/whiten_gemma.py"
+        )
+    if len(vocab) != vectors.shape[0]:
+        raise ValueError("Gemma vocab row/vector count mismatch")
+    _assert_lowercase_sample(vocab, "Gemma")
+    return set(vocab)
+
+
+def _load_glove_vocab(path: Path) -> set[str]:
+    vocab: list[str] = []
+    with open(path, encoding="utf-8") as f:
+        for line_no, line in enumerate(f, start=1):
+            parts = line.rstrip("\n").split(" ")
+            if len(parts) != 301:
+                raise ValueError(
+                    f"GloVe line {line_no} has {len(parts) - 1} dims, expected 300 — "
+                    "verify data/processed/glove.6B.300d.txt integrity"
+                )
+            vocab.append(parts[0])
+    _assert_lowercase_sample(vocab, "GloVe")
+    return set(vocab)
+
+
+def _load_anchors(path: Path) -> list[dict]:
+    with open(path, encoding="utf-8") as f:
+        anchors = json.load(f)
+    bad_rows: list[tuple[int, dict]] = []
+    for i, row in enumerate(anchors):
+        if not isinstance(row, dict):
+            bad_rows.append((i, row))
+            continue
+        if "sumerian" not in row or "english" not in row or "confidence" not in row:
+            bad_rows.append((i, row))
+        if len(bad_rows) >= 5:
+            break
+    if bad_rows:
+        raise ValueError(
+            f"Anchors JSON has malformed rows; first bad examples: {bad_rows}"
+        )
+    return anchors
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 16), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _reconstruct_dedup_collisions(
+    raw_oracc_path: Path | None,
+    raw_etcsl_path: Path | None,
+    merged_anchors: list[dict],
+) -> set[str]:
+    """Return the set of Sumerian keys lost to merge_anchors' higher-confidence
+    dedup. If raw inputs are missing, returns an empty set."""
+    if raw_oracc_path is None or raw_etcsl_path is None:
+        return set()
+    if not raw_oracc_path.exists() or not raw_etcsl_path.exists():
+        print(
+            f"WARN: raw inputs not found at {raw_oracc_path} / {raw_etcsl_path}; "
+            "duplicate_collision bucket will be 0.",
+            file=sys.stderr,
+        )
+        return set()
+
+    # The upstream file is named `06_extract_anchors.py`, which isn't directly
+    # importable (leading digit). Use importlib.util to load it by path.
+    import importlib.util
+    root = Path(__file__).parent.parent
+    spec_path = root / "scripts" / "06_extract_anchors.py"
+    spec = importlib.util.spec_from_file_location("extract_anchors_06_mod", spec_path)
+    extract_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(extract_module)
+
+    with open(raw_oracc_path) as f:
+        lemmas = json.load(f)
+    dict_anchors = extract_module.extract_epsd2_anchors(lemmas, min_occurrences=5)
+
+    with open(raw_etcsl_path) as f:
+        etcsl_lines = json.load(f)
+    parallel = [line for line in etcsl_lines if line.get("translation")]
+    cooc_anchors = extract_module.extract_cooccurrence_anchors(
+        parallel, min_cooccurrences=3, min_confidence=0.3
+    )
+
+    pre_merge_keys = {a["sumerian"] for a in (dict_anchors + cooc_anchors)}
+    post_merge_keys = {a["sumerian"] for a in merged_anchors}
+    return pre_merge_keys - post_merge_keys
+
+
+# --- Main -------------------------------------------------------------------
+
+
+def run_audit(
+    *,
+    anchors_path: Path,
+    fused_path: Path,
+    gemma_path: Path,
+    glove_path: Path,
+    raw_oracc_path: Path | None,
+    raw_etcsl_path: Path | None,
+    out_dir: Path,
+    audit_date: str,
+    examples_per_bucket: int = 10,
+    seed: int = DEFAULT_SEED,
+) -> int:
+    anchors = _load_anchors(anchors_path)
+    fused_vocab = _load_fused_vocab(fused_path)
+    gemma_vocab = _load_gemma_vocab(gemma_path)
+    glove_vocab = _load_glove_vocab(glove_path)
+    collision_keys = _reconstruct_dedup_collisions(raw_oracc_path, raw_etcsl_path, anchors)
+
+    ctx = AuditContext(
+        fused_vocab=fused_vocab,
+        glove_vocab=glove_vocab,
+        gemma_vocab=gemma_vocab,
+        collision_keys=collision_keys,
+    )
+
+    result = classify_all(anchors, ctx)
+
+    metadata = {
+        "audit_date": audit_date,
+        "source_artifacts": {
+            "anchors_path": str(anchors_path),
+            "anchors_sha256": _sha256(anchors_path),
+            "fused_vocab_path": str(fused_path),
+            "fused_vocab_size": len(fused_vocab),
+            "glove_path": str(glove_path),
+            "glove_vocab_size": len(glove_vocab),
+            "gemma_path": str(gemma_path),
+            "gemma_vocab_size": len(gemma_vocab),
+            "seed": seed,
+        },
+    }
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    json_path = out_dir / f"anchor_audit_{audit_date}.json"
+    md_path = out_dir / f"anchor_audit_{audit_date}.md"
+
+    json_report = render_json(result, metadata, examples_per_bucket=examples_per_bucket)
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(json_report, f, indent=2)
+        f.write("\n")
+
+    md_report = render_markdown(result, metadata, examples_per_bucket=examples_per_bucket)
+    md_path.write_text(md_report, encoding="utf-8")
+
+    totals = result["totals"]
+    pct = (totals["survives"] / totals["merged"] * 100.0) if totals["merged"] else 0.0
+    print(
+        f"survives: {totals['survives']:,}/{totals['merged']:,} ({pct:.2f}%), "
+        f"dropped: {totals['dropped']:,}"
+    )
+    print(f"Report: {md_path}")
+    print(f"Report: {json_path}")
+    return 0
+
+
+def _parse_args(argv: list[str]) -> argparse.Namespace:
+    root = Path(__file__).parent.parent
+    parser = argparse.ArgumentParser(description="Sumerian anchor quality audit")
+    parser.add_argument(
+        "--anchors",
+        default=str(root / "data" / "processed" / "english_anchors.json"),
+    )
+    parser.add_argument(
+        "--fused",
+        default=str(root / "models" / "fused_embeddings_1536d.npz"),
+    )
+    parser.add_argument(
+        "--gemma",
+        default=str(root / "models" / "english_gemma_whitened_768d.npz"),
+    )
+    parser.add_argument(
+        "--glove",
+        default=str(root / "data" / "processed" / "glove.6B.300d.txt"),
+    )
+    parser.add_argument(
+        "--raw-oracc",
+        default=str(root / "data" / "raw" / "oracc_lemmas.json"),
+    )
+    parser.add_argument(
+        "--raw-etcsl",
+        default=str(root / "data" / "raw" / "etcsl_texts.json"),
+    )
+    parser.add_argument(
+        "--out-dir",
+        default=str(root / "results"),
+    )
+    parser.add_argument(
+        "--date",
+        default=_dt.date.today().isoformat(),
+        help="Audit date (YYYY-MM-DD), used in output filenames",
+    )
+    parser.add_argument("--examples-per-bucket", type=int, default=10)
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parse_args(argv or sys.argv[1:])
+    raw_oracc_path = Path(args.raw_oracc) if args.raw_oracc else None
+    raw_etcsl_path = Path(args.raw_etcsl) if args.raw_etcsl else None
+    return run_audit(
+        anchors_path=Path(args.anchors),
+        fused_path=Path(args.fused),
+        gemma_path=Path(args.gemma),
+        glove_path=Path(args.glove),
+        raw_oracc_path=raw_oracc_path,
+        raw_etcsl_path=raw_etcsl_path,
+        out_dir=Path(args.out_dir),
+        audit_date=args.date,
+        examples_per_bucket=args.examples_per_bucket,
+    )
+
+
+if __name__ == "__main__":
+    sys.exit(main())
