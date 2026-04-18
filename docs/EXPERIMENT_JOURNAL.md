@@ -15,6 +15,20 @@ Entry format:
 
 ---
 
+## 2026-04-16 — Phase B: Dual-view downstream pipeline shipped
+
+**Hypothesis:** After Phase A retry #2 landed whitened-Gemma at +2.54pp top-1 with qualitatively complementary clusters, the research substrate should move to Gemma while keeping GloVe as a secondary view. Phase B is the infrastructure change, not new research.
+
+**Method:** Rewrote `final_output/sumerian_lookup.py` as a single dual-view class with `space="gemma"|"glove"` routing. Extended `scripts/10_export_production.py` to project the same 35,508 fused Sumerian vectors through *both* ridge weight files (`ridge_weights.npz` and `ridge_weights_gemma_whitened.npz`) in one run, producing parallel npz artifacts. Metadata bumped to `schema_version: 2` with per-space provenance. New `scripts/validate_phase_b.py` regression-checks the stack end-to-end.
+
+**Result:** Export runs cleanly, both spaces load via one class, `find_both("word")` returns top-k from each manifold, concept-cluster regression report regenerates identically to Phase A retry #2. All tests green.
+
+**Takeaway:** The substrate decision is now locked. Downstream research (NEAR_TERM_STRATEGY.md Phase 1 geometric analysis, Workstream 2a anchor audit, eventual Gemma-on-Sumerian fine-tune) all slot on top of this dual-view API. Future contextual-encoder work is one path away — swap the Sumerian-aligned file under the hood and the lookup API stays stable.
+
+**Artifacts / commits:** Covered by commits between the phase B spec and this entry. See `docs/superpowers/plans/2026-04-16-phase-b-gemma-downstream.md`.
+
+---
+
 ## 2026-04-16 — Phase A retry #3: Ridge alpha sweep on whitened target
 
 **Hypothesis:** Whitening hit 19.85% top-1 at the default alpha=100. Maybe a different regularization value recovers the last 0.5pp needed to cross the +3pp gate.
