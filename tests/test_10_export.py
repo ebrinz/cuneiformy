@@ -139,3 +139,87 @@ def test_project_all_vectors():
 
     assert projected.shape == (100, 300)
     assert projected.dtype == np.float16
+
+
+def test_export_writes_both_spaces_and_v2_metadata(tmp_path, monkeypatch):
+    """End-to-end: export script produces both aligned npz files and v2 metadata."""
+    import scripts.export_10 as export_10_module
+
+    n_sum = 4
+    fused_dim = 1536
+    glove_dim = 300
+    gemma_dim = 768
+
+    rng = np.random.default_rng(7)
+    sum_vocab = ["a", "b", "c", "d"]
+    fused = rng.standard_normal((n_sum, fused_dim)).astype(np.float32)
+
+    glove_coef = rng.standard_normal((glove_dim, fused_dim)).astype(np.float32)
+    glove_intercept = rng.standard_normal(glove_dim).astype(np.float32)
+
+    gemma_coef = rng.standard_normal((gemma_dim, fused_dim)).astype(np.float32)
+    gemma_intercept = rng.standard_normal(gemma_dim).astype(np.float32)
+
+    models = tmp_path / "models"
+    results = tmp_path / "results"
+    final = tmp_path / "final_output"
+    models.mkdir()
+    results.mkdir()
+
+    np.savez_compressed(
+        str(models / "fused_embeddings_1536d.npz"),
+        vectors=fused,
+        vocab=np.array(sum_vocab),
+    )
+    np.savez_compressed(
+        str(models / "ridge_weights.npz"),
+        coef=glove_coef,
+        intercept=glove_intercept,
+    )
+    np.savez_compressed(
+        str(models / "ridge_weights_gemma_whitened.npz"),
+        coef=gemma_coef,
+        intercept=gemma_intercept,
+    )
+    (results / "alignment_results.json").write_text(json.dumps({
+        "accuracy": {"top1": 17.30, "top5": 22.90, "top10": 25.19},
+        "config": {
+            "alignment": "Ridge", "alpha": 100, "train_size": 1572,
+            "test_size_count": 393, "valid_anchors": 1965, "total_anchors": 13886,
+            "sumerian_vocab": 35508, "fused_dim": 1536,
+        },
+    }))
+    (results / "alignment_results_gemma_whitened.json").write_text(json.dumps({
+        "accuracy": {"top1": 19.85, "top5": 23.66, "top10": 26.21},
+        "config": {
+            "alignment": "Ridge", "alpha": 100, "mode": "whitened",
+            "gemma_model": "google/embeddinggemma-300m", "gloss_hit_rate": 21.39,
+        },
+    }))
+
+    monkeypatch.setattr(export_10_module, "MODELS_DIR", models)
+    monkeypatch.setattr(export_10_module, "RESULTS_DIR", results)
+    monkeypatch.setattr(export_10_module, "FINAL_OUTPUT", final)
+    export_10_module.main()
+
+    assert (final / "sumerian_aligned_vectors.npz").exists()
+    assert (final / "sumerian_aligned_gemma_vectors.npz").exists()
+    assert (final / "sumerian_aligned_vocab.pkl").exists()
+    assert (final / "metadata.json").exists()
+
+    glove_npz = np.load(str(final / "sumerian_aligned_vectors.npz"))
+    gemma_npz = np.load(str(final / "sumerian_aligned_gemma_vectors.npz"))
+    assert glove_npz["vectors"].shape == (n_sum, glove_dim)
+    assert gemma_npz["vectors"].shape == (n_sum, gemma_dim)
+    assert glove_npz["vectors"].dtype == np.float16
+    assert gemma_npz["vectors"].dtype == np.float16
+
+    metadata = json.loads((final / "metadata.json").read_text())
+    assert metadata["schema_version"] == 2
+    assert metadata["shared"]["vocab_size"] == n_sum
+    assert metadata["spaces"]["gemma"]["dim"] == 768
+    assert metadata["spaces"]["glove"]["dim"] == 300
+    assert metadata["spaces"]["gemma"]["ridge_alpha"] == 100
+    assert metadata["spaces"]["glove"]["ridge_alpha"] == 100
+    assert metadata["spaces"]["gemma"]["accuracy"]["top1"] == 19.85
+    assert metadata["spaces"]["glove"]["accuracy"]["top1"] == 17.30
