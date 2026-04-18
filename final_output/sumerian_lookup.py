@@ -41,46 +41,61 @@ class SumerianLookup:
         glove_english_vectors: np.ndarray,
         glove_english_vocab: list[str],
     ):
+        """Initialise the dual-view lookup.
+
+        GloVe English is passed as pre-loaded arrays (not a path) to avoid
+        re-parsing the 400k-line GloVe text file on every instantiation; the
+        Gemma English cache is a compact .npz so it is loaded from
+        gemma_english_path directly.
+        """
         with open(vocab_path, "rb") as f:
             self.vocab: list[str] = list(_serial.load(f))
 
         sum_gemma = np.load(gemma_vectors_path)["vectors"].astype(np.float32)
         sum_glove = np.load(glove_vectors_path)["vectors"].astype(np.float32)
-        assert sum_gemma.shape[0] == len(self.vocab), (
-            f"Gemma-space Sumerian rows {sum_gemma.shape[0]} "
-            f"!= vocab size {len(self.vocab)}"
-        )
-        assert sum_glove.shape[0] == len(self.vocab), (
-            f"GloVe-space Sumerian rows {sum_glove.shape[0]} "
-            f"!= vocab size {len(self.vocab)}"
-        )
-        assert sum_gemma.shape[1] == 768, (
-            f"Gemma-space Sumerian dim {sum_gemma.shape[1]} != 768 -- "
-            "regenerate via scripts/10_export_production.py against "
-            "models/ridge_weights_gemma_whitened.npz"
-        )
-        assert sum_glove.shape[1] == 300, (
-            f"GloVe-space Sumerian dim {sum_glove.shape[1]} != 300"
-        )
+        if sum_gemma.shape[0] != len(self.vocab):
+            raise ValueError(
+                f"Gemma-space Sumerian rows {sum_gemma.shape[0]} "
+                f"!= vocab size {len(self.vocab)}"
+            )
+        if sum_glove.shape[0] != len(self.vocab):
+            raise ValueError(
+                f"GloVe-space Sumerian rows {sum_glove.shape[0]} "
+                f"!= vocab size {len(self.vocab)}"
+            )
+        if sum_gemma.shape[1] != 768:
+            raise ValueError(
+                f"Gemma-space Sumerian dim {sum_gemma.shape[1]} != 768 -- "
+                "regenerate via scripts/10_export_production.py against "
+                "models/ridge_weights_gemma_whitened.npz"
+            )
+        if sum_glove.shape[1] != 300:
+            raise ValueError(
+                f"GloVe-space Sumerian dim {sum_glove.shape[1]} != 300"
+            )
 
         gemma_eng = np.load(gemma_english_path)
         eng_gemma_vocab = [str(w) for w in gemma_eng["vocab"]]
         eng_gemma_vec = gemma_eng["vectors"].astype(np.float32)
-        assert eng_gemma_vec.shape[1] == 768, (
-            f"English Gemma cache dim {eng_gemma_vec.shape[1]} != 768 -- "
-            "regenerate via scripts/whiten_gemma.py"
-        )
-        assert eng_gemma_vec.shape[0] == len(eng_gemma_vocab), (
-            "English Gemma vocab/vectors row count mismatch"
-        )
+        if eng_gemma_vec.shape[1] != 768:
+            raise ValueError(
+                f"English Gemma cache dim {eng_gemma_vec.shape[1]} != 768 -- "
+                "regenerate via scripts/whiten_gemma.py"
+            )
+        if eng_gemma_vec.shape[0] != len(eng_gemma_vocab):
+            raise ValueError(
+                "English Gemma vocab/vectors row count mismatch"
+            )
 
         glove_eng_vec = np.asarray(glove_english_vectors, dtype=np.float32)
-        assert glove_eng_vec.shape[1] == 300, (
-            f"GloVe English dim {glove_eng_vec.shape[1]} != 300"
-        )
-        assert glove_eng_vec.shape[0] == len(glove_english_vocab), (
-            "GloVe English vocab/vectors row count mismatch"
-        )
+        if glove_eng_vec.shape[1] != 300:
+            raise ValueError(
+                f"GloVe English dim {glove_eng_vec.shape[1]} != 300"
+            )
+        if glove_eng_vec.shape[0] != len(glove_english_vocab):
+            raise ValueError(
+                "GloVe English vocab/vectors row count mismatch"
+            )
 
         self._spaces = {
             "gemma": {
