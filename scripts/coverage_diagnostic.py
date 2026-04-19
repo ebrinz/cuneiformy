@@ -326,3 +326,66 @@ def classify_all_misses(
             for name, rows in primary_causes.items()
         },
     }
+
+
+# --- Simulators (exact-match) ----------------------------------------------
+
+
+def simulate_ascii_normalize(misses: list[dict], ctx: "DiagnosticContext") -> dict:
+    """Apply normalization; count anchors whose normalized form is in explicit vocab."""
+    resolvable = 0
+    for anchor in misses:
+        normalized = normalize_anchor_form(str(anchor.get("sumerian") or ""))
+        if normalized and normalized in ctx.fused_vocab:
+            resolvable += 1
+    return {
+        "anchors_newly_resolvable": resolvable,
+        "trustworthiness": "exact",
+        "notes": "Pure string normalization; recovered anchors are exact vocab matches.",
+    }
+
+
+def simulate_lower_min_count(misses: list[dict], ctx: "DiagnosticContext") -> dict:
+    """For each min_count in {1,2,3,4}, count OOV anchors with corpus freq >= that threshold."""
+    per_threshold: dict[str, dict] = {}
+    for threshold in (1, 2, 3, 4):
+        resolvable = 0
+        for anchor in misses:
+            sumerian_raw = str(anchor.get("sumerian") or "").strip()
+            normalized = normalize_anchor_form(sumerian_raw)
+            # Skip if the form is ALREADY in explicit vocab (not a miss).
+            if sumerian_raw in ctx.fused_vocab or normalized in ctx.fused_vocab:
+                continue
+            for candidate in (sumerian_raw, normalized):
+                if not candidate:
+                    continue
+                if ctx.corpus_frequency.get(candidate, 0) >= threshold:
+                    resolvable += 1
+                    break
+        per_threshold[str(threshold)] = {
+            "anchors_newly_resolvable": resolvable,
+        }
+    return {
+        "per_threshold": per_threshold,
+        "trustworthiness": "exact",
+        "notes": "Assumes FastText retrain; anchor form exists in cleaned_corpus.txt at the stated frequency.",
+    }
+
+
+def simulate_oracc_lemma_expansion(misses: list[dict], ctx: "DiagnosticContext") -> dict:
+    """Count anchors whose citation form has any surface variant in explicit vocab."""
+    resolvable = 0
+    unique_surfaces: set[str] = set()
+    for anchor in misses:
+        normalized = normalize_anchor_form(str(anchor.get("sumerian") or ""))
+        surfaces = ctx.lemma_surface_map.get(normalized, frozenset())
+        matched = [s for s in surfaces if s in ctx.fused_vocab]
+        if matched:
+            resolvable += 1
+            unique_surfaces.update(matched)
+    return {
+        "anchors_newly_resolvable": resolvable,
+        "surface_forms_added_to_vocab": len(unique_surfaces),
+        "trustworthiness": "exact",
+        "notes": "Expansion maps each citation form to every surface variant in FastText vocab.",
+    }

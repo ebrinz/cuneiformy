@@ -311,3 +311,89 @@ def test_trained_ngrams_unions_vocab():
     assert "<c" in trained
     assert "cd" in trained
     assert "d>" in trained
+
+
+# --- Exact-match simulator tests -------------------------------------------
+
+
+def test_simulate_ascii_normalize_counts_exact_hits():
+    from scripts.coverage_diagnostic import simulate_ascii_normalize
+
+    ctx = _classifier_ctx(fused_vocab=frozenset({"tug2mug", "za3sze3la2", "lugal"}))
+    misses = [
+        {"sumerian": "{tug₂}mug", "english": "garment", "confidence": 0.9},        # hits
+        {"sumerian": "za₃-sze₃-la₂", "english": "force", "confidence": 0.9},       # hits
+        {"sumerian": "completelyunknown", "english": "absent", "confidence": 0.9}, # misses
+    ]
+    result = simulate_ascii_normalize(misses, ctx)
+    assert result["anchors_newly_resolvable"] == 2
+    assert result["trustworthiness"] == "exact"
+
+
+def test_simulate_ascii_normalize_ignores_anchors_already_normalized():
+    from scripts.coverage_diagnostic import simulate_ascii_normalize
+
+    ctx = _classifier_ctx(fused_vocab=frozenset({"dingir"}))
+    # This anchor's normalized form is NOT in vocab -> not recovered by normalization.
+    misses = [{"sumerian": "missing", "english": "absent", "confidence": 0.9}]
+    result = simulate_ascii_normalize(misses, ctx)
+    assert result["anchors_newly_resolvable"] == 0
+
+
+def test_simulate_lower_min_count_per_threshold_is_monotone_nonincreasing():
+    from scripts.coverage_diagnostic import simulate_lower_min_count
+
+    ctx = _classifier_ctx(
+        corpus_frequency={"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6},
+        fused_vocab=frozenset({"e", "f"}),  # only >=5 made the vocab cut
+    )
+    misses = [
+        {"sumerian": s, "english": "x", "confidence": 0.9}
+        for s in ("a", "b", "c", "d", "e", "f")  # e, f already in vocab so skipped
+    ]
+    result = simulate_lower_min_count(misses, ctx)
+    per = result["per_threshold"]
+    # Anchors newly resolvable at each threshold (only miss anchors counted).
+    # misses in corpus with freq >= threshold and not in vocab:
+    #   t=1: a(1), b(2), c(3), d(4) -> 4
+    #   t=2: b(2), c(3), d(4) -> 3
+    #   t=3: c(3), d(4) -> 2
+    #   t=4: d(4) -> 1
+    assert per["1"]["anchors_newly_resolvable"] == 4
+    assert per["2"]["anchors_newly_resolvable"] == 3
+    assert per["3"]["anchors_newly_resolvable"] == 2
+    assert per["4"]["anchors_newly_resolvable"] == 1
+    # Monotone non-increasing across thresholds.
+    counts = [per[str(t)]["anchors_newly_resolvable"] for t in (1, 2, 3, 4)]
+    assert counts == sorted(counts, reverse=True)
+
+
+def test_simulate_oracc_lemma_expansion_counts_unique_anchors():
+    from scripts.coverage_diagnostic import simulate_oracc_lemma_expansion
+
+    # Citation form "kasan" has three surface variants; "kasane" is in vocab.
+    ctx = _classifier_ctx(
+        fused_vocab=frozenset({"kasane"}),
+        lemma_surface_map={"kasan": frozenset({"kasan", "kasane", "kasanene"})},
+    )
+    misses = [
+        {"sumerian": "kasan", "english": "noblewoman", "confidence": 0.9},
+        {"sumerian": "completelyunknown", "english": "absent", "confidence": 0.9},
+    ]
+    result = simulate_oracc_lemma_expansion(misses, ctx)
+    assert result["anchors_newly_resolvable"] == 1
+    # surface_forms_added_to_vocab reports total unique surface forms recovered.
+    assert result["surface_forms_added_to_vocab"] >= 1
+
+
+def test_simulate_oracc_lemma_expansion_requires_in_vocab_surface():
+    from scripts.coverage_diagnostic import simulate_oracc_lemma_expansion
+
+    # Citation has 2 surfaces, neither in vocab.
+    ctx = _classifier_ctx(
+        fused_vocab=frozenset({"unrelated"}),
+        lemma_surface_map={"kasan": frozenset({"kasanx", "kasany"})},
+    )
+    misses = [{"sumerian": "kasan", "english": "noblewoman", "confidence": 0.9}]
+    result = simulate_oracc_lemma_expansion(misses, ctx)
+    assert result["anchors_newly_resolvable"] == 0
