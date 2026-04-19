@@ -15,6 +15,20 @@ Entry format:
 
 ---
 
+## 2026-04-19 — Workstream 2b-pre: Coverage diagnostic baseline
+
+**Hypothesis:** Workstream 2a showed `sumerian_vocab_miss: 11,798 (84.96%)` as the dominant dropout. Initial "FastText retrain" framing was too narrow. An ML-engineer reassessment identified five candidate interventions (ASCII normalization, lower min_count, ORACC lemma surface expansion, morpheme composition, subword inference). Before shipping any fix, we need a data-driven attribution of which anchors are recoverable by which intervention — and how trustworthy each recovery actually is under ridge projection.
+
+**Method:** New `scripts/coverage_diagnostic.py` runs two independent analyses on the `sumerian_vocab_miss` set: a **classifier** (mutually-exclusive primary-cause attribution with 6 priority-ordered buckets) and a **simulator** (per-intervention projected recovery, with Tier-2 semantic validation projecting synthesized vectors through the whitened-Gemma ridge weights). Reuses `scripts/audit_anchors.py` loaders and classifier to find misses. 29 unit tests against synthetic inputs and a toy FastText.
+
+**Result — classifier (primary-cause attribution, mutually exclusive, sums to 11,798):** `normalization_recoverable: 7,651 (64.85%)`, `subword_inference_recoverable: 2,213 (18.76%)`, `in_corpus_below_min_count: 926 (7.85%)`, `genuinely_missing: 576 (4.88%)`, `morpheme_composition_recoverable: 370 (3.14%)`, `oracc_lemma_surface_recoverable: 62 (0.53%)`.
+
+**Result — simulator (per-intervention recovery, independent; counts can overlap):** `ascii_normalize: 7,651 exact hits`; `lower_min_count: 926/639/427/218` (at thresholds 1/2/3/4); `oracc_lemma_expansion: 147 anchors, +147 surface forms`; `morpheme_composition: tier1=7,916, tier2_top5=137 (tested=7,563 → 1.8% top-5 accuracy)`; `subword_inference: tier1=3,546, tier2_top5=354 (tested=3,306 → 10.7% top-5 accuracy)`.
+
+**Takeaway:** The dominant lever is a surprise — **ASCII normalization alone recovers 64.85% of misses as exact vocab hits**, not the ORACC surface-form expansion I predicted. A ~20-line change to `scripts/06_extract_anchors.py` mirroring `scripts/05_clean_and_tokenize.py`'s normalization chain (subscripts → ASCII, strip determinative braces, drop hyphens) would lift ~7,651 anchors into the training set with no retrain, no ML, no synthesis. Tier-2 validation confirms the two inference-based interventions produce mostly-noisy projected vectors (1.8% and 10.7% top-5 accuracy) — they're not the first lever to pull. Workstream 2b should ship the normalization fix first; `lower_min_count`, `oracc_lemma_expansion`, and the inference interventions are low-yield follow-ups scoped by what the normalization fix leaves behind.
+
+**Artifacts:** `scripts/coverage_diagnostic.py`, `tests/test_coverage_diagnostic.py`, `results/coverage_diagnostic_2026-04-19.{md,json}`. Spec: `docs/superpowers/specs/2026-04-19-coverage-diagnostic-design.md`.
+
 ## 2026-04-18 — Workstream 2a: Anchor audit baseline
 
 **Hypothesis:** The 14.2% valid-anchor survival rate (1,965 / 13,886) is the cheapest place to recover alignment top-1. Before building fixes, we need a reproducible categorization of what happens to the other 85% against both target spaces (GloVe + whitened Gemma), not a hunch-driven one.
