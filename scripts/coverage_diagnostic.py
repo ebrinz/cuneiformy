@@ -14,10 +14,16 @@ See: docs/superpowers/specs/2026-04-19-coverage-diagnostic-design.md
 """
 from __future__ import annotations
 
+import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+# Ensure repo root is importable when invoked directly (pytest.ini only affects pytest).
+_ROOT = Path(__file__).parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 import numpy as np
 
