@@ -147,13 +147,13 @@ def _classifier_ctx(**overrides):
     return DiagnosticContext(**base)
 
 
-def test_normalize_anchor_form_handles_subscripts_braces_and_oracc():
-    from scripts.coverage_diagnostic import normalize_anchor_form
+def test_normalize_sumerian_token_handles_subscripts_braces_and_oracc():
+    from scripts.sumerian_normalize import normalize_sumerian_token
 
-    assert normalize_anchor_form("{tug₂}mug") == "tug2mug"
-    assert normalize_anchor_form("za₃-sze₃-la₂") == "za3sze3la2"
-    assert normalize_anchor_form("šeš") == "szesz"  # š->sz, e->e, š->sz
-    assert normalize_anchor_form("mu-du₃-sze₃") == "mudu3sze3"
+    assert normalize_sumerian_token("{tug₂}mug") == "tug2mug"
+    assert normalize_sumerian_token("za₃-sze₃-la₂") == "za3sze3la2"
+    assert normalize_sumerian_token("šeš") == "szesz"  # š->sz, e->e, š->sz
+    assert normalize_sumerian_token("mu-du₃-sze₃") == "mudu3sze3"
 
 
 def test_classify_miss_normalization_recoverable_wins():

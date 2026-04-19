@@ -34,31 +34,13 @@ from scripts.audit_anchors import (
     _load_gemma_vocab,
     _load_glove_vocab,
 )
+from scripts.sumerian_normalize import normalize_sumerian_token
 
 # --- Module constants -------------------------------------------------------
 
 DIAGNOSTIC_SCHEMA_VERSION = 1
 DEFAULT_SEED = 42
 SUBWORD_OVERLAP_MIN = 0.5
-
-# ORACC citation-form unicode -> ATF normalization (mirror of
-# scripts/06_extract_anchors.py::_ORACC_TO_ATF). Kept local to avoid importing
-# the leading-digit script module.
-_ORACC_TO_ATF = {
-    "š": "sz", "Š": "SZ",
-    "ŋ": "j",  "Ŋ": "J",
-    "ḫ": "h",  "Ḫ": "H",
-    "ṣ": "s",  "Ṣ": "S",
-    "ṭ": "t",  "Ṭ": "T",
-    "ʾ": "",
-}
-
-
-def _normalize_oracc_to_atf(s: str) -> str:
-    """Apply ORACC -> ATF letter normalization and lowercase. No subscripts here."""
-    for old, new in _ORACC_TO_ATF.items():
-        s = s.replace(old, new)
-    return s.lower()
 
 
 # --- DiagnosticContext ------------------------------------------------------
@@ -108,8 +90,8 @@ def _load_lemma_surface_map(path: Path) -> dict[str, frozenset[str]]:
         form_raw = (lemma.get("form") or "").strip()
         if not cf_raw or not form_raw:
             continue
-        cf = _normalize_oracc_to_atf(cf_raw)
-        form = _normalize_oracc_to_atf(form_raw)
+        cf = normalize_sumerian_token(cf_raw)
+        form = normalize_sumerian_token(form_raw)
         if not cf or not form:
             continue
         surfaces_by_cf.setdefault(cf, set()).add(form)
@@ -155,30 +137,6 @@ def _load_gemma_english_npz(path: Path) -> tuple[list[str], np.ndarray]:
         raise ValueError("Gemma vocab/vectors row count mismatch")
     return vocab, vectors
 
-
-# --- Normalization ---------------------------------------------------------
-
-import re  # noqa: E402
-
-_SUBSCRIPT_MAP = str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
-
-
-def normalize_anchor_form(raw: str) -> str:
-    """Mirror the normalization chain in scripts/05_clean_and_tokenize.py.
-
-    Applies (in order):
-      1. Unicode subscript digits -> ASCII digits.
-      2. Strip determinative braces {...} keeping content.
-      3. ORACC unicode Sumerian letters -> ATF (š -> sz, etc.).
-      4. Drop hyphens (produces the fully-joined compound form).
-      5. Lowercase.
-    """
-    s = str(raw or "")
-    s = s.translate(_SUBSCRIPT_MAP)
-    s = re.sub(r"\{([^}]*)\}", r"\1", s)
-    s = _normalize_oracc_to_atf(s)
-    s = s.replace("-", "")
-    return s.strip()
 
 
 # --- n-gram helpers --------------------------------------------------------
@@ -229,11 +187,9 @@ def _morphemes(anchor_raw: str) -> list[str]:
         return []
     parts: list[str] = []
     for piece in anchor_raw.split("-"):
-        # Normalize each morpheme: subscripts -> ASCII, ORACC -> ATF, strip braces, lowercase.
-        piece = piece.translate(_SUBSCRIPT_MAP)
-        piece = re.sub(r"\{([^}]*)\}", r"\1", piece)
-        piece = _normalize_oracc_to_atf(piece)
-        piece = piece.strip()
+        # normalize_sumerian_token handles subscripts, braces, ORACC->ATF, and lowercase.
+        # Hyphens are already split out, so the hyphen-drop step is a no-op per piece.
+        piece = normalize_sumerian_token(piece)
         if piece:
             parts.append(piece)
     return parts
@@ -251,7 +207,7 @@ def classify_miss(
     english = str(anchor.get("english") or "").lower()
 
     # 1. normalization_recoverable
-    normalized = normalize_anchor_form(sumerian_raw)
+    normalized = normalize_sumerian_token(sumerian_raw)
     if normalized and normalized in ctx.fused_vocab:
         return "normalization_recoverable"
 
@@ -298,7 +254,7 @@ def classify_all_misses(
         # Attach a lightweight trace describing the match, for the examples field.
         trace: dict[str, Any] = {}
         sumerian_raw = str(anchor.get("sumerian") or "").strip()
-        normalized = normalize_anchor_form(sumerian_raw)
+        normalized = normalize_sumerian_token(sumerian_raw)
         if bucket == "normalization_recoverable":
             trace["normalized_form"] = normalized
         elif bucket == "in_corpus_below_min_count":
@@ -341,7 +297,7 @@ def simulate_ascii_normalize(misses: list[dict], ctx: "DiagnosticContext") -> di
     """Apply normalization; count anchors whose normalized form is in explicit vocab."""
     resolvable = 0
     for anchor in misses:
-        normalized = normalize_anchor_form(str(anchor.get("sumerian") or ""))
+        normalized = normalize_sumerian_token(str(anchor.get("sumerian") or ""))
         if normalized and normalized in ctx.fused_vocab:
             resolvable += 1
     return {
@@ -358,7 +314,7 @@ def simulate_lower_min_count(misses: list[dict], ctx: "DiagnosticContext") -> di
         resolvable = 0
         for anchor in misses:
             sumerian_raw = str(anchor.get("sumerian") or "").strip()
-            normalized = normalize_anchor_form(sumerian_raw)
+            normalized = normalize_sumerian_token(sumerian_raw)
             # Skip if the form is ALREADY in explicit vocab (not a miss).
             if sumerian_raw in ctx.fused_vocab or normalized in ctx.fused_vocab:
                 continue
@@ -383,7 +339,7 @@ def simulate_oracc_lemma_expansion(misses: list[dict], ctx: "DiagnosticContext")
     resolvable = 0
     unique_surfaces: set[str] = set()
     for anchor in misses:
-        normalized = normalize_anchor_form(str(anchor.get("sumerian") or ""))
+        normalized = normalize_sumerian_token(str(anchor.get("sumerian") or ""))
         surfaces = ctx.lemma_surface_map.get(normalized, frozenset())
         matched = [s for s in surfaces if s in ctx.fused_vocab]
         if matched:
@@ -529,7 +485,7 @@ def simulate_subword_inference(
 
     for anchor in misses:
         sumerian_raw = str(anchor.get("sumerian") or "").strip()
-        normalized = normalize_anchor_form(sumerian_raw)
+        normalized = normalize_sumerian_token(sumerian_raw)
         if not normalized:
             continue
         # Skip anchors already in vocab (not misses) — defensive.
