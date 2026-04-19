@@ -15,6 +15,18 @@ Entry format:
 
 ---
 
+## 2026-04-18 — Workstream 2a: Anchor audit baseline
+
+**Hypothesis:** The 14.2% valid-anchor survival rate (1,965 / 13,886) is the cheapest place to recover alignment top-1. Before building fixes, we need a reproducible categorization of what happens to the other 85% against both target spaces (GloVe + whitened Gemma), not a hunch-driven one.
+
+**Method:** New standalone script `scripts/audit_anchors.py` classifies every merged anchor into 9 mutually-exclusive, priority-assigned buckets: `junk_sumerian`, `duplicate_collision`, `low_confidence`, `sumerian_vocab_miss`, `multiword_english`, `english_both_miss`, `english_glove_miss`, `english_gemma_miss`, `survives`. Emits dated markdown + JSON reports (schema v1). Pure-function core, fully unit-tested against synthetic data (25 tests). Runs against committed input artifacts; reconstructs dedup collisions when raw extraction inputs are locally present.
+
+**Result:** Baseline report committed at `results/anchor_audit_2026-04-18.{md,json}`. Real-data survival: 1,951 / 13,886 (14.05%). Top dropout buckets: `sumerian_vocab_miss: 11,798 (84.96%)`, `english_both_miss: 84 (0.60%)`, `multiword_english: 45 (0.32%)`. Bucket sums and English-side Venn cross-check reconcile; two consecutive runs are byte-identical.
+
+**Takeaway:** Workstream 2a's methodology gate is closed. Any future pipeline change (new tokenization, new target space, new extraction rules) can now be scored by how it moves the bucket distribution, not by anecdote. The bucket-count deltas prioritize Workstream 2b (FastText retrain for `sumerian_vocab_miss` recovery), 2c (Gemma fine-tune for `english_gemma_miss` recovery), and any `multiword_english` phrase-handling work.
+
+**Artifacts:** `scripts/audit_anchors.py`, `tests/test_audit_anchors.py`, `results/anchor_audit_2026-04-18.{md,json}`. Spec: `docs/superpowers/specs/2026-04-18-sumerian-anchor-audit-design.md`.
+
 ## 2026-04-16 — Phase B: Dual-view downstream pipeline shipped
 
 **Hypothesis:** After Phase A retry #2 landed whitened-Gemma at +2.54pp top-1 with qualitatively complementary clusters, the research substrate should move to Gemma while keeping GloVe as a secondary view. Phase B is the infrastructure change, not new research.
