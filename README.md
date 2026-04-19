@@ -18,18 +18,29 @@
 
 ## Results
 
-**v1 Baseline** &mdash; direct port of [heiroglyphy](https://github.com/ebrinz/heiroglyphy) V15 architecture to Sumerian:
+Current best — whitened EmbeddingGemma alignment (post-Phase-B):
 
-| Metric | Cuneiformy (Sumerian) | Heiroglyphy (Egyptian) |
-|--------|:--------------------:|:---------------------:|
-| Top-1 Accuracy | **17.30%** | 32.35% |
-| Top-5 Accuracy | **22.90%** | 41.47% |
-| Top-10 Accuracy | **25.19%** | 45.13% |
-| Training Anchors | 1,572 | 5,360 |
-| Corpus Lines | 2.8M (pre-dedup) | 100K |
-| Optimal Alpha | 100 | 0.001 |
+| Metric | Cuneiformy (whitened-Gemma 768d) | Cuneiformy v1 (GloVe 300d) | Heiroglyphy (Egyptian) |
+|--------|:--------------------:|:---------------------:|:---------------------:|
+| Top-1 Accuracy | **19.85%** | 17.30% | 32.35% |
+| Top-5 Accuracy | **23.66%** | 22.90% | 41.47% |
+| Top-10 Accuracy | **26.21%** | 25.19% | 45.13% |
+| Training Anchors | 1,572 | 1,572 | 5,360 |
+| Corpus Lines | 2.8M (pre-dedup) | 2.8M | 100K |
+| Target Space | 768d whitened-Gemma (primary) | 300d GloVe (secondary, retained) | 300d GloVe |
 
-The accuracy gap is driven by **anchor coverage** (1,572 vs 5,360 training pairs), not corpus size. Sumerian's agglutinative morphology creates a mismatch between ORACC dictionary citation forms and the hyphen-split ATF corpus tokens.
+Both alignment targets are accessible via one `SumerianLookup` class (`space="gemma"|"glove"`).
+
+The remaining gap vs Heiroglyphy is driven by **anchor coverage** (1,572 vs 5,360 training pairs), not corpus size. Ongoing work is diagnosed and sequenced in the [experiment journal](docs/EXPERIMENT_JOURNAL.md).
+
+### Research progress
+
+Active experiment log: [`docs/EXPERIMENT_JOURNAL.md`](docs/EXPERIMENT_JOURNAL.md). Recent findings (newest first):
+
+- **2026-04-19 — Workstream 2b-pre:** Coverage diagnostic attributes **64.85%** of the 11,798 `sumerian_vocab_miss` anchors to a simple ASCII-normalization gap between the anchor extractor and the corpus tokenizer (subscripts → ASCII, strip determinative braces, drop hyphens). Expected next-step: a ~20-line fix to `scripts/06_extract_anchors.py` lifts training-anchor count ~5× without any retrain. Inference-based alternatives (FastText subword inference, morpheme composition) recover far fewer anchors with semantically-correct projections (10.7% and 1.8% Tier-2 top-5 accuracy) — not the next lever to pull.
+- **2026-04-18 — Workstream 2a:** Anchor audit baselined valid-anchor survival at 14.05% (1,951/13,886). 84.96% of all dropout is `sumerian_vocab_miss`; every other bucket combined is under 1%.
+- **2026-04-16 — Phase B:** Dual-view Sumerian lookup. Whitened EmbeddingGemma and GloVe now coexist as parallel alignment targets; downstream code toggles via `space="gemma"|"glove"`.
+- **2026-04-16 — Phase A retry #2:** BERT-whitening (Su et al. 2021) applied to the EmbeddingGemma target unlocked +2.54pp top-1 over GloVe. Centering + whitening is mandatory for any contextual-encoder alignment target.
 
 ## How It Works
 
@@ -62,21 +73,28 @@ The approach follows a cross-lingual embedding alignment strategy:
 from final_output.sumerian_lookup import SumerianLookup
 
 lookup = SumerianLookup(
-    vectors_path="final_output/sumerian_aligned_vectors.npz",
+    gemma_vectors_path="final_output/sumerian_aligned_gemma_vectors.npz",
+    glove_vectors_path="final_output/sumerian_aligned_vectors.npz",
     vocab_path="final_output/sumerian_aligned_vocab.pkl",
-    glove_vectors=glove_vectors,
-    glove_vocab=glove_vocab,
+    gemma_english_path="models/english_gemma_whitened_768d.npz",
+    glove_english_vectors=glove_vectors,
+    glove_english_vocab=glove_vocab,
 )
 
-# Find Sumerian words for an English concept
-lookup.find("king")      # -> [("lugal", 0.72), ...]
-lookup.find("water")     # -> [("a", 0.58), ...]
+# Default space is the whitened-Gemma 768d manifold:
+lookup.find("king")                     # -> [("ul3", 0.67), ("asal", 0.51), ...]
 
-# Vector analogy: king is to queen as god is to ?
-lookup.find_analogy("king", "queen", "god")
+# Query the GloVe 300d manifold:
+lookup.find("king", space="glove")      # -> [("ul3", 0.68), ("se2", 0.60), ...]
 
-# Weighted blend of concepts
-lookup.find_blend({"sun": 0.7, "power": 0.3})
+# Both spaces at once:
+lookup.find_both("fate")                # -> {"gemma": [...], "glove": [...]}
+
+# Vector analogy in either space:
+lookup.find_analogy("king", "queen", "god", space="gemma")
+
+# Weighted blend of concepts:
+lookup.find_blend({"sun": 0.7, "power": 0.3}, space="gemma")
 ```
 
 ## Running the Pipeline
@@ -113,7 +131,7 @@ python scripts/10_export_production.py
 ### Tests
 
 ```bash
-pytest tests/ -v    # 34 tests
+pytest tests/ --ignore=tests/test_integration.py -v    # 110 tests
 ```
 
 ## Data Sources
