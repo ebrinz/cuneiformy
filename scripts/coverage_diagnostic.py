@@ -148,3 +148,181 @@ def _load_gemma_english_npz(path: Path) -> tuple[list[str], np.ndarray]:
     if vectors.shape[0] != len(vocab):
         raise ValueError("Gemma vocab/vectors row count mismatch")
     return vocab, vectors
+
+
+# --- Normalization ---------------------------------------------------------
+
+import re  # noqa: E402
+
+_SUBSCRIPT_MAP = str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
+
+
+def normalize_anchor_form(raw: str) -> str:
+    """Mirror the normalization chain in scripts/05_clean_and_tokenize.py.
+
+    Applies (in order):
+      1. Unicode subscript digits -> ASCII digits.
+      2. Strip determinative braces {...} keeping content.
+      3. ORACC unicode Sumerian letters -> ATF (š -> sz, etc.).
+      4. Drop hyphens (produces the fully-joined compound form).
+      5. Lowercase.
+    """
+    s = str(raw or "")
+    s = s.translate(_SUBSCRIPT_MAP)
+    s = re.sub(r"\{([^}]*)\}", r"\1", s)
+    s = _normalize_oracc_to_atf(s)
+    s = s.replace("-", "")
+    return s.strip()
+
+
+# --- n-gram helpers --------------------------------------------------------
+
+
+def _ngrams(word: str, min_n: int, max_n: int) -> frozenset[str]:
+    """Character n-grams with FastText-style angle-bracket padding."""
+    padded = f"<{word}>"
+    result: set[str] = set()
+    for n in range(min_n, max_n + 1):
+        if n > len(padded):
+            continue
+        for i in range(len(padded) - n + 1):
+            result.add(padded[i : i + n])
+    return frozenset(result)
+
+
+def _trained_ngrams(vocab, min_n: int, max_n: int) -> frozenset[str]:
+    """Union of n-grams across the training vocab. Expensive once, fast per lookup."""
+    out: set[str] = set()
+    for word in vocab:
+        out.update(_ngrams(word, min_n, max_n))
+    return frozenset(out)
+
+
+def _subword_overlap(anchor: str, trained_ngrams: frozenset[str], min_n: int, max_n: int) -> float:
+    anchor_ngrams = _ngrams(anchor, min_n, max_n)
+    if not anchor_ngrams:
+        return 0.0
+    return len(anchor_ngrams & trained_ngrams) / len(anchor_ngrams)
+
+
+# --- Classifier ------------------------------------------------------------
+
+PRIMARY_CAUSE_ORDER = (
+    "normalization_recoverable",
+    "in_corpus_below_min_count",
+    "oracc_lemma_surface_recoverable",
+    "morpheme_composition_recoverable",
+    "subword_inference_recoverable",
+    "genuinely_missing",
+)
+
+
+def _morphemes(anchor_raw: str) -> list[str]:
+    """Split by hyphens, normalize each morpheme individually."""
+    if "-" not in anchor_raw:
+        return []
+    parts: list[str] = []
+    for piece in anchor_raw.split("-"):
+        # Normalize each morpheme: subscripts -> ASCII, ORACC -> ATF, strip braces, lowercase.
+        piece = piece.translate(_SUBSCRIPT_MAP)
+        piece = re.sub(r"\{([^}]*)\}", r"\1", piece)
+        piece = _normalize_oracc_to_atf(piece)
+        piece = piece.strip()
+        if piece:
+            parts.append(piece)
+    return parts
+
+
+def classify_miss(
+    anchor: dict,
+    ctx: "DiagnosticContext",
+    trained_ngrams: frozenset[str],
+    fasttext_min_n: int = 3,
+    fasttext_max_n: int = 6,
+) -> str:
+    """Priority-ordered primary-cause attribution for one missing anchor."""
+    sumerian_raw = str(anchor.get("sumerian") or "").strip()
+    english = str(anchor.get("english") or "").lower()
+
+    # 1. normalization_recoverable
+    normalized = normalize_anchor_form(sumerian_raw)
+    if normalized and normalized in ctx.fused_vocab:
+        return "normalization_recoverable"
+
+    # 2. in_corpus_below_min_count: check both raw and normalized forms.
+    for candidate in (sumerian_raw, normalized):
+        if not candidate:
+            continue
+        count = ctx.corpus_frequency.get(candidate, 0)
+        if 1 <= count < 5:
+            return "in_corpus_below_min_count"
+
+    # 3. oracc_lemma_surface_recoverable: citation form (normalized) -> any surface in vocab.
+    if normalized in ctx.lemma_surface_map:
+        for surface in ctx.lemma_surface_map[normalized]:
+            if surface in ctx.fused_vocab:
+                return "oracc_lemma_surface_recoverable"
+
+    # 4. morpheme_composition_recoverable: hyphenated, all morphemes in vocab.
+    morphemes = _morphemes(sumerian_raw)
+    if morphemes and all(m in ctx.fused_vocab for m in morphemes):
+        return "morpheme_composition_recoverable"
+
+    # 5. subword_inference_recoverable: n-gram overlap >= threshold on NORMALIZED form.
+    if normalized:
+        overlap = _subword_overlap(normalized, trained_ngrams, fasttext_min_n, fasttext_max_n)
+        if overlap >= SUBWORD_OVERLAP_MIN:
+            return "subword_inference_recoverable"
+
+    return "genuinely_missing"
+
+
+def classify_all_misses(
+    misses: list[dict],
+    ctx: "DiagnosticContext",
+    trained_ngrams: frozenset[str],
+    fasttext_min_n: int = 3,
+    fasttext_max_n: int = 6,
+) -> dict:
+    """Classify every miss; return totals + per-bucket rows with traces."""
+    primary_causes: dict[str, list[dict]] = {name: [] for name in PRIMARY_CAUSE_ORDER}
+
+    for anchor in misses:
+        bucket = classify_miss(anchor, ctx, trained_ngrams, fasttext_min_n, fasttext_max_n)
+        # Attach a lightweight trace describing the match, for the examples field.
+        trace: dict[str, Any] = {}
+        sumerian_raw = str(anchor.get("sumerian") or "").strip()
+        normalized = normalize_anchor_form(sumerian_raw)
+        if bucket == "normalization_recoverable":
+            trace["normalized_form"] = normalized
+        elif bucket == "in_corpus_below_min_count":
+            for candidate in (sumerian_raw, normalized):
+                if 1 <= ctx.corpus_frequency.get(candidate, 0) < 5:
+                    trace["matched_form"] = candidate
+                    trace["corpus_count"] = ctx.corpus_frequency[candidate]
+                    break
+        elif bucket == "oracc_lemma_surface_recoverable":
+            hits = [s for s in ctx.lemma_surface_map.get(normalized, ()) if s in ctx.fused_vocab]
+            trace["matched_surface_forms"] = hits[:3]
+        elif bucket == "morpheme_composition_recoverable":
+            trace["morphemes_in_vocab"] = _morphemes(sumerian_raw)
+        elif bucket == "subword_inference_recoverable":
+            overlap = _subword_overlap(normalized, trained_ngrams, fasttext_min_n, fasttext_max_n)
+            trace["ngram_overlap"] = round(overlap, 4)
+
+        enriched = dict(anchor)
+        enriched["trace"] = trace
+        primary_causes[bucket].append(enriched)
+
+    total = len(misses)
+    return {
+        "total_misses": total,
+        "primary_causes": {
+            name: {
+                "count": len(rows),
+                "pct": (len(rows) / total * 100.0) if total else 0.0,
+                "rows": rows,
+            }
+            for name, rows in primary_causes.items()
+        },
+    }
