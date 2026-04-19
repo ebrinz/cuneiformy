@@ -1,0 +1,770 @@
+{
+  "diagnostic_schema_version": 1,
+  "diagnostic_date": "2026-04-19",
+  "source_artifacts": {
+    "anchors_path": "/Users/crashy/Development/cuneiformy/data/processed/english_anchors.json",
+    "anchors_sha256": "304dcbabe6ce914d5c15972ddc93a85eb56d488c1e0f914aa21f676c14e80e0a",
+    "fasttext_model_path": "/Users/crashy/Development/cuneiformy/models/fasttext_sumerian.model",
+    "fasttext_model_sha256": "bb7e4a0ed73d614f94c0a318891e8b85c4d19ed1fa69ffa9ce694d58c6cd7e99",
+    "fused_vocab_path": "/Users/crashy/Development/cuneiformy/models/fused_embeddings_1536d.npz",
+    "glove_path": "/Users/crashy/Development/cuneiformy/data/processed/glove.6B.300d.txt",
+    "gemma_path": "/Users/crashy/Development/cuneiformy/models/english_gemma_whitened_768d.npz",
+    "ridge_gemma_path": "/Users/crashy/Development/cuneiformy/models/ridge_weights_gemma_whitened.npz",
+    "oracc_lemmas_path": "/Users/crashy/Development/cuneiformy/data/raw/oracc_lemmas.json",
+    "cleaned_corpus_path": "/Users/crashy/Development/cuneiformy/data/processed/cleaned_corpus.txt",
+    "cleaned_corpus_sha256": "c29ed900a8349f52a0de157bef31d634f9f636f6d418380a46c0828d6f3747df",
+    "seed": 42,
+    "subword_overlap_min": 0.5
+  },
+  "baseline": {
+    "total_merged": 13886,
+    "survives": 1951,
+    "sumerian_vocab_miss": 11798
+  },
+  "classifier": {
+    "total_misses": 11798,
+    "primary_causes": {
+      "normalization_recoverable": {
+        "count": 7651,
+        "pct": 64.85,
+        "examples": [
+          {
+            "sumerian": "us\u2082-bi",
+            "english": "side",
+            "confidence": 0.95,
+            "frequency": 97,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "us2bi"
+            }
+          },
+          {
+            "sumerian": "de\u2082-a",
+            "english": "pour",
+            "confidence": 0.95,
+            "frequency": 305,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "de2a"
+            }
+          },
+          {
+            "sumerian": "zar\u2083",
+            "english": "sheaf",
+            "confidence": 0.95,
+            "frequency": 635,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "zar3"
+            }
+          },
+          {
+            "sumerian": "nij\u2082-gur\u2081\u2081",
+            "english": "property",
+            "confidence": 0.95,
+            "frequency": 55,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "nij2gur11"
+            }
+          },
+          {
+            "sumerian": "suru\u2085",
+            "english": "harness",
+            "confidence": 0.66,
+            "frequency": 16,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "suru5"
+            }
+          },
+          {
+            "sumerian": "ba-si",
+            "english": "put",
+            "confidence": 0.65,
+            "frequency": 15,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "basi"
+            }
+          },
+          {
+            "sumerian": "nig\u2082-sar",
+            "english": "commodity",
+            "confidence": 0.58,
+            "frequency": 8,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "nig2sar"
+            }
+          },
+          {
+            "sumerian": "ni\u2081\u2080-ni\u2081\u2080",
+            "english": "encircle",
+            "confidence": 0.58,
+            "frequency": 8,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "ni10ni10"
+            }
+          },
+          {
+            "sumerian": "szuba\u2082",
+            "english": "stone",
+            "confidence": 0.57,
+            "frequency": 7,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "szuba2"
+            }
+          },
+          {
+            "sumerian": "bi\u2082-su\u2083-ud",
+            "english": "distant",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "normalized_form": "bi2su3ud"
+            }
+          }
+        ]
+      },
+      "in_corpus_below_min_count": {
+        "count": 926,
+        "pct": 7.8488,
+        "examples": [
+          {
+            "sumerian": "dubsaj",
+            "english": "first",
+            "confidence": 0.95,
+            "frequency": 129,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "dubsaj",
+              "corpus_count": 1
+            }
+          },
+          {
+            "sumerian": "banda",
+            "english": "junior",
+            "confidence": 0.95,
+            "frequency": 227,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "banda",
+              "corpus_count": 1
+            }
+          },
+          {
+            "sumerian": "szulaa",
+            "english": "consignment",
+            "confidence": 0.95,
+            "frequency": 103,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "szulaa",
+              "corpus_count": 2
+            }
+          },
+          {
+            "sumerian": "marru",
+            "english": "stormwind",
+            "confidence": 0.85,
+            "frequency": 35,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "marru",
+              "corpus_count": 1
+            }
+          },
+          {
+            "sumerian": "naj-naj",
+            "english": "drink",
+            "confidence": 0.61,
+            "frequency": 11,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "najnaj",
+              "corpus_count": 4
+            }
+          },
+          {
+            "sumerian": "sze\u2082\u2081-a",
+            "english": "call",
+            "confidence": 0.61,
+            "frequency": 11,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "sze21a",
+              "corpus_count": 2
+            }
+          },
+          {
+            "sumerian": "jar-ra-ta",
+            "english": "place",
+            "confidence": 0.57,
+            "frequency": 7,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "jarrata",
+              "corpus_count": 3
+            }
+          },
+          {
+            "sumerian": "gi-zi-da",
+            "english": "reed",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "gizida",
+              "corpus_count": 1
+            }
+          },
+          {
+            "sumerian": "szer\u2081\u2081",
+            "english": "limit",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "szer11",
+              "corpus_count": 3
+            }
+          },
+          {
+            "sumerian": "ba-na-sum",
+            "english": "give",
+            "confidence": 0.55,
+            "frequency": 5,
+            "source": "ePSD2",
+            "trace": {
+              "matched_form": "banasum",
+              "corpus_count": 2
+            }
+          }
+        ]
+      },
+      "oracc_lemma_surface_recoverable": {
+        "count": 62,
+        "pct": 0.5255,
+        "examples": [
+          {
+            "sumerian": "jurusz",
+            "english": "male",
+            "confidence": 0.95,
+            "frequency": 22495,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "gurusz"
+              ]
+            }
+          },
+          {
+            "sumerian": "szejbar",
+            "english": "animal",
+            "confidence": 0.95,
+            "frequency": 533,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "lak264"
+              ]
+            }
+          },
+          {
+            "sumerian": "santanak",
+            "english": "gardener",
+            "confidence": 0.95,
+            "frequency": 383,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "santana",
+                "szandana"
+              ]
+            }
+          },
+          {
+            "sumerian": "emegir",
+            "english": "sumerian",
+            "confidence": 0.95,
+            "frequency": 168,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "gi"
+              ]
+            }
+          },
+          {
+            "sumerian": "kijal",
+            "english": "land",
+            "confidence": 0.95,
+            "frequency": 104,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "kankal"
+              ]
+            }
+          },
+          {
+            "sumerian": "jidlam",
+            "english": "spouse",
+            "confidence": 0.95,
+            "frequency": 94,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "nitalam"
+              ]
+            }
+          },
+          {
+            "sumerian": "szajanla",
+            "english": "trader",
+            "confidence": 0.72,
+            "frequency": 22,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "szagan"
+              ]
+            }
+          },
+          {
+            "sumerian": "susa",
+            "english": "susa",
+            "confidence": 0.6,
+            "frequency": 10,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "szuszin"
+              ]
+            }
+          },
+          {
+            "sumerian": "jesz-dili",
+            "english": "string of beads",
+            "confidence": 0.58,
+            "frequency": 8,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "dili"
+              ]
+            }
+          },
+          {
+            "sumerian": "ayaya",
+            "english": "grandfather",
+            "confidence": 0.55,
+            "frequency": 5,
+            "source": "ePSD2",
+            "trace": {
+              "matched_surface_forms": [
+                "a"
+              ]
+            }
+          }
+        ]
+      },
+      "morpheme_composition_recoverable": {
+        "count": 370,
+        "pct": 3.1361,
+        "examples": [
+          {
+            "sumerian": "saj-us\u2082",
+            "english": "constant",
+            "confidence": 0.79,
+            "frequency": 29,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "saj",
+                "us2"
+              ]
+            }
+          },
+          {
+            "sumerian": "zi-szag\u2084-jal\u2082",
+            "english": "encouragement",
+            "confidence": 0.78,
+            "frequency": 28,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "zi",
+                "szag4",
+                "jal2"
+              ]
+            }
+          },
+          {
+            "sumerian": "{gesz}sza\u2083-kal",
+            "english": "tree",
+            "confidence": 0.77,
+            "frequency": 27,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "geszsza3",
+                "kal"
+              ]
+            }
+          },
+          {
+            "sumerian": "szag\u2084-ba-tuku-am\u2083",
+            "english": "notation",
+            "confidence": 0.65,
+            "frequency": 15,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "szag4",
+                "ba",
+                "tuku",
+                "am3"
+              ]
+            }
+          },
+          {
+            "sumerian": "iri{ki}-na",
+            "english": "city",
+            "confidence": 0.59,
+            "frequency": 9,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "iriki",
+                "na"
+              ]
+            }
+          },
+          {
+            "sumerian": "du\u2088-a-szi",
+            "english": "stone",
+            "confidence": 0.59,
+            "frequency": 9,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "du8",
+                "a",
+                "szi"
+              ]
+            }
+          },
+          {
+            "sumerian": "gesz-tag-ga-da",
+            "english": "sacrifice",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "gesz",
+                "tag",
+                "ga",
+                "da"
+              ]
+            }
+          },
+          {
+            "sumerian": "szu-ju\u2081\u2080-usz",
+            "english": "hand",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "szu",
+                "ju10",
+                "usz"
+              ]
+            }
+          },
+          {
+            "sumerian": "szu-ha@g",
+            "english": "fisherman",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "szu",
+                "ha@g"
+              ]
+            }
+          },
+          {
+            "sumerian": "saj-gig\u2082",
+            "english": "humankind",
+            "confidence": 0.55,
+            "frequency": 5,
+            "source": "ePSD2",
+            "trace": {
+              "morphemes_in_vocab": [
+                "saj",
+                "gig2"
+              ]
+            }
+          }
+        ]
+      },
+      "subword_inference_recoverable": {
+        "count": 2213,
+        "pct": 18.7574,
+        "examples": [
+          {
+            "sumerian": "lumarza",
+            "english": "functionary",
+            "confidence": 0.95,
+            "frequency": 53,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.7273
+            }
+          },
+          {
+            "sumerian": "padara",
+            "english": "branch",
+            "confidence": 0.95,
+            "frequency": 103,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.8889
+            }
+          },
+          {
+            "sumerian": "szegin",
+            "english": "glue",
+            "confidence": 0.95,
+            "frequency": 195,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.8889
+            }
+          },
+          {
+            "sumerian": "nijnagar",
+            "english": "plant",
+            "confidence": 0.94,
+            "frequency": 44,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.5
+            }
+          },
+          {
+            "sumerian": "tubala",
+            "english": "harness",
+            "confidence": 0.65,
+            "frequency": 15,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.8333
+            }
+          },
+          {
+            "sumerian": "{jesz}szag\u2084-kal",
+            "english": "tree",
+            "confidence": 0.65,
+            "frequency": 15,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.6905
+            }
+          },
+          {
+            "sumerian": "mangara",
+            "english": "chisel",
+            "confidence": 0.58,
+            "frequency": 8,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.9091
+            }
+          },
+          {
+            "sumerian": "jeszpaphalla",
+            "english": "trap?",
+            "confidence": 0.57,
+            "frequency": 7,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.7381
+            }
+          },
+          {
+            "sumerian": "adirig",
+            "english": "raft",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 1.0
+            }
+          },
+          {
+            "sumerian": "kud-da{sar}",
+            "english": "cut",
+            "confidence": 0.56,
+            "frequency": 6,
+            "source": "ePSD2",
+            "trace": {
+              "ngram_overlap": 0.7692
+            }
+          }
+        ]
+      },
+      "genuinely_missing": {
+        "count": 576,
+        "pct": 4.8822,
+        "examples": [
+          {
+            "sumerian": "jeszpu",
+            "english": "rim",
+            "confidence": 0.95,
+            "frequency": 83,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "{uruda}gur\u2093(|sze.kin|)",
+            "english": "sickle",
+            "confidence": 0.95,
+            "frequency": 119,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "nijdara",
+            "english": "rag",
+            "confidence": 0.95,
+            "frequency": 107,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "emejiri",
+            "english": "blade",
+            "confidence": 0.94,
+            "frequency": 44,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "lal\u2082.du",
+            "english": "weed",
+            "confidence": 0.65,
+            "frequency": 15,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "muszjiri",
+            "english": "stone",
+            "confidence": 0.65,
+            "frequency": 15,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "nijgula",
+            "english": "greatness",
+            "confidence": 0.59,
+            "frequency": 9,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "{jesz}dim",
+            "english": "post",
+            "confidence": 0.58,
+            "frequency": 8,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "{jesz}szar\u2089-sza\u2084-bid\u2083",
+            "english": "tree",
+            "confidence": 0.57,
+            "frequency": 7,
+            "source": "ePSD2",
+            "trace": {}
+          },
+          {
+            "sumerian": "kurun\u2093(|din.bi|)-a-gal",
+            "english": "official",
+            "confidence": 0.55,
+            "frequency": 5,
+            "source": "ePSD2",
+            "trace": {}
+          }
+        ]
+      }
+    }
+  },
+  "simulator": {
+    "interventions": {
+      "ascii_normalize": {
+        "anchors_newly_resolvable": 7651,
+        "trustworthiness": "exact",
+        "notes": "Pure string normalization; recovered anchors are exact vocab matches."
+      },
+      "lower_min_count": {
+        "per_threshold": {
+          "1": {
+            "anchors_newly_resolvable": 926
+          },
+          "2": {
+            "anchors_newly_resolvable": 639
+          },
+          "3": {
+            "anchors_newly_resolvable": 427
+          },
+          "4": {
+            "anchors_newly_resolvable": 218
+          }
+        },
+        "trustworthiness": "exact",
+        "notes": "Assumes FastText retrain; anchor form exists in cleaned_corpus.txt at the stated frequency."
+      },
+      "oracc_lemma_expansion": {
+        "anchors_newly_resolvable": 147,
+        "surface_forms_added_to_vocab": 156,
+        "trustworthiness": "exact",
+        "notes": "Expansion maps each citation form to every surface variant in FastText vocab."
+      },
+      "morpheme_composition": {
+        "anchors_newly_resolvable_tier1": 7916,
+        "tier2_semantic": {
+          "tested": 7563,
+          "top1_correct": 56,
+          "top5_correct": 137,
+          "top10_correct": 302,
+          "skipped": 353
+        },
+        "trustworthiness": "inferred (compositional)",
+        "notes": "Vector = numpy mean of constituent morpheme vectors. Tier-2 checks whitened-Gemma projection."
+      },
+      "subword_inference": {
+        "anchors_newly_resolvable_tier1": 3546,
+        "tier2_semantic": {
+          "tested": 3306,
+          "top1_correct": 200,
+          "top5_correct": 354,
+          "top10_correct": 480,
+          "skipped": 240
+        },
+        "trustworthiness": "inferred (character n-gram)",
+        "notes": "Uses FastText.wv.get_vector for OOV. Tier-2 checks whitened-Gemma projection."
+      }
+    }
+  }
+}
