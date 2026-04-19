@@ -397,3 +397,170 @@ def test_simulate_oracc_lemma_expansion_requires_in_vocab_surface():
     misses = [{"sumerian": "kasan", "english": "noblewoman", "confidence": 0.9}]
     result = simulate_oracc_lemma_expansion(misses, ctx)
     assert result["anchors_newly_resolvable"] == 0
+
+
+# --- Inference simulator + Tier-2 tests ------------------------------------
+
+
+def _tier2_ctx_with_exact_identity():
+    """A ctx where the ridge is identity-like (on first 768 dims) and Gemma
+    English rows are canonical basis vectors, so a Sumerian input that's a
+    scaled basis vector lands on the corresponding English word."""
+    from scripts.coverage_diagnostic import DiagnosticContext
+
+    # 5 English words: king, god, cow, river, mountain
+    eng_vocab = ["king", "god", "cow", "river", "mountain"]
+    eng_vectors = np.zeros((5, 768), dtype=np.float32)
+    for i in range(5):
+        eng_vectors[i, i] = 1.0
+
+    # Ridge: coef is (768, 1536); intercept zero. coef's first 768 cols act as identity
+    # on the FastText portion of the fused 1536d vector (zeros in the second half).
+    coef = np.zeros((768, 1536), dtype=np.float32)
+    for i in range(768):
+        coef[i, i] = 1.0
+    intercept = np.zeros(768, dtype=np.float32)
+
+    return DiagnosticContext(
+        fused_vocab=frozenset({"lugal", "dingir", "nar", "ta"}),
+        glove_vocab=frozenset(eng_vocab),
+        gemma_vocab=frozenset(eng_vocab),
+        corpus_frequency={},
+        lemma_surface_map={},
+        fasttext_model=None,
+        gemma_english_vocab=eng_vocab,
+        gemma_english_vectors=eng_vectors,
+        ridge_gemma_coef=coef,
+        ridge_gemma_intercept=intercept,
+    )
+
+
+def test_tier2_project_and_nearest_neighbor_identifies_correct_english():
+    from scripts.coverage_diagnostic import _tier2_nearest_english
+
+    ctx = _tier2_ctx_with_exact_identity()
+    # Synthesized FastText vec that aligns with the 'cow' basis (index 2).
+    ft_vec = np.zeros(768, dtype=np.float32)
+    ft_vec[2] = 1.0
+
+    top_k = _tier2_nearest_english(ft_vec, ctx, k=3)
+    assert top_k[0] == "cow"
+
+
+def test_tier2_score_returns_correctness_flags():
+    from scripts.coverage_diagnostic import _tier2_score_anchor
+
+    ctx = _tier2_ctx_with_exact_identity()
+    ft_vec = np.zeros(768, dtype=np.float32)
+    ft_vec[3] = 1.0  # 'river'
+
+    result = _tier2_score_anchor(ft_vec, expected_english="river", ctx=ctx)
+    assert result["top1"] is True
+    assert result["top5"] is True
+    assert result["top10"] is True
+
+    result2 = _tier2_score_anchor(ft_vec, expected_english="mountain", ctx=ctx)
+    # "mountain" is index 4; not the top-1 hit.
+    assert result2["top1"] is False
+
+
+def test_simulate_morpheme_composition_tier1_counts_anchors_with_all_morphemes_in_vocab():
+    from scripts.coverage_diagnostic import simulate_morpheme_composition
+
+    ctx = _tier2_ctx_with_exact_identity()
+    # Mock FastText behavior using a small dict lookup: fusion is impossible without
+    # a real model. We patch the simulator's ft-vector lookup via a simple dict.
+    morpheme_vectors = {
+        "nar": np.zeros(768, dtype=np.float32),
+        "ta": np.zeros(768, dtype=np.float32),
+        "lugal": np.ones(768, dtype=np.float32) * 0.5,
+    }
+    morpheme_vectors["nar"][0] = 1.0  # king
+    morpheme_vectors["ta"][1] = 1.0   # god
+
+    misses = [
+        {"sumerian": "nar-ta", "english": "king god", "confidence": 0.9},  # both morphemes in vocab
+        {"sumerian": "nar-missing", "english": "x", "confidence": 0.9},    # "missing" not in vocab
+        {"sumerian": "flat", "english": "x", "confidence": 0.9},           # no hyphen, not a candidate
+    ]
+
+    result = simulate_morpheme_composition(
+        misses, ctx, morpheme_vector_lookup=morpheme_vectors.get
+    )
+    assert result["anchors_newly_resolvable_tier1"] == 1
+    assert result["trustworthiness"].startswith("inferred")
+
+
+def test_simulate_morpheme_composition_tier2_scores_against_expected_english():
+    from scripts.coverage_diagnostic import simulate_morpheme_composition
+
+    ctx = _tier2_ctx_with_exact_identity()
+    # "nar-ta" morpheme-mean vector lands on index 0 (king) and index 1 (god) both at 0.5.
+    morpheme_vectors = {
+        "nar": np.zeros(768, dtype=np.float32),
+        "ta": np.zeros(768, dtype=np.float32),
+    }
+    morpheme_vectors["nar"][0] = 1.0  # king
+    morpheme_vectors["ta"][0] = 1.0   # reinforces king
+    misses = [
+        {"sumerian": "nar-ta", "english": "king", "confidence": 0.9},  # expected to be top-1
+    ]
+    result = simulate_morpheme_composition(
+        misses, ctx, morpheme_vector_lookup=morpheme_vectors.get
+    )
+    tier2 = result["tier2_semantic"]
+    assert tier2["tested"] == 1
+    assert tier2["top1_correct"] == 1
+
+
+def test_simulate_subword_inference_tier1_counts_above_threshold_overlap():
+    from scripts.coverage_diagnostic import simulate_subword_inference, _ngrams
+
+    ctx = _tier2_ctx_with_exact_identity()
+    trained = _ngrams("narta", 3, 6)
+    misses = [
+        {"sumerian": "narta", "english": "king", "confidence": 0.9},       # 100% overlap
+        {"sumerian": "unrelated", "english": "god", "confidence": 0.9},    # 0% overlap
+    ]
+    # Subword simulator uses a stub FastText that returns index-0 basis vector.
+    def fake_subword_vector(word: str) -> np.ndarray:
+        v = np.zeros(768, dtype=np.float32)
+        v[0] = 1.0  # always 'king'
+        return v
+
+    result = simulate_subword_inference(
+        misses, ctx, trained_ngrams=trained,
+        subword_vector_lookup=fake_subword_vector,
+        fasttext_min_n=3, fasttext_max_n=6,
+    )
+    assert result["anchors_newly_resolvable_tier1"] == 1
+    tier2 = result["tier2_semantic"]
+    assert tier2["tested"] == 1
+    assert tier2["top1_correct"] == 1
+
+
+def test_simulate_subword_inference_tier2_skips_anchors_without_english_in_gemma():
+    from scripts.coverage_diagnostic import simulate_subword_inference, _ngrams
+
+    ctx = _tier2_ctx_with_exact_identity()
+    trained = _ngrams("narta", 3, 6)
+    # Anchor's English side is "unlisted" which is NOT in ctx.gemma_vocab.
+    misses = [
+        {"sumerian": "narta", "english": "unlisted", "confidence": 0.9},
+    ]
+    def fake_subword_vector(word):
+        v = np.zeros(768, dtype=np.float32)
+        v[0] = 1.0
+        return v
+
+    result = simulate_subword_inference(
+        misses, ctx, trained_ngrams=trained,
+        subword_vector_lookup=fake_subword_vector,
+        fasttext_min_n=3, fasttext_max_n=6,
+    )
+    # Tier-1 recoverable (ngram overlap passes).
+    assert result["anchors_newly_resolvable_tier1"] == 1
+    # Tier-2 skipped because expected english isn't in Gemma vocab.
+    tier2 = result["tier2_semantic"]
+    assert tier2["tested"] == 0
+    assert tier2["skipped"] == 1

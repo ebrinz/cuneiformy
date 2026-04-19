@@ -389,3 +389,178 @@ def simulate_oracc_lemma_expansion(misses: list[dict], ctx: "DiagnosticContext")
         "trustworthiness": "exact",
         "notes": "Expansion maps each citation form to every surface variant in FastText vocab.",
     }
+
+
+# --- Tier-2 semantic validation --------------------------------------------
+
+
+def _l2_normalize_rows(X: np.ndarray) -> np.ndarray:
+    norms = np.linalg.norm(X, axis=1, keepdims=True)
+    norms[norms == 0] = 1.0
+    return X / norms
+
+
+def _l2_normalize_vec(v: np.ndarray) -> np.ndarray:
+    norm = float(np.linalg.norm(v))
+    if norm == 0:
+        return v
+    return v / norm
+
+
+def _project_ft_to_gemma(ft_vec: np.ndarray, ctx: "DiagnosticContext") -> np.ndarray:
+    """Fuse with zero-padding, project through Gemma ridge."""
+    ft_vec = ft_vec.astype(np.float32)
+    fused = np.concatenate([ft_vec, np.zeros(768, dtype=np.float32)])  # (1536,)
+    projected = fused @ ctx.ridge_gemma_coef.T + ctx.ridge_gemma_intercept  # (768,)
+    return projected
+
+
+def _tier2_nearest_english(ft_vec: np.ndarray, ctx: "DiagnosticContext", k: int) -> list[str]:
+    projected = _project_ft_to_gemma(ft_vec, ctx)
+    query = _l2_normalize_vec(projected)
+    eng_norm = _l2_normalize_rows(ctx.gemma_english_vectors)
+    sims = eng_norm @ query  # (N,)
+    top_idx = np.argsort(sims)[::-1][:k]
+    return [ctx.gemma_english_vocab[int(i)] for i in top_idx]
+
+
+def _tier2_score_anchor(
+    ft_vec: np.ndarray,
+    expected_english: str,
+    ctx: "DiagnosticContext",
+) -> dict:
+    top10 = _tier2_nearest_english(ft_vec, ctx, k=10)
+    expected = expected_english.lower()
+    return {
+        "top1": len(top10) >= 1 and top10[0] == expected,
+        "top5": expected in top10[:5],
+        "top10": expected in top10[:10],
+    }
+
+
+# --- Inference simulators --------------------------------------------------
+
+
+def simulate_morpheme_composition(
+    misses: list[dict],
+    ctx: "DiagnosticContext",
+    *,
+    morpheme_vector_lookup,
+) -> dict:
+    """Simulator #4: hyphenated anchors; all morphemes in vocab; vector = mean."""
+    resolvable_tier1 = 0
+    tier2_tested = 0
+    tier2_top1 = 0
+    tier2_top5 = 0
+    tier2_top10 = 0
+    tier2_skipped = 0
+
+    for anchor in misses:
+        sumerian_raw = str(anchor.get("sumerian") or "").strip()
+        morphemes = _morphemes(sumerian_raw)
+        if not morphemes:
+            continue
+        if not all(m in ctx.fused_vocab for m in morphemes):
+            continue
+
+        resolvable_tier1 += 1
+
+        # Tier-2: check if expected English is in Gemma vocab.
+        expected = str(anchor.get("english") or "").lower()
+        if expected not in ctx.gemma_vocab:
+            tier2_skipped += 1
+            continue
+
+        # Synthesize morpheme-mean vector.
+        vecs = []
+        for m in morphemes:
+            v = morpheme_vector_lookup(m)
+            if v is None:
+                break
+            vecs.append(np.asarray(v, dtype=np.float32))
+        if len(vecs) != len(morphemes):
+            # Lookup missed a morpheme (shouldn't happen per vocab check, but guard).
+            tier2_skipped += 1
+            continue
+        synthesized = np.mean(np.stack(vecs, axis=0), axis=0)
+
+        score = _tier2_score_anchor(synthesized, expected, ctx)
+        tier2_tested += 1
+        if score["top1"]: tier2_top1 += 1
+        if score["top5"]: tier2_top5 += 1
+        if score["top10"]: tier2_top10 += 1
+
+    return {
+        "anchors_newly_resolvable_tier1": resolvable_tier1,
+        "tier2_semantic": {
+            "tested": tier2_tested,
+            "top1_correct": tier2_top1,
+            "top5_correct": tier2_top5,
+            "top10_correct": tier2_top10,
+            "skipped": tier2_skipped,
+        },
+        "trustworthiness": "inferred (compositional)",
+        "notes": "Vector = numpy mean of constituent morpheme vectors. Tier-2 checks whitened-Gemma projection.",
+    }
+
+
+def simulate_subword_inference(
+    misses: list[dict],
+    ctx: "DiagnosticContext",
+    *,
+    trained_ngrams: frozenset[str],
+    subword_vector_lookup,
+    fasttext_min_n: int = 3,
+    fasttext_max_n: int = 6,
+) -> dict:
+    """Simulator #5: FastText OOV inference with >= SUBWORD_OVERLAP_MIN n-gram overlap."""
+    resolvable_tier1 = 0
+    tier2_tested = 0
+    tier2_top1 = 0
+    tier2_top5 = 0
+    tier2_top10 = 0
+    tier2_skipped = 0
+
+    for anchor in misses:
+        sumerian_raw = str(anchor.get("sumerian") or "").strip()
+        normalized = normalize_anchor_form(sumerian_raw)
+        if not normalized:
+            continue
+        # Skip anchors already in vocab (not misses) — defensive.
+        if normalized in ctx.fused_vocab:
+            continue
+        overlap = _subword_overlap(normalized, trained_ngrams, fasttext_min_n, fasttext_max_n)
+        if overlap < SUBWORD_OVERLAP_MIN:
+            continue
+
+        resolvable_tier1 += 1
+
+        expected = str(anchor.get("english") or "").lower()
+        if expected not in ctx.gemma_vocab:
+            tier2_skipped += 1
+            continue
+
+        ft_vec = subword_vector_lookup(normalized)
+        if ft_vec is None:
+            tier2_skipped += 1
+            continue
+        ft_vec = np.asarray(ft_vec, dtype=np.float32)
+
+        score = _tier2_score_anchor(ft_vec, expected, ctx)
+        tier2_tested += 1
+        if score["top1"]: tier2_top1 += 1
+        if score["top5"]: tier2_top5 += 1
+        if score["top10"]: tier2_top10 += 1
+
+    return {
+        "anchors_newly_resolvable_tier1": resolvable_tier1,
+        "tier2_semantic": {
+            "tested": tier2_tested,
+            "top1_correct": tier2_top1,
+            "top5_correct": tier2_top5,
+            "top10_correct": tier2_top10,
+            "skipped": tier2_skipped,
+        },
+        "trustworthiness": "inferred (character n-gram)",
+        "notes": "Uses FastText.wv.get_vector for OOV. Tier-2 checks whitened-Gemma projection.",
+    }
