@@ -564,3 +564,228 @@ def test_simulate_subword_inference_tier2_skips_anchors_without_english_in_gemma
     tier2 = result["tier2_semantic"]
     assert tier2["tested"] == 0
     assert tier2["skipped"] == 1
+
+
+# --- Rendering + main tests ------------------------------------------------
+
+
+def _full_metadata():
+    return {
+        "diagnostic_date": "2026-04-19",
+        "source_artifacts": {
+            "anchors_path": "data/processed/english_anchors.json",
+            "anchors_sha256": "0" * 64,
+            "fasttext_model_path": "models/fasttext_sumerian.model",
+            "fasttext_model_sha256": "0" * 64,
+            "fused_vocab_path": "models/fused_embeddings_1536d.npz",
+            "glove_path": "data/processed/glove.6B.300d.txt",
+            "gemma_path": "models/english_gemma_whitened_768d.npz",
+            "ridge_gemma_path": "models/ridge_weights_gemma_whitened.npz",
+            "oracc_lemmas_path": "data/raw/oracc_lemmas.json",
+            "cleaned_corpus_path": "data/processed/cleaned_corpus.txt",
+            "cleaned_corpus_sha256": "0" * 64,
+            "seed": 42,
+            "subword_overlap_min": 0.5,
+        },
+        "baseline": {
+            "total_merged": 13886,
+            "survives": 1951,
+            "sumerian_vocab_miss": 4,
+        },
+    }
+
+
+def _classifier_result_for_render():
+    return {
+        "total_misses": 4,
+        "primary_causes": {
+            "normalization_recoverable":        {"count": 1, "pct": 25.0, "rows": [{"sumerian": "za3sze3la2", "english": "force", "confidence": 0.9, "trace": {"normalized_form": "za3sze3la2"}}]},
+            "in_corpus_below_min_count":        {"count": 1, "pct": 25.0, "rows": [{"sumerian": "rare3", "english": "x", "confidence": 0.9, "trace": {"matched_form": "rare3", "corpus_count": 3}}]},
+            "oracc_lemma_surface_recoverable":  {"count": 0, "pct": 0.0, "rows": []},
+            "morpheme_composition_recoverable": {"count": 1, "pct": 25.0, "rows": [{"sumerian": "nar-ta", "english": "musician", "confidence": 0.9, "trace": {"morphemes_in_vocab": ["nar", "ta"]}}]},
+            "subword_inference_recoverable":    {"count": 0, "pct": 0.0, "rows": []},
+            "genuinely_missing":                {"count": 1, "pct": 25.0, "rows": [{"sumerian": "weird", "english": "absent", "confidence": 0.9, "trace": {}}]},
+        },
+    }
+
+
+def _simulator_result_for_render():
+    return {
+        "interventions": {
+            "ascii_normalize": {"anchors_newly_resolvable": 1, "trustworthiness": "exact", "notes": "..."},
+            "lower_min_count": {"per_threshold": {"1": {"anchors_newly_resolvable": 3}, "2": {"anchors_newly_resolvable": 2}, "3": {"anchors_newly_resolvable": 1}, "4": {"anchors_newly_resolvable": 0}}, "trustworthiness": "exact", "notes": "..."},
+            "oracc_lemma_expansion": {"anchors_newly_resolvable": 0, "surface_forms_added_to_vocab": 0, "trustworthiness": "exact", "notes": "..."},
+            "morpheme_composition": {"anchors_newly_resolvable_tier1": 1, "tier2_semantic": {"tested": 1, "top1_correct": 1, "top5_correct": 1, "top10_correct": 1, "skipped": 0}, "trustworthiness": "inferred (compositional)", "notes": "..."},
+            "subword_inference": {"anchors_newly_resolvable_tier1": 1, "tier2_semantic": {"tested": 1, "top1_correct": 0, "top5_correct": 1, "top10_correct": 1, "skipped": 0}, "trustworthiness": "inferred (character n-gram)", "notes": "..."},
+        },
+    }
+
+
+def test_render_json_schema_version_and_structure():
+    from scripts.coverage_diagnostic import render_json
+
+    report = render_json(
+        _classifier_result_for_render(),
+        _simulator_result_for_render(),
+        _full_metadata(),
+        examples_per_bucket=1,
+    )
+    assert report["diagnostic_schema_version"] == 1
+    assert report["diagnostic_date"] == "2026-04-19"
+    assert "baseline" in report
+    assert "classifier" in report
+    assert "simulator" in report
+    assert set(report["classifier"]["primary_causes"].keys()) == {
+        "normalization_recoverable", "in_corpus_below_min_count",
+        "oracc_lemma_surface_recoverable", "morpheme_composition_recoverable",
+        "subword_inference_recoverable", "genuinely_missing",
+    }
+    for bucket in report["classifier"]["primary_causes"].values():
+        assert "count" in bucket
+        assert "examples" in bucket
+        assert "rows" not in bucket  # heavy list stripped
+
+
+def test_render_json_is_deterministic_with_seed():
+    from scripts.coverage_diagnostic import render_json
+
+    r1 = render_json(
+        _classifier_result_for_render(),
+        _simulator_result_for_render(),
+        _full_metadata(),
+        examples_per_bucket=10,
+    )
+    r2 = render_json(
+        _classifier_result_for_render(),
+        _simulator_result_for_render(),
+        _full_metadata(),
+        examples_per_bucket=10,
+    )
+    import json as _json
+    assert _json.dumps(r1, sort_keys=True) == _json.dumps(r2, sort_keys=True)
+
+
+def test_render_markdown_has_required_sections():
+    from scripts.coverage_diagnostic import render_markdown
+
+    md = render_markdown(
+        _classifier_result_for_render(),
+        _simulator_result_for_render(),
+        _full_metadata(),
+        examples_per_bucket=1,
+    )
+    assert "# Coverage Diagnostic" in md
+    assert "## Baseline" in md
+    assert "## Classifier" in md
+    assert "## Simulator" in md
+    assert "## Ranked intervention" in md
+    assert "## Methodology notes" in md
+
+
+def test_render_markdown_escapes_pipe_characters_in_cells():
+    from scripts.coverage_diagnostic import render_markdown
+
+    classifier_with_pipe = _classifier_result_for_render()
+    classifier_with_pipe["primary_causes"]["genuinely_missing"]["rows"] = [
+        {"sumerian": "|AN.USAN|", "english": "night", "confidence": 0.9, "trace": {}}
+    ]
+    classifier_with_pipe["primary_causes"]["genuinely_missing"]["count"] = 1
+
+    md = render_markdown(
+        classifier_with_pipe,
+        _simulator_result_for_render(),
+        _full_metadata(),
+        examples_per_bucket=1,
+    )
+    assert r"\|AN.USAN\|" in md
+
+
+def test_run_diagnostic_exits_zero_with_synthetic_inputs(tmp_path, monkeypatch):
+    """End-to-end: run_diagnostic produces both report files with synthetic artifacts."""
+    import scripts.coverage_diagnostic as mod
+
+    # Build synthetic artifacts in tmp_path.
+    anchors = [
+        {"sumerian": "lugal", "english": "king", "confidence": 0.9, "source": "ePSD2"},      # survives
+        {"sumerian": "completelyunknown", "english": "king", "confidence": 0.9, "source": "ePSD2"},  # miss
+    ]
+    anchors_path = tmp_path / "anchors.json"
+    anchors_path.write_text(json.dumps(anchors), encoding="utf-8")
+
+    fused_path = tmp_path / "fused.npz"
+    np.savez_compressed(
+        str(fused_path),
+        vectors=np.zeros((1, 1536), dtype=np.float32),
+        vocab=np.array(["lugal"]),
+    )
+
+    glove_path = tmp_path / "glove.txt"
+    glove_path.write_text("king " + " ".join(["0.0"] * 300) + "\n", encoding="utf-8")
+
+    gemma_path = tmp_path / "gemma.npz"
+    np.savez_compressed(
+        str(gemma_path),
+        vectors=np.eye(1, 768, dtype=np.float32),
+        vocab=np.array(["king"]),
+    )
+
+    ridge_path = tmp_path / "ridge.npz"
+    coef = np.zeros((768, 1536), dtype=np.float32)
+    for i in range(768):
+        coef[i, i] = 1.0
+    np.savez_compressed(str(ridge_path), coef=coef, intercept=np.zeros(768, dtype=np.float32))
+
+    lemmas_path = tmp_path / "lemmas.json"
+    lemmas_path.write_text(json.dumps([]), encoding="utf-8")
+
+    corpus_path = tmp_path / "corpus.txt"
+    corpus_path.write_text("lugal lugal\n", encoding="utf-8")
+
+    # Train a tiny real FastText so subword inference path works.
+    from gensim.models import FastText
+    tiny_corpus = [["lugal", "dingir", "nar", "ta", "mu"]] * 5
+    tiny_model = FastText(vector_size=768, min_count=1, sg=1, workers=1, epochs=1)
+    tiny_model.build_vocab(corpus_iterable=tiny_corpus)
+    tiny_model.train(corpus_iterable=tiny_corpus, total_examples=5, epochs=1)
+    model_path = tmp_path / "fasttext.model"
+    tiny_model.save(str(model_path))
+
+    out_dir = tmp_path / "results"
+
+    exit_code = mod.run_diagnostic(
+        anchors_path=anchors_path,
+        fused_path=fused_path,
+        glove_path=glove_path,
+        gemma_path=gemma_path,
+        ridge_gemma_path=ridge_path,
+        oracc_lemmas_path=lemmas_path,
+        cleaned_corpus_path=corpus_path,
+        fasttext_model_path=model_path,
+        out_dir=out_dir,
+        diagnostic_date="2026-04-19",
+    )
+    assert exit_code == 0
+    assert (out_dir / "coverage_diagnostic_2026-04-19.md").exists()
+    assert (out_dir / "coverage_diagnostic_2026-04-19.json").exists()
+
+    report = json.loads((out_dir / "coverage_diagnostic_2026-04-19.json").read_text())
+    assert report["diagnostic_schema_version"] == 1
+    assert report["classifier"]["total_misses"] == 1
+
+
+def test_run_diagnostic_raises_on_missing_required_input(tmp_path):
+    import scripts.coverage_diagnostic as mod
+
+    with pytest.raises(FileNotFoundError):
+        mod.run_diagnostic(
+            anchors_path=tmp_path / "missing.json",
+            fused_path=tmp_path / "missing.npz",
+            glove_path=tmp_path / "missing.txt",
+            gemma_path=tmp_path / "missing.npz",
+            ridge_gemma_path=tmp_path / "missing.npz",
+            oracc_lemmas_path=tmp_path / "missing.json",
+            cleaned_corpus_path=tmp_path / "missing.txt",
+            fasttext_model_path=tmp_path / "missing.model",
+            out_dir=tmp_path,
+            diagnostic_date="2026-04-19",
+        )
