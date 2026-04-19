@@ -73,3 +73,50 @@ def test_merge_anchors():
     assert len(merged) == 2
     lugal = next(a for a in merged if a["sumerian"] == "lugal")
     assert lugal["confidence"] == 0.95
+
+
+def test_extract_epsd2_anchors_applies_full_normalization():
+    """After the 2b normalization fix, extract_epsd2_anchors must apply the
+    full canonical normalization chain (subscripts, braces, hyphens) and NOT
+    just the ORACC letter map that normalize_oracc_cf used to apply.
+    """
+    # Load the leading-digit script by file path.
+    import importlib.util
+    from pathlib import Path
+
+    root = Path(__file__).parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "extract_anchors_06_mod",
+        root / "scripts" / "06_extract_anchors.py",
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    lemmas = [
+        # Hyphenated, subscripted, braced citation form — pre-fix this would
+        # normalize to "{tug₂}mug" (only lowercase + ORACC letters applied).
+        # Post-fix it must normalize to "tug2mug".
+        {"cf": "{tug₂}mug",       "form": "{tug₂}mug",       "gw": "garment"},
+        {"cf": "{tug₂}mug",       "form": "{tug₂}mug",       "gw": "garment"},
+        {"cf": "{tug₂}mug",       "form": "{tug₂}mug",       "gw": "garment"},
+        {"cf": "{tug₂}mug",       "form": "{tug₂}mug",       "gw": "garment"},
+        {"cf": "{tug₂}mug",       "form": "{tug₂}mug",       "gw": "garment"},
+        # Hyphenated citation form: "za₃-sze₃-la₂" -> "za3sze3la2".
+        {"cf": "za₃-sze₃-la₂",    "form": "za₃-sze₃-la₂",    "gw": "container"},
+        {"cf": "za₃-sze₃-la₂",    "form": "za₃-sze₃-la₂",    "gw": "container"},
+        {"cf": "za₃-sze₃-la₂",    "form": "za₃-sze₃-la₂",    "gw": "container"},
+        {"cf": "za₃-sze₃-la₂",    "form": "za₃-sze₃-la₂",    "gw": "container"},
+        {"cf": "za₃-sze₃-la₂",    "form": "za₃-sze₃-la₂",    "gw": "container"},
+    ]
+    anchors = mod.extract_epsd2_anchors(lemmas, min_occurrences=5)
+
+    sumerian_keys = {a["sumerian"] for a in anchors}
+    assert "tug2mug" in sumerian_keys, (
+        f"expected 'tug2mug' after full normalization, got {sumerian_keys!r}"
+    )
+    assert "za3sze3la2" in sumerian_keys, (
+        f"expected 'za3sze3la2' after full normalization, got {sumerian_keys!r}"
+    )
+    # Regression: the unnormalized forms must NOT appear.
+    assert "{tug₂}mug" not in sumerian_keys
+    assert "za₃-sze₃-la₂" not in sumerian_keys

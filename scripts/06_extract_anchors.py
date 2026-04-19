@@ -8,34 +8,19 @@ Output: english_anchors.json with fields: sumerian, english, confidence, source,
 """
 import json
 import re
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
+
+_ROOT = Path(__file__).parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+from scripts.sumerian_normalize import normalize_sumerian_token  # noqa: E402
 
 DATA_RAW = Path(__file__).parent.parent / "data" / "raw"
 DATA_PROCESSED = Path(__file__).parent.parent / "data" / "processed"
 DATA_DICTS = Path(__file__).parent.parent / "data" / "dictionaries"
-
-# ORACC citation forms use Unicode special chars; normalize to ATF conventions
-_ORACC_TO_ATF = {
-    "š": "sz",    # shin -> ATF sz
-    "Š": "SZ",
-    "ŋ": "j",     # eng (velar nasal) -> ATF j (gensim convention)
-    "Ŋ": "J",
-    "ḫ": "h",     # het
-    "Ḫ": "H",
-    "ṣ": "s",     # tsade
-    "Ṣ": "S",
-    "ṭ": "t",     # emphatic t
-    "Ṭ": "T",
-    "ʾ": "",      # aleph - drop
-}
-
-
-def normalize_oracc_cf(cf: str) -> str:
-    """Normalize ORACC citation form to match ATF corpus conventions."""
-    for old, new in _ORACC_TO_ATF.items():
-        cf = cf.replace(old, new)
-    return cf.lower()
 
 
 def extract_epsd2_anchors(lemmas: list[dict], min_occurrences: int = 5) -> list[dict]:
@@ -50,8 +35,8 @@ def extract_epsd2_anchors(lemmas: list[dict], min_occurrences: int = 5) -> list[
         if not gw:
             continue
         # Count both citation form and surface form as potential anchors
-        cf = normalize_oracc_cf(lemma.get("cf", "").strip())
-        form = normalize_oracc_cf(lemma.get("form", "").strip())
+        cf = normalize_sumerian_token(lemma.get("cf", "").strip())
+        form = normalize_sumerian_token(lemma.get("form", "").strip())
         if cf:
             pair_counts[(cf, gw)] += 1
         if form and form != cf:
