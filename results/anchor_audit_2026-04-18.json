@@ -1,0 +1,414 @@
+{
+  "audit_schema_version": 1,
+  "audit_date": "2026-04-18",
+  "source_artifacts": {
+    "anchors_path": "/Users/crashy/Development/cuneiformy/data/processed/english_anchors.json",
+    "anchors_sha256": "304dcbabe6ce914d5c15972ddc93a85eb56d488c1e0f914aa21f676c14e80e0a",
+    "fused_vocab_path": "/Users/crashy/Development/cuneiformy/models/fused_embeddings_1536d.npz",
+    "fused_vocab_size": 35508,
+    "glove_path": "/Users/crashy/Development/cuneiformy/data/processed/glove.6B.300d.txt",
+    "glove_vocab_size": 400000,
+    "gemma_path": "/Users/crashy/Development/cuneiformy/models/english_gemma_whitened_768d.npz",
+    "gemma_vocab_size": 400000,
+    "seed": 42
+  },
+  "totals": {
+    "merged": 13886,
+    "survives": 1951,
+    "dropped": 11935
+  },
+  "buckets": {
+    "junk_sumerian": {
+      "count": 8,
+      "pct_total": 0.0576,
+      "examples": [
+        {
+          "sumerian": "x",
+          "english": "x",
+          "confidence": 0.9562,
+          "frequency": 7487,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "a",
+          "english": "arm",
+          "confidence": 0.95,
+          "frequency": 10995,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "e",
+          "english": "house",
+          "confidence": 0.95,
+          "frequency": 15846,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "u",
+          "english": "ewe",
+          "confidence": 0.95,
+          "frequency": 6840,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "i",
+          "english": "oil",
+          "confidence": 0.95,
+          "frequency": 24799,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "f",
+          "english": "x",
+          "confidence": 0.6667,
+          "frequency": 6,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "d",
+          "english": "x",
+          "confidence": 0.5818,
+          "frequency": 6697,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "m",
+          "english": "x",
+          "confidence": 0.4513,
+          "frequency": 113,
+          "source": "ETCSL"
+        }
+      ]
+    },
+    "duplicate_collision": {
+      "count": 0,
+      "pct_total": 0.0,
+      "examples": []
+    },
+    "low_confidence": {
+      "count": 0,
+      "pct_total": 0.0,
+      "examples": []
+    },
+    "sumerian_vocab_miss": {
+      "count": 11798,
+      "pct_total": 84.9633,
+      "examples": [
+        {
+          "sumerian": "{tug\u2082}mug",
+          "english": "garment",
+          "confidence": 0.95,
+          "frequency": 332,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "za\u2083-sze\u2083-la\u2082",
+          "english": "container",
+          "confidence": 0.95,
+          "frequency": 54,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "szu-numun-na",
+          "english": "seed",
+          "confidence": 0.95,
+          "frequency": 151,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "menzen",
+          "english": "you",
+          "confidence": 0.94,
+          "frequency": 44,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "entukumsze",
+          "english": "as long as",
+          "confidence": 0.65,
+          "frequency": 15,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "nar-ta",
+          "english": "musician",
+          "confidence": 0.64,
+          "frequency": 14,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "mu-du\u2083-sze\u2083",
+          "english": "build",
+          "confidence": 0.58,
+          "frequency": 8,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "kas\u2084-e",
+          "english": "runner",
+          "confidence": 0.57,
+          "frequency": 7,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "du\u2093(gin\u2082)-la\u2082",
+          "english": "shekel weigher?",
+          "confidence": 0.56,
+          "frequency": 6,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "hulum\u2082",
+          "english": "fish net?",
+          "confidence": 0.56,
+          "frequency": 6,
+          "source": "ePSD2"
+        }
+      ]
+    },
+    "multiword_english": {
+      "count": 45,
+      "pct_total": 0.3241,
+      "examples": [
+        {
+          "sumerian": "kisumun",
+          "english": "waste ground",
+          "confidence": 0.95,
+          "frequency": 132,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "ambar",
+          "english": "reed-bed",
+          "confidence": 0.95,
+          "frequency": 183,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "balare",
+          "english": "other side",
+          "confidence": 0.95,
+          "frequency": 59,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "anbar",
+          "english": "mid-day",
+          "confidence": 0.87,
+          "frequency": 37,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "arha",
+          "english": "half brick",
+          "confidence": 0.69,
+          "frequency": 19,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "murum",
+          "english": "in-law",
+          "confidence": 0.65,
+          "frequency": 15,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "sahargi",
+          "english": "dust-guard",
+          "confidence": 0.62,
+          "frequency": 12,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "abbar",
+          "english": "reed-bed",
+          "confidence": 0.6,
+          "frequency": 10,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "urme",
+          "english": "kind of insect",
+          "confidence": 0.56,
+          "frequency": 6,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "hurda",
+          "english": "reed mat",
+          "confidence": 0.55,
+          "frequency": 5,
+          "source": "ePSD2"
+        }
+      ]
+    },
+    "english_both_miss": {
+      "count": 84,
+      "pct_total": 0.6049,
+      "examples": [
+        {
+          "sumerian": "unug",
+          "english": "unug",
+          "confidence": 1.0,
+          "frequency": 174,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "larsam",
+          "english": "larsam",
+          "confidence": 1.0,
+          "frequency": 20,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "tigi2",
+          "english": "tigi",
+          "confidence": 1.0,
+          "frequency": 4,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "isin2",
+          "english": "ninisina",
+          "confidence": 0.9821,
+          "frequency": 56,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "ana",
+          "english": "what?",
+          "confidence": 0.95,
+          "frequency": 376,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "mi",
+          "english": "cvne",
+          "confidence": 0.95,
+          "frequency": 229,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "ene",
+          "english": "pleasure?",
+          "confidence": 0.95,
+          "frequency": 54,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "dibdib",
+          "english": "waterclock",
+          "confidence": 0.73,
+          "frequency": 23,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "tabba",
+          "english": "vegetable?",
+          "confidence": 0.6,
+          "frequency": 10,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "huz",
+          "english": "cvve",
+          "confidence": 0.57,
+          "frequency": 7,
+          "source": "ePSD2"
+        }
+      ]
+    },
+    "english_glove_miss": {
+      "count": 0,
+      "pct_total": 0.0,
+      "examples": []
+    },
+    "english_gemma_miss": {
+      "count": 0,
+      "pct_total": 0.0,
+      "examples": []
+    },
+    "survives": {
+      "count": 1951,
+      "pct_total": 14.0501,
+      "examples": [
+        {
+          "sumerian": "sirara",
+          "english": "c",
+          "confidence": 1.0,
+          "frequency": 5,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "dab4",
+          "english": "enlil",
+          "confidence": 1.0,
+          "frequency": 3,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "er3",
+          "english": "erra",
+          "confidence": 0.9688,
+          "frequency": 32,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "munu",
+          "english": "malt",
+          "confidence": 0.95,
+          "frequency": 906,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "lil",
+          "english": "ghost",
+          "confidence": 0.95,
+          "frequency": 105,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "umusz",
+          "english": "planning",
+          "confidence": 0.95,
+          "frequency": 63,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "pan",
+          "english": "arrows",
+          "confidence": 0.6923,
+          "frequency": 13,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "gar3",
+          "english": "x",
+          "confidence": 0.6636,
+          "frequency": 110,
+          "source": "ETCSL"
+        },
+        {
+          "sumerian": "giri",
+          "english": "nose",
+          "confidence": 0.62,
+          "frequency": 12,
+          "source": "ePSD2"
+        },
+        {
+          "sumerian": "sasa",
+          "english": "textile",
+          "confidence": 0.58,
+          "frequency": 8,
+          "source": "ePSD2"
+        }
+      ]
+    }
+  },
+  "english_venn": {
+    "in_glove_in_gemma": 1951,
+    "in_glove_not_gemma": 0,
+    "not_glove_in_gemma": 0,
+    "not_glove_not_gemma": 84
+  }
+}
