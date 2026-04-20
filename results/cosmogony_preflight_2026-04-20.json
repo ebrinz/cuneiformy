@@ -1,0 +1,539 @@
+{
+  "preflight_schema_version": 1,
+  "preflight_date": "2026-04-20",
+  "concepts": [
+    {
+      "concept": {
+        "sumerian": "abzu",
+        "english": "deep",
+        "theme": "primordial"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 97,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "sa\u014bki\u014bu10",
+          0.23614910244941711
+        ],
+        [
+          "sa\u014be",
+          0.2359105497598648
+        ],
+        [
+          "sa\u014ba2",
+          0.22888675332069397
+        ],
+        [
+          "lipi\u0161\u014bu10",
+          0.22658926248550415
+        ],
+        [
+          "sa\u014b\u014bu10",
+          0.22381554543972015
+        ]
+      ],
+      "top5_glove": [
+        [
+          "da\u014balla",
+          0.5629775524139404
+        ],
+        [
+          "da\u014balbi",
+          0.5604032278060913
+        ],
+        [
+          "dajalla",
+          0.5583577156066895
+        ],
+        [
+          "da\u014ballake4",
+          0.558052659034729
+        ],
+        [
+          "da\u014balba",
+          0.552553117275238
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "zi",
+        "english": "breath",
+        "theme": "animation"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 167,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "zapaag2zu",
+          0.3325040340423584
+        ],
+        [
+          "ku6gu10",
+          0.3172861933708191
+        ],
+        [
+          "zapaa\u014b2zu",
+          0.299172580242157
+        ],
+        [
+          "zapaa\u014b2",
+          0.2973378896713257
+        ],
+        [
+          "zapaa\u014b2bi",
+          0.29086804389953613
+        ]
+      ],
+      "top5_glove": [
+        [
+          "zapaa\u014b2",
+          0.518019437789917
+        ],
+        [
+          "zapaa\u014b2\u014bu10",
+          0.5048708915710449
+        ],
+        [
+          "zapaa\u014b2zu",
+          0.5010229349136353
+        ],
+        [
+          "zapaag2zu",
+          0.49849167466163635
+        ],
+        [
+          "zapaaj2",
+          0.4983338713645935
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "nam",
+        "english": "essence",
+        "theme": "naming"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 541,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "sa\u014bzu",
+          0.25270217657089233
+        ],
+        [
+          "sagzu",
+          0.23075225949287415
+        ],
+        [
+          "sa\u014bza",
+          0.22768732905387878
+        ],
+        [
+          "muunzu",
+          0.22671416401863098
+        ],
+        [
+          "agabita",
+          0.22636890411376953
+        ]
+      ],
+      "top5_glove": [
+        [
+          "sikilla",
+          0.4565315246582031
+        ],
+        [
+          "sikile",
+          0.434640496969223
+        ],
+        [
+          "sikillaza",
+          0.43391209840774536
+        ],
+        [
+          "sikilzu",
+          0.42542266845703125
+        ],
+        [
+          "namsa2e",
+          0.420501172542572
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "kur",
+        "english": "mountain",
+        "theme": "netherworld"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 502,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "kurkurraka",
+          0.8872833251953125
+        ],
+        [
+          "kurkurrara",
+          0.8770326375961304
+        ],
+        [
+          "kurkurrake4",
+          0.8743037581443787
+        ],
+        [
+          "kurkurra",
+          0.8740742802619934
+        ],
+        [
+          "kurra",
+          0.8720831871032715
+        ]
+      ],
+      "top5_glove": [
+        [
+          "kurkurraka",
+          0.9179383516311646
+        ],
+        [
+          "kurraka",
+          0.9118995666503906
+        ],
+        [
+          "kurraa2",
+          0.9102976322174072
+        ],
+        [
+          "kurra",
+          0.9036977887153625
+        ],
+        [
+          "kurkurra",
+          0.9021350741386414
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "me",
+        "english": "decree",
+        "theme": "civilization"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 542,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "dikud",
+          0.2569575607776642
+        ],
+        [
+          "diku5bi",
+          0.25566530227661133
+        ],
+        [
+          "diku5bime",
+          0.2519727647304535
+        ],
+        [
+          "diku5\u0161e3",
+          0.2447333186864853
+        ],
+        [
+          "ensi2ka\u0161e3",
+          0.23252806067466736
+        ]
+      ],
+      "top5_glove": [
+        [
+          "namensi2",
+          0.3751245141029358
+        ],
+        [
+          "ensi2mah",
+          0.35466575622558594
+        ],
+        [
+          "ensi2kabi",
+          0.35325658321380615
+        ],
+        [
+          "name3",
+          0.35032862424850464
+        ],
+        [
+          "ensi2kam",
+          0.34804263710975647
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "ima",
+        "english": "clay",
+        "theme": "matter"
+      },
+      "status": "fail",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 0,
+      "degenerate_fraction_top5": 0.1,
+      "failure_reasons": [
+        "zero_etcsl_passages"
+      ],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "ima",
+          0.47203508019447327
+        ],
+        [
+          "imta",
+          0.42012152075767517
+        ],
+        [
+          "imbi",
+          0.39503684639930725
+        ],
+        [
+          "im",
+          0.39140820503234863
+        ],
+        [
+          "imba",
+          0.37646523118019104
+        ]
+      ],
+      "top5_glove": [
+        [
+          "imsar",
+          0.46127140522003174
+        ],
+        [
+          "imbabbar2",
+          0.44944530725479126
+        ],
+        [
+          "imbi",
+          0.4471697509288788
+        ],
+        [
+          "imba",
+          0.44337552785873413
+        ],
+        [
+          "ima",
+          0.43678146600723267
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "kur",
+        "english": "mountain",
+        "theme": "netherworld"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 502,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "kurkurraka",
+          0.8872833251953125
+        ],
+        [
+          "kurkurrara",
+          0.8770326375961304
+        ],
+        [
+          "kurkurrake4",
+          0.8743037581443787
+        ],
+        [
+          "kurkurra",
+          0.8740742802619934
+        ],
+        [
+          "kurra",
+          0.8720831871032715
+        ]
+      ],
+      "top5_glove": [
+        [
+          "kurkurraka",
+          0.9179383516311646
+        ],
+        [
+          "kurraka",
+          0.9118995666503906
+        ],
+        [
+          "kurraa2",
+          0.9102976322174072
+        ],
+        [
+          "kurra",
+          0.9036977887153625
+        ],
+        [
+          "kurkurra",
+          0.9021350741386414
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "an",
+        "english": "heaven",
+        "theme": "primordial"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 716,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "hul2leda",
+          0.2650391161441803
+        ],
+        [
+          "hul2le",
+          0.2636042535305023
+        ],
+        [
+          "hul2lede3",
+          0.25484907627105713
+        ],
+        [
+          "hul2ledam",
+          0.24670928716659546
+        ],
+        [
+          "hul2hul2le",
+          0.24274420738220215
+        ]
+      ],
+      "top5_glove": [
+        [
+          "le2",
+          0.5320999026298523
+        ],
+        [
+          "e11dazune",
+          0.5260751247406006
+        ],
+        [
+          "iti6gin7",
+          0.5231804847717285
+        ],
+        [
+          "er9azu",
+          0.5202318429946899
+        ],
+        [
+          "iti6zu",
+          0.5180867314338684
+        ]
+      ]
+    },
+    {
+      "concept": {
+        "sumerian": "ki",
+        "english": "earth",
+        "theme": "primordial"
+      },
+      "status": "pass",
+      "sumerian_in_vocab": true,
+      "english_in_gemma": true,
+      "english_in_glove": true,
+      "etcsl_passages": 1699,
+      "degenerate_fraction_top5": 0.0,
+      "failure_reasons": [],
+      "warnings": [],
+      "top5_gemma": [
+        [
+          "kiszar2ra",
+          0.41895177960395813
+        ],
+        [
+          "kiszar2rake4",
+          0.4175649881362915
+        ],
+        [
+          "urasza",
+          0.36582136154174805
+        ],
+        [
+          "szar2ra",
+          0.35692524909973145
+        ],
+        [
+          "urasz",
+          0.34526413679122925
+        ]
+      ],
+      "top5_glove": [
+        [
+          "su3ra2aj2",
+          0.6092897057533264
+        ],
+        [
+          "kiszar2ra",
+          0.5949724316596985
+        ],
+        [
+          "u4sakarsze3",
+          0.5919997096061707
+        ],
+        [
+          "su3u4bi",
+          0.5856627225875854
+        ],
+        [
+          "su3ra2a\u014b2",
+          0.581222414970398
+        ]
+      ]
+    }
+  ]
+}

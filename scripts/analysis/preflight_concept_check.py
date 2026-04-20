@@ -49,10 +49,19 @@ def preflight_check(
             degenerate_fraction = 1.0
 
         # ETCSL passage count.
+        # Supports two schemas:
+        #   - Nested: [{text_id, title, lines: [{line_no, transliteration, ...}]}, ...]
+        #   - Flat:   [{transliteration, translation, line_id, source}, ...]
         etcsl_count = 0
         for text in etcsl_texts:
-            for line in text.get("lines", []):
-                if sum_tok in (line.get("transliteration") or "").split():
+            if "lines" in text:
+                # Nested schema (used in tests and etcsl_passage_finder).
+                for line in text.get("lines", []):
+                    if sum_tok in (line.get("transliteration") or "").split():
+                        etcsl_count += 1
+            else:
+                # Flat schema (data/raw/etcsl_texts.json actual format).
+                if sum_tok in (text.get("transliteration") or "").split():
                     etcsl_count += 1
 
         failure_reasons = []
