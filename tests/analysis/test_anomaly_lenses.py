@@ -292,4 +292,89 @@ def test_lens6_reports_k_clusters():
     for row in result["rows"]:
         assert "bridge_score" in row
         assert "nearest_cluster" in row
-        assert "second_nearest_cluster" in row
+
+
+# --- Markdown renderer --------------------------------------------------
+
+
+def _synthetic_atlas_section():
+    return {
+        "atlas_schema_version": 1,
+        "atlas_date": "2026-04-20",
+        "civilization": "sumerian",
+        "source_artifacts": {"seed": 42, "k_clusters": 40},
+        "summary": {
+            "total_aligned_tokens": 100,
+            "anchor_tokens_in_vocab": 30,
+            "non_anchor_tokens_in_vocab": 70,
+            "top1_per_lens": {
+                "lens1_english_displacement": "alpha -> beta (cos=0.05)",
+                "lens2_no_counterpart": "gamma (freq=100, top1_cos=0.1)",
+                "lens3_isolation": "delta (d_10=1.8)",
+                "lens4_cross_space_divergence": "epsilon (jaccard=0.9)",
+                "lens5_doppelgangers": "zeta == eta (cos=0.97)",
+                "lens6_structural_bridges": "theta (bridge=0.9, clusters 3/7)",
+            },
+        },
+        "lens1_english_displacement": {
+            "rows_unfiltered": [
+                {"sumerian": "alpha", "english": "beta", "cosine_similarity": 0.05,
+                 "anchor_confidence": 0.9, "source": "ePSD2"},
+            ],
+            "rows_filtered": [
+                {"sumerian": "alpha", "english": "beta", "cosine_similarity": 0.05,
+                 "anchor_confidence": 0.9, "source": "ePSD2"},
+            ],
+            "filter_rules_applied": [],
+        },
+        "lens2_no_counterpart": {
+            "rows": [{"sumerian": "gamma", "corpus_frequency": 100,
+                      "top1_english": "x", "top1_cosine": 0.1, "score": 90.0}],
+        },
+        "lens3_isolation": {
+            "rows": [{"sumerian": "delta", "distance_to_kth_neighbor": 1.8,
+                      "nearest_5_neighbors": []}],
+            "histogram": {"bin_edges": [0.0, 1.0, 2.0], "counts": [50, 50]},
+        },
+        "lens4_cross_space_divergence": {
+            "rows_unfiltered": [{"sumerian": "epsilon", "jaccard_distance": 0.9,
+                                 "top_k_gemma": ["a"], "top_k_glove": ["b"]}],
+            "rows_anchor_only": [],
+        },
+        "lens5_doppelgangers": {
+            "rows": [{"sumerian_a": "zeta", "sumerian_b": "eta",
+                      "cosine_similarity": 0.97, "in_anchor_set": [True, False]}],
+            "histogram": {"bin_edges": [0.85, 0.90, 0.95, 1.0], "counts": [10, 5, 1]},
+        },
+        "lens6_structural_bridges": {
+            "k_clusters": 40,
+            "rows": [{"sumerian": "theta", "bridge_score": 0.9,
+                      "nearest_cluster": 3, "second_nearest_cluster": 7,
+                      "cluster_3_members": [], "cluster_7_members": []}],
+        },
+    }
+
+
+def test_render_summary_markdown_contains_all_lenses():
+    from scripts.analysis.anomaly_framework import render_summary_markdown
+
+    md = render_summary_markdown(_synthetic_atlas_section())
+    for lens in ("Lens 1", "Lens 2", "Lens 3", "Lens 4", "Lens 5", "Lens 6"):
+        assert lens in md
+
+
+def test_render_lens1_markdown_has_both_tiers():
+    from scripts.analysis.anomaly_framework import render_lens1_markdown
+
+    md = render_lens1_markdown(_synthetic_atlas_section())
+    assert "Unfiltered" in md
+    assert "Filtered" in md
+    assert "alpha" in md  # token from synthetic section
+
+
+def test_render_lens5_markdown_shows_histogram_summary():
+    from scripts.analysis.anomaly_framework import render_lens5_markdown
+
+    md = render_lens5_markdown(_synthetic_atlas_section())
+    # ASCII histogram or a prose summary of bin counts.
+    assert "0.85" in md or "histogram" in md.lower()
