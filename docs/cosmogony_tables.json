@@ -1,0 +1,1017 @@
+{
+  "anunnaki_vocabulary": [
+    "an",
+    "ki",
+    "enki",
+    "enlil",
+    "nammu",
+    "ninmah",
+    "inanna",
+    "utu",
+    "nanna",
+    "nam",
+    "me",
+    "namtar",
+    "zi",
+    "abzu",
+    "ima",
+    "kur",
+    "dingir",
+    "lugal"
+  ],
+  "concept_slate": [
+    {
+      "english": "deep",
+      "sumerian": "abzu",
+      "theme": "primordial"
+    },
+    {
+      "english": "breath",
+      "sumerian": "zi",
+      "theme": "animation"
+    },
+    {
+      "english": "essence",
+      "sumerian": "nam",
+      "theme": "naming"
+    },
+    {
+      "english": "fate",
+      "sumerian": "namtar",
+      "theme": "decree"
+    },
+    {
+      "english": "decree",
+      "sumerian": "me",
+      "theme": "civilization"
+    }
+  ],
+  "concepts": {
+    "abzu": {
+      "analogy_probes": [
+        {
+          "query": "ocean : water :: deep : ?",
+          "results": [
+            {
+              "similarity": 0.476,
+              "sumerian": "abzu"
+            },
+            {
+              "similarity": 0.4655,
+              "sumerian": "abzux"
+            },
+            {
+              "similarity": 0.4593,
+              "sumerian": "abzua"
+            },
+            {
+              "similarity": 0.4482,
+              "sumerian": "abzuna"
+            },
+            {
+              "similarity": 0.4462,
+              "sumerian": "abzu\u014ba2"
+            }
+          ],
+          "space": "gemma"
+        }
+      ],
+      "concept": {
+        "english": "deep",
+        "sumerian": "abzu",
+        "theme": "primordial"
+      },
+      "english_displacement": {
+        "gemma": {
+          "cosine_distance": 1.0021651200950146,
+          "cosine_similarity": -0.002165120095014572,
+          "english_seed": "deep",
+          "space": "gemma",
+          "sumerian_token": "abzu"
+        },
+        "glove": {
+          "cosine_distance": 0.6416810750961304,
+          "cosine_similarity": 0.35831892490386963,
+          "english_seed": "deep",
+          "space": "glove",
+          "sumerian_token": "abzu"
+        }
+      },
+      "etcsl_passages": [
+        {
+          "context": [
+            {
+              "line_id": "c4332.2",
+              "source": "ETCSL",
+              "translation": "O angry great butting bull! O torch! O great bull of Enki, standing aggressively, coming forth from the abzu, the pure place! O Gibil the god of fire, _X__X_ the palace and hall, as he radiates great awesomeness, his countenance _X__X_! O Nun-bar-ana, angry avenger (?) _X__X_, bringing forth the great torch from the abzu, lifting his head with the noble divine powers!",
+              "transliteration": "am gal _d_en-ki-ke4 u3-na gub-bu"
+            },
+            {
+              "line_id": "c4332.3",
+              "source": "ETCSL",
+              "translation": "O angry great butting bull! O torch! O great bull of Enki, standing aggressively, coming forth from the abzu, the pure place! O Gibil the god of fire, _X__X_ the palace and hall, as he radiates great awesomeness, his countenance _X__X_! O Nun-bar-ana, angry avenger (?) _X__X_, bringing forth the great torch from the abzu, lifting his head with the noble divine powers!",
+              "transliteration": "abzu ki sikil-ta e3-a"
+            },
+            {
+              "line_id": "c4332.4",
+              "source": "ETCSL",
+              "translation": "O angry great butting bull! O torch! O great bull of Enki, standing aggressively, coming forth from the abzu, the pure place! O Gibil the god of fire, _X__X_ the palace and hall, as he radiates great awesomeness, his countenance _X__X_! O Nun-bar-ana, angry avenger (?) _X__X_, bringing forth the great torch from the abzu, lifting his head with the noble divine powers!",
+              "transliteration": "_d_gibil6 e2-gal unu2 _X_"
+            }
+          ],
+          "matched_line_no": "c4332.3",
+          "text_id": "c4332.3",
+          "title": "ETCSL",
+          "translation": "O angry great butting bull! O torch! O great bull of Enki, standing aggressively, coming forth from the abzu, the pure place! O Gibil the god of fire, _X__X_ the palace and hall, as he radiates great awesomeness, his countenance _X__X_! O Nun-bar-ana, angry avenger (?) _X__X_, bringing forth the great torch from the abzu, lifting his head with the noble divine powers!",
+          "transliteration": "abzu ki sikil-ta e3-a"
+        },
+        {
+          "context": [
+            {
+              "line_id": "c4332.39",
+              "source": "ETCSL",
+              "translation": "This water consecrates the heavens, it purifies the earth. It purifies the cattle in their pen. It purifies the sheep in their fold. It purifies Utu at the horizon. It purifies Nanna at the zenith of heaven. Thus may it cleanse, may it cleanse the _X__X_ of the house.",
+              "transliteration": "sag9-ga e2-a he2-em-ta-dadag he2-em-ta-dadag"
+            },
+            {
+              "line_id": "c4332.40",
+              "source": "ETCSL",
+              "translation": "From Eridug (?) praise to lady Kusu, the princess of the holy abzu, _X__X_.",
+              "transliteration": "nun abzu kug-ga e2 sila kug-ga"
+            },
+            {
+              "line_id": "c4332.41",
+              "source": "ETCSL",
+              "translation": "From Eridug (?) praise to lady Kusu, the princess of the holy abzu, _X__X_.",
+              "transliteration": "eridug_ki_-ta en _d_ku3-su13 za3-mi2"
+            }
+          ],
+          "matched_line_no": "c4332.40",
+          "text_id": "c4332.40",
+          "title": "ETCSL",
+          "translation": "From Eridug (?) praise to lady Kusu, the princess of the holy abzu, _X__X_.",
+          "transliteration": "nun abzu kug-ga e2 sila kug-ga"
+        }
+      ],
+      "top10_dual_view": {
+        "gemma": [
+          {
+            "similarity": 0.2361,
+            "sumerian": "sa\u014bki\u014bu10"
+          },
+          {
+            "similarity": 0.2359,
+            "sumerian": "sa\u014be"
+          },
+          {
+            "similarity": 0.2289,
+            "sumerian": "sa\u014ba2"
+          },
+          {
+            "similarity": 0.2266,
+            "sumerian": "lipi\u0161\u014bu10"
+          },
+          {
+            "similarity": 0.2238,
+            "sumerian": "sa\u014b\u014bu10"
+          },
+          {
+            "similarity": 0.2171,
+            "sumerian": "sa\u014be\u0161"
+          },
+          {
+            "similarity": 0.2126,
+            "sumerian": "sa\u014bzu"
+          },
+          {
+            "similarity": 0.21,
+            "sumerian": "su3ud\u014bu10"
+          },
+          {
+            "similarity": 0.2074,
+            "sumerian": "gid2\u014bu10"
+          },
+          {
+            "similarity": 0.2072,
+            "sumerian": "sum4\u014bu10"
+          }
+        ],
+        "glove": [
+          {
+            "similarity": 0.563,
+            "sumerian": "da\u014balla"
+          },
+          {
+            "similarity": 0.5604,
+            "sumerian": "da\u014balbi"
+          },
+          {
+            "similarity": 0.5584,
+            "sumerian": "dajalla"
+          },
+          {
+            "similarity": 0.5581,
+            "sumerian": "da\u014ballake4"
+          },
+          {
+            "similarity": 0.5526,
+            "sumerian": "da\u014balba"
+          },
+          {
+            "similarity": 0.5514,
+            "sumerian": "dagalla"
+          },
+          {
+            "similarity": 0.5475,
+            "sumerian": "dajalbi"
+          },
+          {
+            "similarity": 0.547,
+            "sumerian": "da\u014bale"
+          },
+          {
+            "similarity": 0.5461,
+            "sumerian": "he2maalla"
+          },
+          {
+            "similarity": 0.5458,
+            "sumerian": "da\u014bal"
+          }
+        ]
+      }
+    },
+    "me": {
+      "analogy_probes": [
+        {
+          "query": "decree : order :: essence : ?",
+          "results": [
+            {
+              "similarity": 0.2145,
+              "sumerian": "melam2zu"
+            },
+            {
+              "similarity": 0.2006,
+              "sumerian": "igigu10sze3"
+            },
+            {
+              "similarity": 0.1991,
+              "sumerian": "gu2ni"
+            },
+            {
+              "similarity": 0.1985,
+              "sumerian": "usubita"
+            },
+            {
+              "similarity": 0.1939,
+              "sumerian": "melam2ba"
+            }
+          ],
+          "space": "gemma"
+        }
+      ],
+      "concept": {
+        "english": "decree",
+        "sumerian": "me",
+        "theme": "civilization"
+      },
+      "english_displacement": {
+        "gemma": {
+          "cosine_distance": 0.9828253462910652,
+          "cosine_similarity": 0.017174653708934784,
+          "english_seed": "decree",
+          "space": "gemma",
+          "sumerian_token": "me"
+        },
+        "glove": {
+          "cosine_distance": 0.8808878511190414,
+          "cosine_similarity": 0.11911214888095856,
+          "english_seed": "decree",
+          "space": "glove",
+          "sumerian_token": "me"
+        }
+      },
+      "etcsl_passages": [
+        {
+          "context": [
+            {
+              "line_id": "c0201.3",
+              "source": "ETCSL",
+              "translation": null,
+              "transliteration": "en-e nij2-du7-e"
+            },
+            {
+              "line_id": "c0201.4",
+              "source": "ETCSL",
+              "translation": null,
+              "transliteration": "nin me car2-ra"
+            },
+            {
+              "line_id": "c0201.5",
+              "source": "ETCSL",
+              "translation": null,
+              "transliteration": "_d_en-lil2 su3-ra2-ce3"
+            }
+          ],
+          "matched_line_no": "c0201.4",
+          "text_id": "c0201.4",
+          "title": "ETCSL",
+          "translation": null,
+          "transliteration": "nin me car2-ra"
+        },
+        {
+          "context": [
+            {
+              "line_id": "c0201.7",
+              "source": "ETCSL",
+              "translation": null,
+              "transliteration": "ud re-a"
+            },
+            {
+              "line_id": "c0201.8",
+              "source": "ETCSL",
+              "translation": null,
+              "transliteration": "in-nin me huc-a"
+            },
+            {
+              "line_id": "c0201.9",
+              "source": "ETCSL",
+              "translation": null,
+              "transliteration": "e2 ud huc an ki"
+            }
+          ],
+          "matched_line_no": "c0201.8",
+          "text_id": "c0201.8",
+          "title": "ETCSL",
+          "translation": null,
+          "transliteration": "in-nin me huc-a"
+        }
+      ],
+      "top10_dual_view": {
+        "gemma": [
+          {
+            "similarity": 0.257,
+            "sumerian": "dikud"
+          },
+          {
+            "similarity": 0.2557,
+            "sumerian": "diku5bi"
+          },
+          {
+            "similarity": 0.252,
+            "sumerian": "diku5bime"
+          },
+          {
+            "similarity": 0.2447,
+            "sumerian": "diku5\u0161e3"
+          },
+          {
+            "similarity": 0.2325,
+            "sumerian": "ensi2ka\u0161e3"
+          },
+          {
+            "similarity": 0.2313,
+            "sumerian": "ensi2"
+          },
+          {
+            "similarity": 0.2288,
+            "sumerian": "ensi2kabi"
+          },
+          {
+            "similarity": 0.2265,
+            "sumerian": "ensi2ka"
+          },
+          {
+            "similarity": 0.2262,
+            "sumerian": "diku5dani"
+          },
+          {
+            "similarity": 0.2236,
+            "sumerian": "diku5gal"
+          }
+        ],
+        "glove": [
+          {
+            "similarity": 0.3751,
+            "sumerian": "namensi2"
+          },
+          {
+            "similarity": 0.3547,
+            "sumerian": "ensi2mah"
+          },
+          {
+            "similarity": 0.3533,
+            "sumerian": "ensi2kabi"
+          },
+          {
+            "similarity": 0.3503,
+            "sumerian": "name3"
+          },
+          {
+            "similarity": 0.348,
+            "sumerian": "ensi2kam"
+          },
+          {
+            "similarity": 0.3414,
+            "sumerian": "lugalmah"
+          },
+          {
+            "similarity": 0.3375,
+            "sumerian": "ensi2"
+          },
+          {
+            "similarity": 0.3374,
+            "sumerian": "dikud"
+          },
+          {
+            "similarity": 0.3367,
+            "sumerian": "ensi2."
+          },
+          {
+            "similarity": 0.3359,
+            "sumerian": "ensi2kasze3"
+          }
+        ]
+      }
+    },
+    "nam": {
+      "analogy_probes": [
+        {
+          "query": "essence : name :: being : ?",
+          "results": [
+            {
+              "similarity": 0.3633,
+              "sumerian": "muni"
+            },
+            {
+              "similarity": 0.3344,
+              "sumerian": "muzu"
+            },
+            {
+              "similarity": 0.301,
+              "sumerian": "muniim"
+            },
+            {
+              "similarity": 0.3009,
+              "sumerian": "ninmuinzu"
+            },
+            {
+              "similarity": 0.2979,
+              "sumerian": "ninmu"
+            }
+          ],
+          "space": "gemma"
+        }
+      ],
+      "concept": {
+        "english": "essence",
+        "sumerian": "nam",
+        "theme": "naming"
+      },
+      "english_displacement": {
+        "gemma": {
+          "cosine_distance": 0.8705274015665054,
+          "cosine_similarity": 0.12947259843349457,
+          "english_seed": "essence",
+          "space": "gemma",
+          "sumerian_token": "nam"
+        },
+        "glove": {
+          "cosine_distance": 0.6986260712146759,
+          "cosine_similarity": 0.3013739287853241,
+          "english_seed": "essence",
+          "space": "glove",
+          "sumerian_token": "nam"
+        }
+      },
+      "etcsl_passages": [
+        {
+          "context": [
+            {
+              "line_id": "c2554.B.10",
+              "source": "ETCSL",
+              "translation": "For you Nintur has opened wide her creative hands; she has breast-fed you from her sweet breasts; she has fed you with the milk of vigour. As if you were a spectacular wild bull, she has made your figure strong (?), she has made your limbs massive. She has fitted you out with _X__X_ appearance, awesome radiance and heroism. Your mother, Nintur, held you by the right wrist as she led you before your father in E-kur, the august shrine. Then she said: Decide a great fate for the son who is your avenger!",
+              "transliteration": "e2-kur ec3 mah-a mi-ni-in-kur9-re-en a-a-zu _d_en-lil2-ra"
+            },
+            {
+              "line_id": "c2554.B.11",
+              "source": "ETCSL",
+              "translation": "For you Nintur has opened wide her creative hands; she has breast-fed you from her sweet breasts; she has fed you with the milk of vigour. As if you were a spectacular wild bull, she has made your figure strong (?), she has made your limbs massive. She has fitted you out with _X__X_ appearance, awesome radiance and heroism. Your mother, Nintur, held you by the right wrist as she led you before your father in E-kur, the august shrine. Then she said: Decide a great fate for the son who is your avenger!",
+              "transliteration": "mu-na-ab-be2 dumu cu jar gi4-zu nam gal tar-mu-ni-ib2"
+            },
+            {
+              "line_id": "c2554.B.12",
+              "source": "ETCSL",
+              "translation": "_C_agbatuku.",
+              "transliteration": "cag4-ba-tuku-am3"
+            }
+          ],
+          "matched_line_no": "c2554.B.11",
+          "text_id": "c2554.B.11",
+          "title": "ETCSL",
+          "translation": "For you Nintur has opened wide her creative hands; she has breast-fed you from her sweet breasts; she has fed you with the milk of vigour. As if you were a spectacular wild bull, she has made your figure strong (?), she has made your limbs massive. She has fitted you out with _X__X_ appearance, awesome radiance and heroism. Your mother, Nintur, held you by the right wrist as she led you before your father in E-kur, the august shrine. Then she said: Decide a great fate for the son who is your avenger!",
+          "transliteration": "mu-na-ab-be2 dumu cu jar gi4-zu nam gal tar-mu-ni-ib2"
+        },
+        {
+          "context": [
+            {
+              "line_id": "c2554.B.12",
+              "source": "ETCSL",
+              "translation": "_C_agbatuku.",
+              "transliteration": "cag4-ba-tuku-am3"
+            },
+            {
+              "line_id": "c2554.C.13",
+              "source": "ETCSL",
+              "translation": "Enlil looked at him with joy and decided his fate: Uta-ulu, may your name be exalted throughout the extent of heaven and earth. Your awesome radiance will make all the great gods tremble with fear.",
+              "transliteration": "_d_en-lil2-le igi hul2 mu-ci-in-bar nam mu-ni-ib2-tar-re"
+            },
+            {
+              "line_id": "c2554.C.14",
+              "source": "ETCSL",
+              "translation": "Enlil looked at him with joy and decided his fate: Uta-ulu, may your name be exalted throughout the extent of heaven and earth. Your awesome radiance will make all the great gods tremble with fear.",
+              "transliteration": "u4-ta-u18-lu an ki cu2-a-ce3 mu-zu he2-em-mah"
+            }
+          ],
+          "matched_line_no": "c2554.C.13",
+          "text_id": "c2554.C.13",
+          "title": "ETCSL",
+          "translation": "Enlil looked at him with joy and decided his fate: Uta-ulu, may your name be exalted throughout the extent of heaven and earth. Your awesome radiance will make all the great gods tremble with fear.",
+          "transliteration": "_d_en-lil2-le igi hul2 mu-ci-in-bar nam mu-ni-ib2-tar-re"
+        }
+      ],
+      "top10_dual_view": {
+        "gemma": [
+          {
+            "similarity": 0.2527,
+            "sumerian": "sa\u014bzu"
+          },
+          {
+            "similarity": 0.2308,
+            "sumerian": "sagzu"
+          },
+          {
+            "similarity": 0.2277,
+            "sumerian": "sa\u014bza"
+          },
+          {
+            "similarity": 0.2267,
+            "sumerian": "muunzu"
+          },
+          {
+            "similarity": 0.2264,
+            "sumerian": "agabita"
+          },
+          {
+            "similarity": 0.2261,
+            "sumerian": "sajzu"
+          },
+          {
+            "similarity": 0.2255,
+            "sumerian": "muunzuzu"
+          },
+          {
+            "similarity": 0.221,
+            "sumerian": "u3zu"
+          },
+          {
+            "similarity": 0.2202,
+            "sumerian": "muunzuub3"
+          },
+          {
+            "similarity": 0.2199,
+            "sumerian": "namgur4zu"
+          }
+        ],
+        "glove": [
+          {
+            "similarity": 0.4565,
+            "sumerian": "sikilla"
+          },
+          {
+            "similarity": 0.4346,
+            "sumerian": "sikile"
+          },
+          {
+            "similarity": 0.4339,
+            "sumerian": "sikillaza"
+          },
+          {
+            "similarity": 0.4254,
+            "sumerian": "sikilzu"
+          },
+          {
+            "similarity": 0.4205,
+            "sumerian": "namsa2e"
+          },
+          {
+            "similarity": 0.4178,
+            "sumerian": "sikilebi"
+          },
+          {
+            "similarity": 0.4149,
+            "sumerian": "namkugzu"
+          },
+          {
+            "similarity": 0.4147,
+            "sumerian": "sikilbi"
+          },
+          {
+            "similarity": 0.4094,
+            "sumerian": "sikillake4"
+          },
+          {
+            "similarity": 0.4047,
+            "sumerian": "kuggakam"
+          }
+        ]
+      }
+    },
+    "namtar": {
+      "analogy_probes": [
+        {
+          "query": "fate : name :: decree : ?",
+          "results": [
+            {
+              "similarity": 0.3313,
+              "sumerian": "muni"
+            },
+            {
+              "similarity": 0.3002,
+              "sumerian": "mubiim"
+            },
+            {
+              "similarity": 0.2987,
+              "sumerian": "muniku4"
+            },
+            {
+              "similarity": 0.2986,
+              "sumerian": "muniinsa4"
+            },
+            {
+              "similarity": 0.2927,
+              "sumerian": "muniim"
+            }
+          ],
+          "space": "gemma"
+        }
+      ],
+      "concept": {
+        "english": "fate",
+        "sumerian": "namtar",
+        "theme": "decree"
+      },
+      "english_displacement": {
+        "gemma": {
+          "cosine_distance": 0.5408427119255066,
+          "cosine_similarity": 0.4591572880744934,
+          "english_seed": "fate",
+          "space": "gemma",
+          "sumerian_token": "namtar"
+        },
+        "glove": {
+          "cosine_distance": 0.4326249361038208,
+          "cosine_similarity": 0.5673750638961792,
+          "english_seed": "fate",
+          "space": "glove",
+          "sumerian_token": "namtar"
+        }
+      },
+      "etcsl_passages": [
+        {
+          "context": [
+            {
+              "line_id": "c3205.27",
+              "source": "ETCSL",
+              "translation": "The mountain land of Elam where there are no dead in great numbers (?) like _X__X_, and Subir, a heavy cloud, which knows no reverence even towards the gods -- these districts have not been weakened; their time has not yet come. \nThe _C_ima_c_kian does not elect nugig or lukur priestesses for the places of the gods\n\n1 ms. has instead: The _C_ima_c_kian knows neither his god nor those elected nugig and lukur priestesses\n\n1 other ms. has instead: The _C_ima_c_kian _X__X_ neither the nugig nor the nubar priestesses for the places of the gods\n. His soldiers are numerous like grass; his seed \nis widespread\n\n1 ms. has instead: is indeed exalted\n. He who lives in tents, who does not know of the places of the gods: like a wild beast which mounts, he knows nothing of \ne_c_a flour nor prayers\n\n1 ms. has instead: flour and the offering of prayers\n. The evil namtar demon and the distressing asag demon \nhave not carried him off (?)\n\n1 ms. has instead: do not approach him\n. Who _X__X_ a divine oath is committing sacrilege, yet his troops are in good health.",
+              "transliteration": "u2-ma-am-gin7-nam u5-a zid2-eca sizkur2 zid2 sizkur2 il2-la nu-mu-un-zu-a"
+            },
+            {
+              "line_id": "c3205.28",
+              "source": "ETCSL",
+              "translation": "The mountain land of Elam where there are no dead in great numbers (?) like _X__X_, and Subir, a heavy cloud, which knows no reverence even towards the gods -- these districts have not been weakened; their time has not yet come. \nThe _C_ima_c_kian does not elect nugig or lukur priestesses for the places of the gods\n\n1 ms. has instead: The _C_ima_c_kian knows neither his god nor those elected nugig and lukur priestesses\n\n1 other ms. has instead: The _C_ima_c_kian _X__X_ neither the nugig nor the nubar priestesses for the places of the gods\n. His soldiers are numerous like grass; his seed \nis widespread\n\n1 ms. has instead: is indeed exalted\n. He who lives in tents, who does not know of the places of the gods: like a wild beast which mounts, he knows nothing of \ne_c_a flour nor prayers\n\n1 ms. has instead: flour and the offering of prayers\n. The evil namtar demon and the distressing asag demon \nhave not carried him off (?)\n\n1 ms. has instead: do not approach him\n. Who _X__X_ a divine oath is committing sacrilege, yet his troops are in good health.",
+              "transliteration": "nam-tar hul-jal2 a2-sag3 nij2-gig-ga nu-mu-un-na-tum3 nu-mu-na-te"
+            },
+            {
+              "line_id": "c3205.29",
+              "source": "ETCSL",
+              "translation": "The mountain land of Elam where there are no dead in great numbers (?) like _X__X_, and Subir, a heavy cloud, which knows no reverence even towards the gods -- these districts have not been weakened; their time has not yet come. \nThe _C_ima_c_kian does not elect nugig or lukur priestesses for the places of the gods\n\n1 ms. has instead: The _C_ima_c_kian knows neither his god nor those elected nugig and lukur priestesses\n\n1 other ms. has instead: The _C_ima_c_kian _X__X_ neither the nugig nor the nubar priestesses for the places of the gods\n. His soldiers are numerous like grass; his seed \nis widespread\n\n1 ms. has instead: is indeed exalted\n. He who lives in tents, who does not know of the places of the gods: like a wild beast which mounts, he knows nothing of \ne_c_a flour nor prayers\n\n1 ms. has instead: flour and the offering of prayers\n. The evil namtar demon and the distressing asag demon \nhave not carried him off (?)\n\n1 ms. has instead: do not approach him\n. Who _X__X_ a divine oath is committing sacrilege, yet his troops are in good health.",
+              "transliteration": "lu2 mu dijir sal-la-bi nij2-gig-ga i3-gu7-e ugnim-bi silim-ma"
+            }
+          ],
+          "matched_line_no": "c3205.28",
+          "text_id": "c3205.28",
+          "title": "ETCSL",
+          "translation": "The mountain land of Elam where there are no dead in great numbers (?) like _X__X_, and Subir, a heavy cloud, which knows no reverence even towards the gods -- these districts have not been weakened; their time has not yet come. \nThe _C_ima_c_kian does not elect nugig or lukur priestesses for the places of the gods\n\n1 ms. has instead: The _C_ima_c_kian knows neither his god nor those elected nugig and lukur priestesses\n\n1 other ms. has instead: The _C_ima_c_kian _X__X_ neither the nugig nor the nubar priestesses for the places of the gods\n. His soldiers are numerous like grass; his seed \nis widespread\n\n1 ms. has instead: is indeed exalted\n. He who lives in tents, who does not know of the places of the gods: like a wild beast which mounts, he knows nothing of \ne_c_a flour nor prayers\n\n1 ms. has instead: flour and the offering of prayers\n. The evil namtar demon and the distressing asag demon \nhave not carried him off (?)\n\n1 ms. has instead: do not approach him\n. Who _X__X_ a divine oath is committing sacrilege, yet his troops are in good health.",
+          "transliteration": "nam-tar hul-jal2 a2-sag3 nij2-gig-ga nu-mu-un-na-tum3 nu-mu-na-te"
+        },
+        {
+          "context": [
+            {
+              "line_id": "c4332.26",
+              "source": "ETCSL",
+              "translation": "In their _X__X_ Kusu has consecrated the _X__X_, she has purified the oven. _X__X_, she has filled the _X__X_ purified _X__X_. Kusu has then put numerous bulls and numerous sheep into the great oven. Kusu has then put numerous bulls and numerous loaves into the great oven.",
+              "transliteration": "gir4 gal-e he2-em-ma-da-ku4-ku4"
+            },
+            {
+              "line_id": "c4332.27",
+              "source": "ETCSL",
+              "translation": "Destiny, prosperity -- the wood of destiny, wood of prosperity, and the reeds of destiny, reeds of prosperity, adorn the holy cattle-pen. Through the wool from a fair lamb and the wool from a fair kid, Gibil, the foremost, the right arm, lifting his head to heaven receives water from the holy teats of heaven.",
+              "transliteration": "nam-tar nam-he2 jic nam-tar jic nam-he2"
+            },
+            {
+              "line_id": "c4332.28",
+              "source": "ETCSL",
+              "translation": "Destiny, prosperity -- the wood of destiny, wood of prosperity, and the reeds of destiny, reeds of prosperity, adorn the holy cattle-pen. Through the wool from a fair lamb and the wool from a fair kid, Gibil, the foremost, the right arm, lifting his head to heaven receives water from the holy teats of heaven.",
+              "transliteration": "gi nam-tar gi nam-he2"
+            }
+          ],
+          "matched_line_no": "c4332.27",
+          "text_id": "c4332.27",
+          "title": "ETCSL",
+          "translation": "Destiny, prosperity -- the wood of destiny, wood of prosperity, and the reeds of destiny, reeds of prosperity, adorn the holy cattle-pen. Through the wool from a fair lamb and the wool from a fair kid, Gibil, the foremost, the right arm, lifting his head to heaven receives water from the holy teats of heaven.",
+          "transliteration": "nam-tar nam-he2 jic nam-tar jic nam-he2"
+        }
+      ],
+      "top10_dual_view": {
+        "gemma": [
+          {
+            "similarity": 0.4592,
+            "sumerian": "namtar"
+          },
+          {
+            "similarity": 0.4523,
+            "sumerian": "namtag2"
+          },
+          {
+            "similarity": 0.4502,
+            "sumerian": "namta"
+          },
+          {
+            "similarity": 0.4182,
+            "sumerian": "namtag"
+          },
+          {
+            "similarity": 0.4066,
+            "sumerian": "namtarra"
+          },
+          {
+            "similarity": 0.3948,
+            "sumerian": "namtarju10"
+          },
+          {
+            "similarity": 0.3939,
+            "sumerian": "namtarzu"
+          },
+          {
+            "similarity": 0.3903,
+            "sumerian": "namtaba"
+          },
+          {
+            "similarity": 0.3886,
+            "sumerian": "namtagga"
+          },
+          {
+            "similarity": 0.3883,
+            "sumerian": "namtaggani"
+          }
+        ],
+        "glove": [
+          {
+            "similarity": 0.5674,
+            "sumerian": "namtar"
+          },
+          {
+            "similarity": 0.5673,
+            "sumerian": "namtag2"
+          },
+          {
+            "similarity": 0.5647,
+            "sumerian": "namtarzu"
+          },
+          {
+            "similarity": 0.5641,
+            "sumerian": "namtag"
+          },
+          {
+            "similarity": 0.5566,
+            "sumerian": "namtarju10"
+          },
+          {
+            "similarity": 0.5565,
+            "sumerian": "namta"
+          },
+          {
+            "similarity": 0.5378,
+            "sumerian": "namte"
+          },
+          {
+            "similarity": 0.5356,
+            "sumerian": "namtarrani"
+          },
+          {
+            "similarity": 0.534,
+            "sumerian": "namtae3"
+          },
+          {
+            "similarity": 0.5292,
+            "sumerian": "namtarra"
+          }
+        ]
+      }
+    },
+    "zi": {
+      "analogy_probes": [
+        {
+          "query": "breath : air :: life : ?",
+          "results": [
+            {
+              "similarity": 0.5251,
+              "sumerian": "namtil3bi"
+            },
+            {
+              "similarity": 0.521,
+              "sumerian": "namtil3laka"
+            },
+            {
+              "similarity": 0.5206,
+              "sumerian": "namtil3"
+            },
+            {
+              "similarity": 0.5181,
+              "sumerian": "namtil3la"
+            },
+            {
+              "similarity": 0.5173,
+              "sumerian": "namtila"
+            }
+          ],
+          "space": "gemma"
+        }
+      ],
+      "concept": {
+        "english": "breath",
+        "sumerian": "zi",
+        "theme": "animation"
+      },
+      "english_displacement": {
+        "gemma": {
+          "cosine_distance": 0.9438015446066856,
+          "cosine_similarity": 0.05619845539331436,
+          "english_seed": "breath",
+          "space": "gemma",
+          "sumerian_token": "zi"
+        },
+        "glove": {
+          "cosine_distance": 0.7299014329910278,
+          "cosine_similarity": 0.27009856700897217,
+          "english_seed": "breath",
+          "space": "glove",
+          "sumerian_token": "zi"
+        }
+      },
+      "etcsl_passages": [
+        {
+          "context": [
+            {
+              "line_id": "c6116.E.16.e9.21",
+              "source": "ETCSL",
+              "translation": "= Alster 1997 16 Sec. F 3",
+              "transliteration": "gaba du6-da i3-ak X-e-ce"
+            },
+            {
+              "line_id": "c6116.E.16.e10.22",
+              "source": "ETCSL",
+              "translation": "= Veldhuis 2000 p. 393 N 1009 (+) N 5187 obv. 3\n_X__X_ I part the waters (?) like Nira_h_.",
+              "transliteration": "ZI TUG2 _X_ _d_nirah-gin7 dar-ra-me-en"
+            },
+            {
+              "line_id": "c6116.E.16.e11.23",
+              "source": "ETCSL",
+              "translation": "= Alster 1997 16 Sec. F 4\n_X__X_ collecting rushes _X__X_.",
+              "transliteration": "_u2_numun2 in-de5-de5-ga"
+            }
+          ],
+          "matched_line_no": "c6116.E.16.e10.22",
+          "text_id": "c6116.E.16.e10.22",
+          "title": "ETCSL",
+          "translation": "= Veldhuis 2000 p. 393 N 1009 (+) N 5187 obv. 3\n_X__X_ I part the waters (?) like Nira_h_.",
+          "transliteration": "ZI TUG2 _X_ _d_nirah-gin7 dar-ra-me-en"
+        },
+        {
+          "context": [
+            {
+              "line_id": "c3205.45",
+              "source": "ETCSL",
+              "translation": "And as for me, for my reverence give me life! Bestow on me long life as a gift!",
+              "transliteration": "u3 je26-e ni2 tej3-je26-ju10-uc nam-til3 cum2-mu-na-ab"
+            },
+            {
+              "line_id": "c3205.46",
+              "source": "ETCSL",
+              "translation": "And as for me, for my reverence give me life! Bestow on me long life as a gift!",
+              "transliteration": "zi su3-ud-jal2 nij2-ba-e-ec2 ba-mu-na-ab"
+            },
+            {
+              "line_id": "c41303.A.A.1",
+              "source": "ETCSL",
+              "translation": "O eastern (?) house of Sumer, I will declare your greatness! O E-ki_c_-nu-_g_al, whose purification rites are brilliant, O house of Nanna! O shrine Urim, I shall glorify your name. Emerging from the holy heart of the pure hills, Urim, wisdom of An and Ura_c_, appropriate for E-temen-ni-guru! With An you bestow kingship; your majesty _X__X_ the foreign lands. I shall glorify your name far and wide!",
+              "transliteration": "e2 _d_utu e3-a ki-en-gi-ra"
+            }
+          ],
+          "matched_line_no": "c3205.46",
+          "text_id": "c3205.46",
+          "title": "ETCSL",
+          "translation": "And as for me, for my reverence give me life! Bestow on me long life as a gift!",
+          "transliteration": "zi su3-ud-jal2 nij2-ba-e-ec2 ba-mu-na-ab"
+        }
+      ],
+      "top10_dual_view": {
+        "gemma": [
+          {
+            "similarity": 0.3325,
+            "sumerian": "zapaag2zu"
+          },
+          {
+            "similarity": 0.3173,
+            "sumerian": "ku6gu10"
+          },
+          {
+            "similarity": 0.2992,
+            "sumerian": "zapaa\u014b2zu"
+          },
+          {
+            "similarity": 0.2973,
+            "sumerian": "zapaa\u014b2"
+          },
+          {
+            "similarity": 0.2909,
+            "sumerian": "zapaa\u014b2bi"
+          },
+          {
+            "similarity": 0.2879,
+            "sumerian": "zapaag2bi"
+          },
+          {
+            "similarity": 0.2878,
+            "sumerian": "zapaag2"
+          },
+          {
+            "similarity": 0.2866,
+            "sumerian": "zapaa\u014b2\u014bu10"
+          },
+          {
+            "similarity": 0.2766,
+            "sumerian": "zapaaj2zu"
+          },
+          {
+            "similarity": 0.2764,
+            "sumerian": "zapaaj2bi"
+          }
+        ],
+        "glove": [
+          {
+            "similarity": 0.518,
+            "sumerian": "zapaa\u014b2"
+          },
+          {
+            "similarity": 0.5049,
+            "sumerian": "zapaa\u014b2\u014bu10"
+          },
+          {
+            "similarity": 0.501,
+            "sumerian": "zapaa\u014b2zu"
+          },
+          {
+            "similarity": 0.4985,
+            "sumerian": "zapaag2zu"
+          },
+          {
+            "similarity": 0.4983,
+            "sumerian": "zapaaj2"
+          },
+          {
+            "similarity": 0.4949,
+            "sumerian": "zapaa\u014b2bi"
+          },
+          {
+            "similarity": 0.4882,
+            "sumerian": "zapaaj2zu"
+          },
+          {
+            "similarity": 0.4811,
+            "sumerian": "zapaag2"
+          },
+          {
+            "similarity": 0.4807,
+            "sumerian": "zapaaj2bi"
+          },
+          {
+            "similarity": 0.4759,
+            "sumerian": "ga14"
+          }
+        ]
+      }
+    }
+  },
+  "schema_version": 1
+}

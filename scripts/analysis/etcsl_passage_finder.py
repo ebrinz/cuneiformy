@@ -30,26 +30,56 @@ def find_passages(
     Returns a list of {text_id, title, matched_line_no, transliteration,
     translation, context} dicts. `context` is [context_lines before] +
     matched line + [context_lines after].
+
+    Supports two ETCSL JSON schemas:
+      - Nested: [{text_id, title, lines: [{line_no, transliteration, ...}]}, ...]
+      - Flat:   [{transliteration, translation, line_id, source}, ...]
+        (e.g. data/raw/etcsl_texts.json actual format)
     """
     query_normalized = normalize_sumerian_token(sumerian_token)
     results = []
-    for text in etcsl_texts:
-        lines = text.get("lines", [])
-        for i, line in enumerate(lines):
-            trans = line.get("transliteration", "") or ""
+
+    # Detect schema from first entry.
+    if etcsl_texts and "lines" in etcsl_texts[0]:
+        # --- Nested schema ---
+        for text in etcsl_texts:
+            lines = text.get("lines", [])
+            for i, line in enumerate(lines):
+                trans = line.get("transliteration", "") or ""
+                normalized_tokens = {normalize_sumerian_token(t) for t in trans.split()}
+                if query_normalized in normalized_tokens:
+                    start = max(0, i - context_lines)
+                    end = min(len(lines), i + context_lines + 1)
+                    results.append({
+                        "text_id": text.get("text_id"),
+                        "title": text.get("title", ""),
+                        "matched_line_no": line.get("line_no", i),
+                        "transliteration": trans,
+                        "translation": line.get("translation", ""),
+                        "context": lines[start:end],
+                    })
+                    if len(results) >= max_passages:
+                        return results
+                    break  # one match per text
+    else:
+        # --- Flat schema ---
+        # Each dict is a single line: {transliteration, translation, line_id, source}
+        # context_lines are index-adjacent entries in the flat list.
+        for i, entry in enumerate(etcsl_texts):
+            trans = entry.get("transliteration", "") or ""
             normalized_tokens = {normalize_sumerian_token(t) for t in trans.split()}
             if query_normalized in normalized_tokens:
                 start = max(0, i - context_lines)
-                end = min(len(lines), i + context_lines + 1)
+                end = min(len(etcsl_texts), i + context_lines + 1)
                 results.append({
-                    "text_id": text.get("text_id"),
-                    "title": text.get("title", ""),
-                    "matched_line_no": line.get("line_no", i),
+                    "text_id": entry.get("line_id", ""),
+                    "title": entry.get("source", ""),
+                    "matched_line_no": entry.get("line_id", i),
                     "transliteration": trans,
-                    "translation": line.get("translation", ""),
-                    "context": lines[start:end],
+                    "translation": entry.get("translation", ""),
+                    "context": etcsl_texts[start:end],
                 })
                 if len(results) >= max_passages:
                     return results
-                break  # one match per text
+
     return results
