@@ -15,6 +15,29 @@ Entry format:
 
 ---
 
+## 2026-04-19 — Workstream 2b: Normalization fix shipped (STRETCH tier)
+
+**Hypothesis:** Workstream 2b-pre's coverage diagnostic attributed 64.85% of `sumerian_vocab_miss` (7,651 anchors) to a missing normalization chain in `scripts/06_extract_anchors.py`. Applying subscripts → ASCII, strip determinative braces, drop hyphens, and lowercase at anchor extraction should recover those anchors as exact FastText vocab hits without any retrain.
+
+**Method:** New shared module `scripts/sumerian_normalize.py` containing `normalize_sumerian_token`. Swapped in as the sole normalization in `scripts/06_extract_anchors.py` (replacing the letter-only `normalize_oracc_cf`) and in `scripts/coverage_diagnostic.py` (refactor; no behavior change). Reran `06 → 09 → 09b → 10`, plus regression checks via `validate_phase_b`, `audit_anchors`, and `coverage_diagnostic`.
+
+**Result — stretch tier acceptance:**
+- Whitened-Gemma top-1: **19.85% → 52.13% (+32.28pp)**
+- Whitened-Gemma top-5: 23.66% → 61.97% (+38.31pp)
+- Whitened-Gemma top-10: 26.21% → 65.99% (+39.78pp)
+- GloVe top-1: 17.30% → 35.70% (+18.40pp)
+- GloVe top-5: 22.90% → 44.61% (+21.71pp)
+- GloVe top-10: 25.19% → 47.93% (+22.74pp)
+- Training anchors: 1,572 → 6,867 (4.37×)
+- Valid anchors: 1,951 / 13,886 (14.05%) → 8,558 / 13,100 (65.33%)
+- Audit `sumerian_vocab_miss`: 11,798 (84.96%) → 4,101 (31.31%)
+- Coverage diagnostic `normalization_recoverable`: 7,651 (64.85%) → **0 (0.00%)** — fix is complete, zero residual in that bucket
+- Total merged anchors: 13,886 → 13,100 (slight drop from normalized-key collisions, expected)
+
+**Takeaway:** The "dominant dropout is an ML problem" framing was wrong — it was a 20-line string-normalization bug sitting in a single function. The fix delivered +32pp top-1 on whitened Gemma and cleared the `normalization_recoverable` bucket to zero, confirming the 2b-pre diagnostic's attribution to the bit. Cuneiformy now substantially outperforms the Heiroglyphy baseline (32.35% top-1) that originally shaped our priors. The remaining 4,101 misses are real structural gaps (43% subword, 25% ORACC-lemma-surface, 22% below-min-count, 10% genuinely missing) — Workstreams 2c and beyond can be scoped against that residual.
+
+**Artifacts / commits:** `scripts/sumerian_normalize.py`, `tests/test_sumerian_normalize.py`, refactored `scripts/06_extract_anchors.py` and `scripts/coverage_diagnostic.py`, regenerated `results/anchor_audit_2026-04-19.{md,json}`, `results/coverage_diagnostic_2026-04-19.{md,json}`, `final_output/metadata.json`. Spec: `docs/superpowers/specs/2026-04-19-workstream-2b-normalization-fix-design.md`. Plan: `docs/superpowers/plans/2026-04-19-workstream-2b-normalization-fix.md`.
+
 ## 2026-04-19 — Workstream 2b-pre: Coverage diagnostic baseline
 
 **Hypothesis:** Workstream 2a showed `sumerian_vocab_miss: 11,798 (84.96%)` as the dominant dropout. Initial "FastText retrain" framing was too narrow. An ML-engineer reassessment identified five candidate interventions (ASCII normalization, lower min_count, ORACC lemma surface expansion, morpheme composition, subword inference). Before shipping any fix, we need a data-driven attribution of which anchors are recoverable by which intervention — and how trustworthy each recovery actually is under ridge projection.
