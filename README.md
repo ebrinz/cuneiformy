@@ -18,26 +18,28 @@
 
 ## Results
 
-Current best — whitened EmbeddingGemma alignment (post-Phase-B):
+Current best — whitened EmbeddingGemma alignment (post Workstream 2b):
 
 | Metric | Cuneiformy (whitened-Gemma 768d) | Cuneiformy v1 (GloVe 300d) | Heiroglyphy (Egyptian) |
 |--------|:--------------------:|:---------------------:|:---------------------:|
-| Top-1 Accuracy | **19.85%** | 17.30% | 32.35% |
-| Top-5 Accuracy | **23.66%** | 22.90% | 41.47% |
-| Top-10 Accuracy | **26.21%** | 25.19% | 45.13% |
-| Training Anchors | 1,572 | 1,572 | 5,360 |
+| Top-1 Accuracy | **52.13%** | 35.70% | 32.35% |
+| Top-5 Accuracy | **61.97%** | 44.61% | 41.47% |
+| Top-10 Accuracy | **65.99%** | 47.93% | 45.13% |
+| Training Anchors | 6,867 | 6,867 | 5,360 |
+| Valid Anchors | 8,558 / 13,100 (65.3%) | 8,558 / 13,100 (65.3%) | — |
 | Corpus Lines | 2.8M (pre-dedup) | 2.8M | 100K |
 | Target Space | 768d whitened-Gemma (primary) | 300d GloVe (secondary, retained) | 300d GloVe |
 
 Both alignment targets are accessible via one `SumerianLookup` class (`space="gemma"|"glove"`).
 
-The remaining gap vs Heiroglyphy is driven by **anchor coverage** (1,572 vs 5,360 training pairs), not corpus size. Ongoing work is diagnosed and sequenced in the [experiment journal](docs/EXPERIMENT_JOURNAL.md).
+The substantial leap from the v1 baseline (17.30% top-1) came in two steps: Phase B added whitened EmbeddingGemma as a second target (+2.54pp), and Workstream 2b closed a unicode-normalization gap between ORACC citation forms and the ATF corpus (+32.28pp top-1, a ~4.4× training-anchor multiplier). See the [experiment journal](docs/EXPERIMENT_JOURNAL.md) for the diagnostic methodology that identified the dominant lever.
 
 ### Research progress
 
 Active experiment log: [`docs/EXPERIMENT_JOURNAL.md`](docs/EXPERIMENT_JOURNAL.md). Recent findings (newest first):
 
-- **2026-04-19 — Workstream 2b-pre:** Coverage diagnostic attributes **64.85%** of the 11,798 `sumerian_vocab_miss` anchors to a simple ASCII-normalization gap between the anchor extractor and the corpus tokenizer (subscripts → ASCII, strip determinative braces, drop hyphens). Expected next-step: a ~20-line fix to `scripts/06_extract_anchors.py` lifts training-anchor count ~5× without any retrain. Inference-based alternatives (FastText subword inference, morpheme composition) recover far fewer anchors with semantically-correct projections (10.7% and 1.8% Tier-2 top-5 accuracy) — not the next lever to pull.
+- **2026-04-19 — Workstream 2b (STRETCH tier shipped):** Normalization fix landed. Whitened-Gemma top-1 **19.85% → 52.13% (+32.28pp)**. Training anchors 1,572 → 6,867. Coverage diagnostic's `normalization_recoverable` bucket cleared from 7,651 to 0. The 2b-pre diagnostic's attribution held to the bit — a ~20-line unicode-normalization fix delivered the largest single top-1 gain in the project's history.
+- **2026-04-19 — Workstream 2b-pre:** Coverage diagnostic attributed 64.85% of the 11,798 `sumerian_vocab_miss` anchors to a simple ASCII-normalization gap between the anchor extractor and the corpus tokenizer (subscripts → ASCII, strip determinative braces, drop hyphens). Inference-based alternatives (FastText subword inference, morpheme composition) scored 10.7% and 1.8% Tier-2 top-5 accuracy respectively — not the next lever to pull.
 - **2026-04-18 — Workstream 2a:** Anchor audit baselined valid-anchor survival at 14.05% (1,951/13,886). 84.96% of all dropout is `sumerian_vocab_miss`; every other bucket combined is under 1%.
 - **2026-04-16 — Phase B:** Dual-view Sumerian lookup. Whitened EmbeddingGemma and GloVe now coexist as parallel alignment targets; downstream code toggles via `space="gemma"|"glove"`.
 - **2026-04-16 — Phase A retry #2:** BERT-whitening (Su et al. 2021) applied to the EmbeddingGemma target unlocked +2.54pp top-1 over GloVe. Centering + whitening is mandatory for any contextual-encoder alignment target.
