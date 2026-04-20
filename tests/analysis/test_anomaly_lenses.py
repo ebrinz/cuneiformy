@@ -213,3 +213,83 @@ def test_lens4_jaccard_distance_identical_neighbors():
     )
     for row in result["rows_unfiltered"]:
         assert row["jaccard_distance"] == pytest.approx(0.0, abs=1e-9)
+
+
+# --- Lens 5: Doppelgangers ----------------------------------------------
+
+
+def test_lens5_doppelganger_finds_identical_pair():
+    from scripts.analysis.anomaly_lenses import lens5_doppelgangers
+
+    # Tokens a and b are identical in direction; others are spread out.
+    vectors = _normalize_rows(np.array([
+        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],  # a/b identical
+        [0.0, 1.0, 0.0],
+        [0.0, 0.0, 1.0],
+        [-1.0, 0.0, 0.0],
+    ], dtype=np.float32))
+    vocab = ["a", "b", "c", "d", "e"]
+    result = lens5_doppelgangers(
+        vectors, vocab, frozenset(), threshold=0.95, top_n=5,
+    )
+    assert len(result["rows"]) >= 1
+    top = result["rows"][0]
+    assert {top["sumerian_a"], top["sumerian_b"]} == {"a", "b"}
+    assert top["cosine_similarity"] >= 0.95
+
+
+def test_lens5_respects_threshold():
+    from scripts.analysis.anomaly_lenses import lens5_doppelgangers
+
+    vectors = _normalize_rows(np.array([
+        [1.0, 0.0],
+        [0.9, 0.436],   # cos to row 0 = 0.9
+    ], dtype=np.float32))
+    vocab = ["a", "b"]
+    # threshold 0.95 -> no pair
+    result_strict = lens5_doppelgangers(vectors, vocab, frozenset(), threshold=0.95, top_n=5)
+    assert result_strict["rows"] == []
+    # threshold 0.85 -> pair surfaces
+    result_loose = lens5_doppelgangers(vectors, vocab, frozenset(), threshold=0.85, top_n=5)
+    assert len(result_loose["rows"]) == 1
+
+
+# --- Lens 6: Structural bridges -----------------------------------------
+
+
+def test_lens6_bridge_score_is_high_when_equidistant():
+    from scripts.analysis.anomaly_lenses import lens6_structural_bridges
+
+    # Two obvious clusters + one bridge token equidistant from both.
+    np.random.seed(0)
+    cluster_a = np.array([[1.0, 0.0], [0.99, 0.02], [0.98, -0.02]], dtype=np.float32)
+    cluster_b = np.array([[-1.0, 0.0], [-0.99, 0.02], [-0.98, -0.02]], dtype=np.float32)
+    bridge = np.array([[0.0, 1.0]], dtype=np.float32)  # equidistant from both clusters
+    vectors = _normalize_rows(np.vstack([cluster_a, cluster_b, bridge]))
+    vocab = ["a1", "a2", "a3", "b1", "b2", "b3", "bridge"]
+    result = lens6_structural_bridges(
+        vectors, vocab, k_clusters=2, top_n=7, seed=0,
+    )
+    rows = result["rows"]
+    bridge_row = next(r for r in rows if r["sumerian"] == "bridge")
+    # The bridge token should have the highest bridge score.
+    assert bridge_row["bridge_score"] == pytest.approx(
+        max(r["bridge_score"] for r in rows), abs=1e-5
+    )
+
+
+def test_lens6_reports_k_clusters():
+    from scripts.analysis.anomaly_lenses import lens6_structural_bridges
+
+    rng = np.random.default_rng(0)
+    vectors = _normalize_rows(rng.standard_normal((30, 8)).astype(np.float32))
+    vocab = [f"t{i}" for i in range(30)]
+    result = lens6_structural_bridges(
+        vectors, vocab, k_clusters=4, top_n=5, seed=0,
+    )
+    assert result["k_clusters"] == 4
+    for row in result["rows"]:
+        assert "bridge_score" in row
+        assert "nearest_cluster" in row
+        assert "second_nearest_cluster" in row

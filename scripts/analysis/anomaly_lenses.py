@@ -248,3 +248,124 @@ def lens4_cross_space_divergence(
         "rows_unfiltered": rows[:top_n],
         "rows_anchor_only": rows_anchor_only[:top_n],
     }
+
+
+def lens5_doppelgangers(
+    aligned: np.ndarray,
+    source_vocab: list[str],
+    anchor_source_tokens: frozenset[str],
+    threshold: float,
+    top_n: int,
+    chunk_size: int = 500,
+) -> dict:
+    """Lens 5: find all pairs (i, j) with cos_sim(aligned[i], aligned[j]) >= threshold.
+
+    Chunked to avoid the full N×N dense similarity matrix. Threshold-filters
+    pairs inside each row-chunk.
+    """
+    n = aligned.shape[0]
+    pairs: list[tuple[int, int, float]] = []
+    hist_edges = np.linspace(0.85, 1.0, 16)  # 15 bins from 0.85 to 1.00
+    hist_counts = np.zeros(15, dtype=np.int64)
+
+    for start in range(0, n, chunk_size):
+        end = min(n, start + chunk_size)
+        chunk = aligned[start:end]
+        sims = chunk @ aligned.T                          # (chunk, n)
+        # For each row i in chunk, consider only j > start+row to avoid duplicates
+        # and to skip self-pairs.
+        for row_i in range(chunk.shape[0]):
+            i_global = start + row_i
+            row = sims[row_i]
+            # Tally for histogram (include pairs only ONCE: require j > i_global).
+            relevant = row[i_global + 1 :]
+            hist_update, _ = np.histogram(relevant, bins=hist_edges)
+            hist_counts += hist_update
+            # Collect over-threshold pairs.
+            over = np.where(relevant >= threshold)[0]
+            for j_offset in over:
+                j_global = i_global + 1 + int(j_offset)
+                pairs.append((i_global, j_global, float(row[i_global + 1 + int(j_offset)])))
+
+    # Sort by descending cosine, ties broken by token alphabetical.
+    pairs.sort(key=lambda p: (-p[2], source_vocab[p[0]], source_vocab[p[1]]))
+
+    rows = []
+    for (i, j, cos) in pairs[:top_n]:
+        tok_i = source_vocab[i]
+        tok_j = source_vocab[j]
+        rows.append({
+            "sumerian_a": tok_i,
+            "sumerian_b": tok_j,
+            "cosine_similarity": float(cos),
+            "in_anchor_set": [tok_i in anchor_source_tokens, tok_j in anchor_source_tokens],
+        })
+
+    return {
+        "rows": rows,
+        "histogram": {
+            "bin_edges": hist_edges.tolist(),
+            "counts": hist_counts.tolist(),
+        },
+    }
+
+
+def lens6_structural_bridges(
+    aligned: np.ndarray,
+    source_vocab: list[str],
+    k_clusters: int,
+    top_n: int,
+    seed: int,
+) -> dict:
+    """Lens 6: k-means cluster the aligned vectors, then for each token compute
+    cosine distances to all k cluster centroids. Bridge score =
+      1.0 - (min_distance / second_min_distance)
+    where min_distance is cosine distance to nearest centroid. Higher bridge
+    score = more equidistant between two clusters = structural bridge.
+
+    Clustering is deterministic with `random_state=seed`.
+    """
+    from sklearn.cluster import KMeans
+
+    n = aligned.shape[0]
+    km = KMeans(n_clusters=k_clusters, random_state=seed, n_init=10)
+    labels = km.fit_predict(aligned)
+    centroids = km.cluster_centers_  # (k, dim)
+    # L2-normalize centroids so cosine similarities are meaningful.
+    centroid_norms = np.linalg.norm(centroids, axis=1, keepdims=True)
+    centroid_norms[centroid_norms == 0] = 1.0
+    centroids_norm = centroids / centroid_norms
+
+    # Cosine distances from every token to every centroid.
+    sims = aligned @ centroids_norm.T                # (n, k)
+    dists = 1.0 - sims                               # cosine distance
+
+    # For each token: two smallest distances.
+    sorted_dist_idx = np.argsort(dists, axis=1)      # (n, k)
+    nearest_cluster = sorted_dist_idx[:, 0]
+    second_cluster = sorted_dist_idx[:, 1]
+    d_min = dists[np.arange(n), nearest_cluster]
+    d_second = dists[np.arange(n), second_cluster]
+    d_second_safe = np.where(d_second > 0, d_second, 1.0)
+    bridge_score = d_min / d_second_safe
+
+    # Members of each cluster (for reporting).
+    cluster_members: dict[int, list[str]] = {k: [] for k in range(k_clusters)}
+    for i, cluster_id in enumerate(labels):
+        cluster_members[int(cluster_id)].append(source_vocab[i])
+
+    order = np.argsort(-bridge_score, kind="stable")
+    rows = []
+    for idx in order[:top_n]:
+        nearest = int(nearest_cluster[idx])
+        second = int(second_cluster[idx])
+        rows.append({
+            "sumerian": source_vocab[int(idx)],
+            "bridge_score": float(bridge_score[idx]),
+            "nearest_cluster": nearest,
+            "second_nearest_cluster": second,
+            f"cluster_{nearest}_members": cluster_members[nearest][:5],
+            f"cluster_{second}_members": cluster_members[second][:5],
+        })
+
+    return {"k_clusters": k_clusters, "rows": rows}
