@@ -378,3 +378,87 @@ def test_render_lens5_markdown_shows_histogram_summary():
     md = render_lens5_markdown(_synthetic_atlas_section())
     # ASCII histogram or a prose summary of bin counts.
     assert "0.85" in md or "histogram" in md.lower()
+
+
+def test_run_atlas_produces_schema_compliant_json(tmp_path):
+    """End-to-end: run_atlas against synthetic inputs emits JSON with all lens
+    sections and all required top-level keys."""
+    from scripts.analysis.anomaly_framework import AnomalyConfig, run_atlas
+    import pickle as _pkl
+
+    # Build tiny synthetic artifacts.
+    rng = np.random.default_rng(42)
+    source_vocab = [f"src{i}" for i in range(30)]
+    aligned_gemma = _normalize_rows(rng.standard_normal((30, 16)).astype(np.float32))
+    aligned_glove = _normalize_rows(rng.standard_normal((30, 16)).astype(np.float32))
+    target_vocab = [f"eng{i}" for i in range(15)]
+    target_gemma = _normalize_rows(rng.standard_normal((15, 16)).astype(np.float32))
+
+    # Save artifacts
+    np.savez_compressed(
+        tmp_path / "aligned_gemma.npz", vectors=aligned_gemma,
+    )
+    np.savez_compressed(
+        tmp_path / "aligned_glove.npz", vectors=aligned_glove,
+    )
+    with open(tmp_path / "vocab.pkl", "wb") as f:
+        _pkl.dump(source_vocab, f)
+    np.savez_compressed(
+        tmp_path / "target_gemma.npz",
+        vectors=target_gemma, vocab=np.array(target_vocab),
+    )
+    # Minimal anchors: first 5 tokens are anchors.
+    anchors = [
+        {"sumerian": source_vocab[i], "english": target_vocab[i % 15],
+         "confidence": 0.9, "source": "ePSD2"}
+        for i in range(5)
+    ]
+    (tmp_path / "anchors.json").write_text(json.dumps(anchors))
+    (tmp_path / "corpus.txt").write_text(" ".join(source_vocab * 3))
+
+    out_json = tmp_path / "atlas.json"
+    out_md = tmp_path / "md"
+
+    config = AnomalyConfig(
+        civilization_name="test",
+        aligned_gemma_path=tmp_path / "aligned_gemma.npz",
+        aligned_glove_path=tmp_path / "aligned_glove.npz",
+        source_vocab_path=tmp_path / "vocab.pkl",
+        target_gemma_vocab_path=tmp_path / "target_gemma.npz",
+        target_glove_vocab_path=None,  # Lens 2 uses only Gemma target; None is fine
+        anchors_path=tmp_path / "anchors.json",
+        corpus_frequency_path=tmp_path / "corpus.txt",
+        junk_target_glosses=frozenset(),
+        min_anchor_confidence=0.5,
+        min_token_length=2,
+        output_atlas_json=out_json,
+        output_markdown_dir=out_md,
+        output_figures_dir=None,
+        seed=42,
+        k_clusters=3,              # tiny for synthetic data
+        top_n_per_lens=5,
+        doppelganger_threshold=0.9,  # loose for synthetic noise
+        isolation_k=3,
+    )
+
+    run_atlas(config)
+
+    assert out_json.exists()
+    atlas = json.loads(out_json.read_text())
+    assert atlas["atlas_schema_version"] == 1
+    assert atlas["civilization"] == "test"
+    for key in (
+        "lens1_english_displacement", "lens2_no_counterpart",
+        "lens3_isolation", "lens4_cross_space_divergence",
+        "lens5_doppelgangers", "lens6_structural_bridges",
+    ):
+        assert key in atlas
+
+    # All 7 markdown files are produced.
+    for fname in (
+        "atlas_summary.md", "lens1_english_displacement.md",
+        "lens2_no_counterpart.md", "lens3_isolation.md",
+        "lens4_cross_space_divergence.md", "lens5_doppelgangers.md",
+        "lens6_structural_bridges.md",
+    ):
+        assert (out_md / fname).exists()
