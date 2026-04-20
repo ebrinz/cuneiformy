@@ -15,6 +15,24 @@ Entry format:
 
 ---
 
+## 2026-04-20 — Anomaly Atlas shipped (civilization-agnostic framework)
+
+**Hypothesis:** The Sumerian cosmogony document drew interpretive claims from five hand-picked concepts. Applying the same methodology at scale to all 35,508 aligned tokens, via six diagnostic lenses, both tests the cosmogony document's thesis and produces a ranked atlas of anomalies for future writing. Designed as a civilization-agnostic framework so the queued comparative repo (and eventually a Gemma-tized Heiroglyphy) can reuse the code.
+
+**Method:** New `scripts/analysis/anomaly_lenses.py` (6 pure-function lenses, zero Sumerian-specific logic), `scripts/analysis/anomaly_framework.py` (AnomalyConfig + run_atlas + markdown renderers), `scripts/analysis/sumerian_anomaly_atlas.py` (thin 60-line wrapper that builds the config for Cuneiformy's artifacts). 17 unit tests total. Six lenses: English displacement, untranslated high-value terms, isolation in source space, cross-space divergence (Gemma vs GloVe), doppelgangers (cos ≥ 0.95), structural bridges (k-means k=40).
+
+**Result — top-1 per lens:**
+- Lens 1 (English displacement): rin2 -> lord (cos=-0.0877)
+- Lens 2 (no counterpart): 1(disz) (freq=115478, top1_cos=0.4568)
+- Lens 3 (isolation): had2 (d_k=0.6334)
+- Lens 4 (cross-space divergence): adabkibi (jaccard=1.0000)
+- Lens 5 (doppelgangers): baandab5be2ec == baandab5be2eš (cos=0.9979)
+- Lens 6 (structural bridges): ningir2su2kake4 (bridge=1.0000, clusters 9/4)
+
+**Takeaway:** The cosmogony document's "geometrically distinct from English" thesis is not confirmed at scale: none of the five hand-picked cosmogonic concepts (`abzu`, `zi`, `nam`, `me`, `an`) appear anywhere in Lens 1's top-50 most-displaced tokens — the atlas surface is dominated by low-frequency hapax-type forms (`rin2`, `bun2`, `jizzal`) rather than thematically loaded vocabulary. The top-1 no-counterpart token is `1(disz)` — a Sumerian numeric classifier with corpus frequency 115,478 and only a 0.46 cosine match to "goat" — which suggests the largest semantic gap between Sumerian and English exists in the grammatical/numeric register, not the mythological one. The Lens 4 divergence winner `adabkibi` (Jaccard=1.0, zero neighbour overlap between Gemma and GloVe spaces) and the Lens 6 bridge winner `ningir2su2kake4` (a compound divine name spanning two clusters) point toward proper-noun compounds as the richest territory for future anomaly-driven writing.
+
+**Artifacts / commits:** `scripts/analysis/anomaly_lenses.py`, `scripts/analysis/anomaly_framework.py`, `scripts/analysis/sumerian_anomaly_atlas.py`, `tests/analysis/test_anomaly_lenses.py`, `docs/anomaly_atlas.json`, `docs/anomalies/*.md`. Spec: `docs/superpowers/specs/2026-04-20-anomaly-atlas-design.md`. Plan: `docs/superpowers/plans/2026-04-20-anomaly-atlas.md`.
+
 ## 2026-04-19 — Sumerian Cosmogony Document shipped
 
 **Hypothesis:** With Workstream 2b's alignment at 52.13% top-1, the embedding geometry is rich enough to support methodology-driven interpretation of Sumerian cosmogonic vocabulary. A case study on the Anunnaki cosmogonic cycle exercises the dual-view SumerianLookup API, tests whether the geometry says anything non-obvious, and produces a shareable research artifact.
