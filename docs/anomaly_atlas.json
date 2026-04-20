@@ -1,0 +1,6752 @@
+{
+  "atlas_date": "2026-04-20",
+  "atlas_schema_version": 1,
+  "civilization": "sumerian",
+  "lens1_english_displacement": {
+    "filter_rules_applied": [
+      "english_len>2",
+      "english_not_numeric",
+      "english_not_in_junk_set",
+      "sumerian_len>=2",
+      "anchor_confidence>=0.5"
+    ],
+    "rows_filtered": [
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.08770032227039337,
+        "english": "lord",
+        "source": "ETCSL",
+        "sumerian": "rin2"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.06349420547485352,
+        "english": "ear",
+        "source": "ePSD2",
+        "sumerian": "jizzal"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": -0.04259747266769409,
+        "english": "foremost",
+        "source": "ePSD2",
+        "sumerian": "zage3"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.03913925215601921,
+        "english": "barkeeper",
+        "source": "ePSD2",
+        "sumerian": "sa3bi2tum"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.03714551776647568,
+        "english": "priest",
+        "source": "ePSD2",
+        "sumerian": "en"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.03447932004928589,
+        "english": "heron",
+        "source": "ETCSL",
+        "sumerian": "igira2"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.03266839683055878,
+        "english": "combat",
+        "source": "ePSD2",
+        "sumerian": "du14"
+      },
+      {
+        "anchor_confidence": 0.63,
+        "cosine_similarity": -0.027631910517811775,
+        "english": "loss",
+        "source": "ePSD2",
+        "sumerian": "agazi"
+      },
+      {
+        "anchor_confidence": 0.62,
+        "cosine_similarity": -0.0275427233427763,
+        "english": "song",
+        "source": "ePSD2",
+        "sumerian": "eellu"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.02239110693335533,
+        "english": "storehouse",
+        "source": "ePSD2",
+        "sumerian": "araah"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": -0.021400747820734978,
+        "english": "male",
+        "source": "ePSD2",
+        "sumerian": "mutiin"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.019500765949487686,
+        "english": "scoundrel",
+        "source": "ePSD2",
+        "sumerian": "gu2zal"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.019257619976997375,
+        "english": "potash",
+        "source": "ePSD2",
+        "sumerian": "naga"
+      },
+      {
+        "anchor_confidence": 0.6667,
+        "cosine_similarity": -0.018409598618745804,
+        "english": "you",
+        "source": "ETCSL",
+        "sumerian": "uk"
+      },
+      {
+        "anchor_confidence": 0.88,
+        "cosine_similarity": -0.014296118170022964,
+        "english": "work",
+        "source": "ePSD2",
+        "sumerian": "gu2tul2"
+      },
+      {
+        "anchor_confidence": 0.67,
+        "cosine_similarity": -0.013967873528599739,
+        "english": "moreover",
+        "source": "ePSD2",
+        "sumerian": "anga"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.012779604643583298,
+        "english": "protective",
+        "source": "ETCSL",
+        "sumerian": "alad"
+      },
+      {
+        "anchor_confidence": 0.68,
+        "cosine_similarity": -0.011289786547422409,
+        "english": "dense",
+        "source": "ePSD2",
+        "sumerian": "sir"
+      },
+      {
+        "anchor_confidence": 0.72,
+        "cosine_similarity": -0.010920673608779907,
+        "english": "reciprocal",
+        "source": "ePSD2",
+        "sumerian": "igigal2"
+      },
+      {
+        "anchor_confidence": 0.61,
+        "cosine_similarity": -0.01087970845401287,
+        "english": "beam",
+        "source": "ePSD2",
+        "sumerian": "bi2nitum"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.009957396425306797,
+        "english": "you",
+        "source": "ETCSL",
+        "sumerian": "il5"
+      },
+      {
+        "anchor_confidence": 0.6,
+        "cosine_similarity": -0.005393080413341522,
+        "english": "hereafter",
+        "source": "ePSD2",
+        "sumerian": "uddata"
+      },
+      {
+        "anchor_confidence": 0.7526,
+        "cosine_similarity": -0.005147881805896759,
+        "english": "protective",
+        "source": "ETCSL",
+        "sumerian": "lamma"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.0014026947319507599,
+        "english": "reversion",
+        "source": "ePSD2",
+        "sumerian": "amaargi4"
+      },
+      {
+        "anchor_confidence": 0.74,
+        "cosine_similarity": -0.0011567184701561928,
+        "english": "fate",
+        "source": "ePSD2",
+        "sumerian": "naaj2"
+      },
+      {
+        "anchor_confidence": 0.8,
+        "cosine_similarity": -0.0008470639586448669,
+        "english": "did",
+        "source": "ETCSL",
+        "sumerian": "habrud"
+      },
+      {
+        "anchor_confidence": 0.75,
+        "cosine_similarity": 0.0012992657721042633,
+        "english": "you",
+        "source": "ETCSL",
+        "sumerian": "ke"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": 0.0015518758445978165,
+        "english": "said",
+        "source": "ETCSL",
+        "sumerian": "ece2"
+      },
+      {
+        "anchor_confidence": 0.63,
+        "cosine_similarity": 0.004836901091039181,
+        "english": "rail",
+        "source": "ePSD2",
+        "sumerian": "sza3si"
+      },
+      {
+        "anchor_confidence": 0.81,
+        "cosine_similarity": 0.0065089501440525055,
+        "english": "poison",
+        "source": "ePSD2",
+        "sumerian": "usz11"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": 0.00880473107099533,
+        "english": "potash",
+        "source": "ePSD2",
+        "sumerian": "nagabi"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.009192186407744884,
+        "english": "youth",
+        "source": "ePSD2",
+        "sumerian": "muu2a"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": 0.010548222810029984,
+        "english": "rainstorm",
+        "source": "ePSD2",
+        "sumerian": "muru9gin7"
+      },
+      {
+        "anchor_confidence": 0.66,
+        "cosine_similarity": 0.010622857138514519,
+        "english": "stalk",
+        "source": "ePSD2",
+        "sumerian": "isin"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.010867414996027946,
+        "english": "throttle",
+        "source": "ePSD2",
+        "sumerian": "ere"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": 0.011163744144141674,
+        "english": "instrument",
+        "source": "ePSD2",
+        "sumerian": "kamma"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": 0.01260136067867279,
+        "english": "implement",
+        "source": "ePSD2",
+        "sumerian": "sipar3"
+      },
+      {
+        "anchor_confidence": 0.91,
+        "cosine_similarity": 0.012729056179523468,
+        "english": "illness",
+        "source": "ePSD2",
+        "sumerian": "naamtura"
+      },
+      {
+        "anchor_confidence": 0.85,
+        "cosine_similarity": 0.013615819625556469,
+        "english": "command",
+        "source": "ePSD2",
+        "sumerian": "duga"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": 0.015264499932527542,
+        "english": "check",
+        "source": "ePSD2",
+        "sumerian": "dim4ma"
+      },
+      {
+        "anchor_confidence": 0.59,
+        "cosine_similarity": 0.017204051837325096,
+        "english": "earth",
+        "source": "ePSD2",
+        "sumerian": "arali"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.017279313877224922,
+        "english": "bond",
+        "source": "ePSD2",
+        "sumerian": "diirgaa"
+      },
+      {
+        "anchor_confidence": 0.6,
+        "cosine_similarity": 0.01738995872437954,
+        "english": "thing",
+        "source": "ePSD2",
+        "sumerian": "nig2ga2ni"
+      },
+      {
+        "anchor_confidence": 0.6667,
+        "cosine_similarity": 0.01768980361521244,
+        "english": "out",
+        "source": "ETCSL",
+        "sumerian": "enmen"
+      },
+      {
+        "anchor_confidence": 0.5455,
+        "cosine_similarity": 0.017929814755916595,
+        "english": "like",
+        "source": "ETCSL",
+        "sumerian": "cu4"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.018737468868494034,
+        "english": "breach",
+        "source": "ePSD2",
+        "sumerian": "gu2jiri3"
+      },
+      {
+        "anchor_confidence": 0.5833,
+        "cosine_similarity": 0.019345536828041077,
+        "english": "are",
+        "source": "ETCSL",
+        "sumerian": "dim4"
+      },
+      {
+        "anchor_confidence": 0.75,
+        "cosine_similarity": 0.01942412555217743,
+        "english": "placed",
+        "source": "ETCSL",
+        "sumerian": "umah"
+      },
+      {
+        "anchor_confidence": 0.58,
+        "cosine_similarity": 0.01983024552464485,
+        "english": "stone",
+        "source": "ePSD2",
+        "sumerian": "iszme"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": 0.0214393213391304,
+        "english": "potash",
+        "source": "ePSD2",
+        "sumerian": "nagata"
+      }
+    ],
+    "rows_unfiltered": [
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.08770032227039337,
+        "english": "lord",
+        "source": "ETCSL",
+        "sumerian": "rin2"
+      },
+      {
+        "anchor_confidence": 0.7333,
+        "cosine_similarity": -0.0646270364522934,
+        "english": "s",
+        "source": "ETCSL",
+        "sumerian": "bun2"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.06349420547485352,
+        "english": "ear",
+        "source": "ePSD2",
+        "sumerian": "jizzal"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": -0.04259747266769409,
+        "english": "foremost",
+        "source": "ePSD2",
+        "sumerian": "zage3"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.03913925215601921,
+        "english": "barkeeper",
+        "source": "ePSD2",
+        "sumerian": "sa3bi2tum"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.03714551776647568,
+        "english": "priest",
+        "source": "ePSD2",
+        "sumerian": "en"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.03447932004928589,
+        "english": "heron",
+        "source": "ETCSL",
+        "sumerian": "igira2"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.03266839683055878,
+        "english": "combat",
+        "source": "ePSD2",
+        "sumerian": "du14"
+      },
+      {
+        "anchor_confidence": 0.63,
+        "cosine_similarity": -0.027631910517811775,
+        "english": "loss",
+        "source": "ePSD2",
+        "sumerian": "agazi"
+      },
+      {
+        "anchor_confidence": 0.62,
+        "cosine_similarity": -0.0275427233427763,
+        "english": "song",
+        "source": "ePSD2",
+        "sumerian": "eellu"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.02239110693335533,
+        "english": "storehouse",
+        "source": "ePSD2",
+        "sumerian": "araah"
+      },
+      {
+        "anchor_confidence": 0.875,
+        "cosine_similarity": -0.022251484915614128,
+        "english": "h",
+        "source": "ETCSL",
+        "sumerian": "ia3"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": -0.021400747820734978,
+        "english": "male",
+        "source": "ePSD2",
+        "sumerian": "mutiin"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.019500765949487686,
+        "english": "scoundrel",
+        "source": "ePSD2",
+        "sumerian": "gu2zal"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": -0.019257619976997375,
+        "english": "potash",
+        "source": "ePSD2",
+        "sumerian": "naga"
+      },
+      {
+        "anchor_confidence": 0.6667,
+        "cosine_similarity": -0.018409598618745804,
+        "english": "you",
+        "source": "ETCSL",
+        "sumerian": "uk"
+      },
+      {
+        "anchor_confidence": 0.6667,
+        "cosine_similarity": -0.01589568518102169,
+        "english": "x",
+        "source": "ETCSL",
+        "sumerian": "egir2"
+      },
+      {
+        "anchor_confidence": 0.88,
+        "cosine_similarity": -0.014296118170022964,
+        "english": "work",
+        "source": "ePSD2",
+        "sumerian": "gu2tul2"
+      },
+      {
+        "anchor_confidence": 0.67,
+        "cosine_similarity": -0.013967873528599739,
+        "english": "moreover",
+        "source": "ePSD2",
+        "sumerian": "anga"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.012779604643583298,
+        "english": "protective",
+        "source": "ETCSL",
+        "sumerian": "alad"
+      },
+      {
+        "anchor_confidence": 0.68,
+        "cosine_similarity": -0.011289786547422409,
+        "english": "dense",
+        "source": "ePSD2",
+        "sumerian": "sir"
+      },
+      {
+        "anchor_confidence": 0.72,
+        "cosine_similarity": -0.010920673608779907,
+        "english": "reciprocal",
+        "source": "ePSD2",
+        "sumerian": "igigal2"
+      },
+      {
+        "anchor_confidence": 0.61,
+        "cosine_similarity": -0.01087970845401287,
+        "english": "beam",
+        "source": "ePSD2",
+        "sumerian": "bi2nitum"
+      },
+      {
+        "anchor_confidence": 0.7941,
+        "cosine_similarity": -0.010311399586498737,
+        "english": "g",
+        "source": "ETCSL",
+        "sumerian": "par4"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.009957396425306797,
+        "english": "you",
+        "source": "ETCSL",
+        "sumerian": "il5"
+      },
+      {
+        "anchor_confidence": 0.6,
+        "cosine_similarity": -0.005393080413341522,
+        "english": "hereafter",
+        "source": "ePSD2",
+        "sumerian": "uddata"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": -0.0051589831709861755,
+        "english": "x",
+        "source": "ETCSL",
+        "sumerian": "dala2"
+      },
+      {
+        "anchor_confidence": 0.7526,
+        "cosine_similarity": -0.005147881805896759,
+        "english": "protective",
+        "source": "ETCSL",
+        "sumerian": "lamma"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": -0.0014026947319507599,
+        "english": "reversion",
+        "source": "ePSD2",
+        "sumerian": "amaargi4"
+      },
+      {
+        "anchor_confidence": 0.74,
+        "cosine_similarity": -0.0011567184701561928,
+        "english": "fate",
+        "source": "ePSD2",
+        "sumerian": "naaj2"
+      },
+      {
+        "anchor_confidence": 0.8,
+        "cosine_similarity": -0.0008470639586448669,
+        "english": "did",
+        "source": "ETCSL",
+        "sumerian": "habrud"
+      },
+      {
+        "anchor_confidence": 0.75,
+        "cosine_similarity": 0.0012992657721042633,
+        "english": "you",
+        "source": "ETCSL",
+        "sumerian": "ke"
+      },
+      {
+        "anchor_confidence": 1.0,
+        "cosine_similarity": 0.0015518758445978165,
+        "english": "said",
+        "source": "ETCSL",
+        "sumerian": "ece2"
+      },
+      {
+        "anchor_confidence": 0.63,
+        "cosine_similarity": 0.004836901091039181,
+        "english": "rail",
+        "source": "ePSD2",
+        "sumerian": "sza3si"
+      },
+      {
+        "anchor_confidence": 0.81,
+        "cosine_similarity": 0.0065089501440525055,
+        "english": "poison",
+        "source": "ePSD2",
+        "sumerian": "usz11"
+      },
+      {
+        "anchor_confidence": 0.95,
+        "cosine_similarity": 0.00880473107099533,
+        "english": "potash",
+        "source": "ePSD2",
+        "sumerian": "nagabi"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.009192186407744884,
+        "english": "youth",
+        "source": "ePSD2",
+        "sumerian": "muu2a"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": 0.010548222810029984,
+        "english": "rainstorm",
+        "source": "ePSD2",
+        "sumerian": "muru9gin7"
+      },
+      {
+        "anchor_confidence": 0.66,
+        "cosine_similarity": 0.010622857138514519,
+        "english": "stalk",
+        "source": "ePSD2",
+        "sumerian": "isin"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.010867414996027946,
+        "english": "throttle",
+        "source": "ePSD2",
+        "sumerian": "ere"
+      },
+      {
+        "anchor_confidence": 0.55,
+        "cosine_similarity": 0.011163744144141674,
+        "english": "instrument",
+        "source": "ePSD2",
+        "sumerian": "kamma"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": 0.01260136067867279,
+        "english": "implement",
+        "source": "ePSD2",
+        "sumerian": "sipar3"
+      },
+      {
+        "anchor_confidence": 0.91,
+        "cosine_similarity": 0.012729056179523468,
+        "english": "illness",
+        "source": "ePSD2",
+        "sumerian": "naamtura"
+      },
+      {
+        "anchor_confidence": 0.85,
+        "cosine_similarity": 0.013615819625556469,
+        "english": "command",
+        "source": "ePSD2",
+        "sumerian": "duga"
+      },
+      {
+        "anchor_confidence": 0.8485,
+        "cosine_similarity": 0.014202045276761055,
+        "english": "x",
+        "source": "ETCSL",
+        "sumerian": "nu11"
+      },
+      {
+        "anchor_confidence": 0.56,
+        "cosine_similarity": 0.015264499932527542,
+        "english": "check",
+        "source": "ePSD2",
+        "sumerian": "dim4ma"
+      },
+      {
+        "anchor_confidence": 0.59,
+        "cosine_similarity": 0.017204051837325096,
+        "english": "earth",
+        "source": "ePSD2",
+        "sumerian": "arali"
+      },
+      {
+        "anchor_confidence": 0.57,
+        "cosine_similarity": 0.017279313877224922,
+        "english": "bond",
+        "source": "ePSD2",
+        "sumerian": "diirgaa"
+      },
+      {
+        "anchor_confidence": 0.6,
+        "cosine_similarity": 0.01738995872437954,
+        "english": "thing",
+        "source": "ePSD2",
+        "sumerian": "nig2ga2ni"
+      },
+      {
+        "anchor_confidence": 0.6667,
+        "cosine_similarity": 0.01768980361521244,
+        "english": "out",
+        "source": "ETCSL",
+        "sumerian": "enmen"
+      }
+    ]
+  },
+  "lens2_no_counterpart": {
+    "rows": [
+      {
+        "corpus_frequency": 115478,
+        "score": 62733.20605146885,
+        "sumerian": "1(disz)",
+        "top1_cosine": 0.45675188302993774,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 68968,
+        "score": 49721.00227570534,
+        "sumerian": "1(u)",
+        "top1_cosine": 0.2790714204311371,
+        "top1_english": "worker"
+      },
+      {
+        "corpus_frequency": 78754,
+        "score": 41292.912709355354,
+        "sumerian": "2(disz)",
+        "top1_cosine": 0.47567218542099,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 65574,
+        "score": 41008.59252119064,
+        "sumerian": "5(disz)",
+        "top1_cosine": 0.3746211528778076,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 52685,
+        "score": 37336.666262447834,
+        "sumerian": "sze3",
+        "top1_cosine": 0.29132264852523804,
+        "top1_english": "father"
+      },
+      {
+        "corpus_frequency": 58788,
+        "score": 36280.082636117935,
+        "sumerian": "3(disz)",
+        "top1_cosine": 0.382865846157074,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 36240,
+        "score": 25827.008457183838,
+        "sumerian": "2(u)",
+        "top1_cosine": 0.2873342037200928,
+        "top1_english": "place"
+      },
+      {
+        "corpus_frequency": 26554,
+        "score": 17655.861564218998,
+        "sumerian": "1(asz@c)",
+        "top1_cosine": 0.33509597182273865,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 28445,
+        "score": 16858.646321296692,
+        "sumerian": "4(disz)",
+        "top1_cosine": 0.40732479095458984,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 22364,
+        "score": 16082.996103525162,
+        "sumerian": "3(u)",
+        "top1_cosine": 0.2808533310890198,
+        "top1_english": "worker"
+      },
+      {
+        "corpus_frequency": 27686,
+        "score": 14986.569558560848,
+        "sumerian": "1(di\u0161)",
+        "top1_cosine": 0.45869502425193787,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 22660,
+        "score": 14734.429037570953,
+        "sumerian": "6(disz)",
+        "top1_cosine": 0.34976041316986084,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 25624,
+        "score": 14157.680254459381,
+        "sumerian": "1(barig)",
+        "top1_cosine": 0.4474835991859436,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 22812,
+        "score": 12315.261397004128,
+        "sumerian": "3(ban2)",
+        "top1_cosine": 0.4601410925388336,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 16243,
+        "score": 11469.261962383986,
+        "sumerian": "\u014be\u0161",
+        "top1_cosine": 0.29389509558677673,
+        "top1_english": "tree"
+      },
+      {
+        "corpus_frequency": 21876,
+        "score": 11054.044185876846,
+        "sumerian": "1(ban2)",
+        "top1_cosine": 0.49469536542892456,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 14726,
+        "score": 10049.982910096645,
+        "sumerian": "1(gesz2)",
+        "top1_cosine": 0.31753477454185486,
+        "top1_english": "barley"
+      },
+      {
+        "corpus_frequency": 13782,
+        "score": 9953.344467401505,
+        "sumerian": "4(u)",
+        "top1_cosine": 0.27780115604400635,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 14542,
+        "score": 9705.10980951786,
+        "sumerian": "8(disz)",
+        "top1_cosine": 0.3326151967048645,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 13777,
+        "score": 9656.36360245943,
+        "sumerian": "\u0161e",
+        "top1_cosine": 0.2990953326225281,
+        "top1_english": "cut"
+      },
+      {
+        "corpus_frequency": 13855,
+        "score": 9285.829798281193,
+        "sumerian": "1(asz)",
+        "top1_cosine": 0.32978492975234985,
+        "top1_english": "priest"
+      },
+      {
+        "corpus_frequency": 13000,
+        "score": 9002.43291258812,
+        "sumerian": "ba6",
+        "top1_cosine": 0.30750516057014465,
+        "top1_english": "turn"
+      },
+      {
+        "corpus_frequency": 14175,
+        "score": 8997.432669997215,
+        "sumerian": "1/2(disz)",
+        "top1_cosine": 0.3652604818344116,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 16275,
+        "score": 8694.382645189762,
+        "sumerian": "2(barig)",
+        "top1_cosine": 0.46578294038772583,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 13911,
+        "score": 8646.13694626093,
+        "sumerian": "7(disz)",
+        "top1_cosine": 0.3784676194190979,
+        "top1_english": "goat"
+      },
+      {
+        "corpus_frequency": 13191,
+        "score": 8641.780503541231,
+        "sumerian": "2(di\u0161)",
+        "top1_cosine": 0.34487298130989075,
+        "top1_english": "bread"
+      },
+      {
+        "corpus_frequency": 16372,
+        "score": 8248.95044195652,
+        "sumerian": "2(ban2)",
+        "top1_cosine": 0.4961549937725067,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 11146,
+        "score": 7834.509032428265,
+        "sumerian": "uri5",
+        "top1_cosine": 0.29710128903388977,
+        "top1_english": "land"
+      },
+      {
+        "corpus_frequency": 10487,
+        "score": 7604.3810294270515,
+        "sumerian": "baba6",
+        "top1_cosine": 0.2748754620552063,
+        "top1_english": "functionary"
+      },
+      {
+        "corpus_frequency": 11018,
+        "score": 7500.565040290356,
+        "sumerian": "5(di\u0161)",
+        "top1_cosine": 0.3192444145679474,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 10452,
+        "score": 7378.155404806137,
+        "sumerian": "inanna",
+        "top1_cosine": 0.29409152269363403,
+        "top1_english": "good"
+      },
+      {
+        "corpus_frequency": 9935,
+        "score": 7153.063788563013,
+        "sumerian": "5(u)",
+        "top1_cosine": 0.28001371026039124,
+        "top1_english": "unit"
+      },
+      {
+        "corpus_frequency": 14745,
+        "score": 6825.346873998642,
+        "sumerian": "n",
+        "top1_cosine": 0.5371077060699463,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 21375,
+        "score": 6499.452844262123,
+        "sumerian": "\u0161u",
+        "top1_cosine": 0.6959320306777954,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 11962,
+        "score": 6499.064434230328,
+        "sumerian": "4(ban2)",
+        "top1_cosine": 0.45669081807136536,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 9052,
+        "score": 6493.474915981293,
+        "sumerian": "1(barig@c)",
+        "top1_cosine": 0.2826474905014038,
+        "top1_english": "carry"
+      },
+      {
+        "corpus_frequency": 9521,
+        "score": 6454.834539979696,
+        "sumerian": "\u0161a3",
+        "top1_cosine": 0.3220423758029938,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 12948,
+        "score": 6212.99662399292,
+        "sumerian": "\u0161e3",
+        "top1_cosine": 0.5201578140258789,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 9482,
+        "score": 6195.758688688278,
+        "sumerian": "\u0161u+nigin2",
+        "top1_cosine": 0.3465768098831177,
+        "top1_english": "total"
+      },
+      {
+        "corpus_frequency": 9428,
+        "score": 6140.233708977699,
+        "sumerian": "3(di\u0161)",
+        "top1_cosine": 0.3487236201763153,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 8175,
+        "score": 6075.212721526623,
+        "sumerian": "kuxdu",
+        "top1_cosine": 0.25685471296310425,
+        "top1_english": "hang"
+      },
+      {
+        "corpus_frequency": 9265,
+        "score": 5876.0574497282505,
+        "sumerian": "2(asz@c)",
+        "top1_cosine": 0.36577901244163513,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 9686,
+        "score": 5792.078951716423,
+        "sumerian": "ge\u0161",
+        "top1_cosine": 0.4020153880119324,
+        "top1_english": "x"
+      },
+      {
+        "corpus_frequency": 10473,
+        "score": 5666.454905390739,
+        "sumerian": "3(barig)",
+        "top1_cosine": 0.4589463472366333,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 8447,
+        "score": 5600.991001039743,
+        "sumerian": "2(asz)",
+        "top1_cosine": 0.3369254171848297,
+        "top1_english": "ration"
+      },
+      {
+        "corpus_frequency": 7482,
+        "score": 5329.093032896519,
+        "sumerian": "mukuxdu",
+        "top1_cosine": 0.2877448499202728,
+        "top1_english": "gives"
+      },
+      {
+        "corpus_frequency": 7013,
+        "score": 4905.342030107975,
+        "sumerian": "4(di\u0161)",
+        "top1_cosine": 0.3005358576774597,
+        "top1_english": "flour"
+      },
+      {
+        "corpus_frequency": 6736,
+        "score": 4829.652629852295,
+        "sumerian": "2(gesz2)",
+        "top1_cosine": 0.2830088138580322,
+        "top1_english": "barley"
+      },
+      {
+        "corpus_frequency": 6546,
+        "score": 4656.7151665091515,
+        "sumerian": "1(u@c)",
+        "top1_cosine": 0.28861668705940247,
+        "top1_english": "carry"
+      },
+      {
+        "corpus_frequency": 9062,
+        "score": 4652.655122041702,
+        "sumerian": "4(barig)",
+        "top1_cosine": 0.48657524585723877,
+        "top1_english": "flour"
+      }
+    ]
+  },
+  "lens3_isolation": {
+    "histogram": {
+      "bin_edges": [
+        0.0,
+        0.1,
+        0.2,
+        0.30000000000000004,
+        0.4,
+        0.5,
+        0.6000000000000001,
+        0.7000000000000001,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2000000000000002,
+        1.3,
+        1.4000000000000001,
+        1.5,
+        1.6,
+        1.7000000000000002,
+        1.8,
+        1.9000000000000001,
+        2.0
+      ],
+      "counts": [
+        369,
+        3200,
+        7477,
+        12721,
+        10153,
+        1564,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "rows": [
+      {
+        "distance_to_kth_neighbor": 0.6334129571914673,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7674603462219238,
+            "sumerian": "had2bi"
+          },
+          {
+            "cosine_similarity": 0.7036865949630737,
+            "sumerian": "had2ka"
+          },
+          {
+            "cosine_similarity": 0.6984779834747314,
+            "sumerian": "had2da"
+          },
+          {
+            "cosine_similarity": 0.686610221862793,
+            "sumerian": "had2ta"
+          },
+          {
+            "cosine_similarity": 0.6645742654800415,
+            "sumerian": "had2sze3"
+          }
+        ],
+        "sumerian": "had2"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6218223571777344,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5800265073776245,
+            "sumerian": "\u0161irdili"
+          },
+          {
+            "cosine_similarity": 0.4702190160751343,
+            "sumerian": "\u0161ir3"
+          },
+          {
+            "cosine_similarity": 0.4407946467399597,
+            "sumerian": "\u0161idx"
+          },
+          {
+            "cosine_similarity": 0.4247995615005493,
+            "sumerian": "\u0161i2"
+          },
+          {
+            "cosine_similarity": 0.41092148423194885,
+            "sumerian": "puglu"
+          }
+        ],
+        "sumerian": "\u0161ir"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6216658353805542,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7583886384963989,
+            "sumerian": "uttura"
+          },
+          {
+            "cosine_similarity": 0.4103999137878418,
+            "sumerian": "munuse"
+          },
+          {
+            "cosine_similarity": 0.4045729637145996,
+            "sumerian": "muunnasug2sug2geesz"
+          },
+          {
+            "cosine_similarity": 0.39582735300064087,
+            "sumerian": "nibuluj3"
+          },
+          {
+            "cosine_similarity": 0.3935055136680603,
+            "sumerian": "sikillake4"
+          }
+        ],
+        "sumerian": "uttu"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6200345754623413,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.68638014793396,
+            "sumerian": "inu9u9"
+          },
+          {
+            "cosine_similarity": 0.5205351114273071,
+            "sumerian": "ru9"
+          },
+          {
+            "cosine_similarity": 0.4862481355667114,
+            "sumerian": "guu9"
+          },
+          {
+            "cosine_similarity": 0.4661424458026886,
+            "sumerian": "du9"
+          },
+          {
+            "cosine_similarity": 0.41324055194854736,
+            "sumerian": "nindanumea"
+          }
+        ],
+        "sumerian": "u9"
+      },
+      {
+        "distance_to_kth_neighbor": 0.619199275970459,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7197876572608948,
+            "sumerian": "gidriku3"
+          },
+          {
+            "cosine_similarity": 0.6966186761856079,
+            "sumerian": "e2gidri"
+          },
+          {
+            "cosine_similarity": 0.5626775026321411,
+            "sumerian": "gidru"
+          },
+          {
+            "cosine_similarity": 0.3959619402885437,
+            "sumerian": "igalimkake4"
+          },
+          {
+            "cosine_similarity": 0.39207300543785095,
+            "sumerian": "be2garre2esz2"
+          }
+        ],
+        "sumerian": "gidri"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6185375452041626,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5397216081619263,
+            "sumerian": "emuutbalum"
+          },
+          {
+            "cosine_similarity": 0.49456551671028137,
+            "sumerian": "iamuutbalum"
+          },
+          {
+            "cosine_similarity": 0.48387905955314636,
+            "sumerian": "ut,"
+          },
+          {
+            "cosine_similarity": 0.4439423978328705,
+            "sumerian": "itti"
+          },
+          {
+            "cosine_similarity": 0.4368666112422943,
+            "sumerian": "emuutbala"
+          }
+        ],
+        "sumerian": "ut"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6180818676948547,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8922125101089478,
+            "sumerian": "mu7mu7"
+          },
+          {
+            "cosine_similarity": 0.7854312062263489,
+            "sumerian": "mu7mu7bi"
+          },
+          {
+            "cosine_similarity": 0.5381984710693359,
+            "sumerian": "kamu7a"
+          },
+          {
+            "cosine_similarity": 0.43114569783210754,
+            "sumerian": "lu7"
+          },
+          {
+            "cosine_similarity": 0.4194098114967346,
+            "sumerian": "tu6tu6"
+          }
+        ],
+        "sumerian": "mu7"
+      },
+      {
+        "distance_to_kth_neighbor": 0.618013858795166,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.46089351177215576,
+            "sumerian": "buru5gizi"
+          },
+          {
+            "cosine_similarity": 0.44230011105537415,
+            "sumerian": "buru5hur"
+          },
+          {
+            "cosine_similarity": 0.4352409839630127,
+            "sumerian": "buru5"
+          },
+          {
+            "cosine_similarity": 0.4192735254764557,
+            "sumerian": "tir5"
+          },
+          {
+            "cosine_similarity": 0.4040355086326599,
+            "sumerian": "sir5"
+          }
+        ],
+        "sumerian": "bir5"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6169002652168274,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.686610221862793,
+            "sumerian": "had2"
+          },
+          {
+            "cosine_similarity": 0.6197715997695923,
+            "sumerian": "had2bi"
+          },
+          {
+            "cosine_similarity": 0.6175522804260254,
+            "sumerian": "had2ka"
+          },
+          {
+            "cosine_similarity": 0.5615822672843933,
+            "sumerian": "had2da"
+          },
+          {
+            "cosine_similarity": 0.5599289536476135,
+            "sumerian": "had2sze3"
+          }
+        ],
+        "sumerian": "had2ta"
+      },
+      {
+        "distance_to_kth_neighbor": 0.615925669670105,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.6978760957717896,
+            "sumerian": "ebgalla"
+          },
+          {
+            "cosine_similarity": 0.6474963426589966,
+            "sumerian": "ebgalta"
+          },
+          {
+            "cosine_similarity": 0.5815572142601013,
+            "sumerian": "ibgal"
+          },
+          {
+            "cosine_similarity": 0.552910566329956,
+            "sumerian": "ninebgal"
+          },
+          {
+            "cosine_similarity": 0.5226194858551025,
+            "sumerian": "lu2ebgal"
+          }
+        ],
+        "sumerian": "ebgal"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6147245168685913,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5934517979621887,
+            "sumerian": "nintuginx"
+          },
+          {
+            "cosine_similarity": 0.565981388092041,
+            "sumerian": "utuginx"
+          },
+          {
+            "cosine_similarity": 0.46252718567848206,
+            "sumerian": "ka2si"
+          },
+          {
+            "cosine_similarity": 0.4056289494037628,
+            "sumerian": "ib2tagub"
+          },
+          {
+            "cosine_similarity": 0.4001721739768982,
+            "sumerian": "nagaabtumsze3"
+          }
+        ],
+        "sumerian": "ginx"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6143231391906738,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8773585557937622,
+            "sumerian": "engurra"
+          },
+          {
+            "cosine_similarity": 0.7002062797546387,
+            "sumerian": "engurrake4"
+          },
+          {
+            "cosine_similarity": 0.6854339838027954,
+            "sumerian": "e2engurra"
+          },
+          {
+            "cosine_similarity": 0.5607612133026123,
+            "sumerian": "enguruszzi"
+          },
+          {
+            "cosine_similarity": 0.5484555959701538,
+            "sumerian": "engu10"
+          }
+        ],
+        "sumerian": "engur"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6139382719993591,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5429505109786987,
+            "sumerian": "ad2gul"
+          },
+          {
+            "cosine_similarity": 0.5352106094360352,
+            "sumerian": "ninad2gal"
+          },
+          {
+            "cosine_similarity": 0.4113560914993286,
+            "sumerian": "ad8"
+          },
+          {
+            "cosine_similarity": 0.407332181930542,
+            "sumerian": "dani2a"
+          },
+          {
+            "cosine_similarity": 0.4018183946609497,
+            "sumerian": "ad6a"
+          }
+        ],
+        "sumerian": "ad2"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6125398278236389,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9227594137191772,
+            "sumerian": "gakkul3"
+          },
+          {
+            "cosine_similarity": 0.9182604551315308,
+            "sumerian": "gakkule"
+          },
+          {
+            "cosine_similarity": 0.90537029504776,
+            "sumerian": "gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8966278433799744,
+            "sumerian": "gakkul2gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8642125725746155,
+            "sumerian": "gakkulam3"
+          }
+        ],
+        "sumerian": "gakkul"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6085909605026245,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8929738998413086,
+            "sumerian": "dilmunx"
+          },
+          {
+            "cosine_similarity": 0.8234266042709351,
+            "sumerian": "dilmunna"
+          },
+          {
+            "cosine_similarity": 0.8035575151443481,
+            "sumerian": "gin2dilmun"
+          },
+          {
+            "cosine_similarity": 0.7231094241142273,
+            "sumerian": "galdilmun"
+          },
+          {
+            "cosine_similarity": 0.6990997195243835,
+            "sumerian": "e2dilmunna"
+          }
+        ],
+        "sumerian": "dilmun"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6071459650993347,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.789132833480835,
+            "sumerian": "uru16ra"
+          },
+          {
+            "cosine_similarity": 0.760829746723175,
+            "sumerian": "uru16na"
+          },
+          {
+            "cosine_similarity": 0.6667363047599792,
+            "sumerian": "akiuru16"
+          },
+          {
+            "cosine_similarity": 0.5976506471633911,
+            "sumerian": "buru16"
+          },
+          {
+            "cosine_similarity": 0.46234968304634094,
+            "sumerian": "uru17gu10"
+          }
+        ],
+        "sumerian": "uru16"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6051195859909058,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8540427088737488,
+            "sumerian": "nemur\u2093"
+          },
+          {
+            "cosine_similarity": 0.845109760761261,
+            "sumerian": "nemurx"
+          },
+          {
+            "cosine_similarity": 0.831874668598175,
+            "sumerian": "nemurta"
+          },
+          {
+            "cosine_similarity": 0.8105700612068176,
+            "sumerian": "nemur2"
+          },
+          {
+            "cosine_similarity": 0.764717161655426,
+            "sumerian": "nemurra"
+          }
+        ],
+        "sumerian": "nemur"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6049761176109314,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8283644318580627,
+            "sumerian": "muru13ka"
+          },
+          {
+            "cosine_similarity": 0.766508936882019,
+            "sumerian": "muru13ta"
+          },
+          {
+            "cosine_similarity": 0.678584098815918,
+            "sumerian": "szara2muru13"
+          },
+          {
+            "cosine_similarity": 0.6636486053466797,
+            "sumerian": "e2muru13"
+          },
+          {
+            "cosine_similarity": 0.6354241967201233,
+            "sumerian": "\u0161ara2muru13"
+          }
+        ],
+        "sumerian": "muru13"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6047519445419312,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.4676665663719177,
+            "sumerian": "u6di"
+          },
+          {
+            "cosine_similarity": 0.46228790283203125,
+            "sumerian": "ge6ga"
+          },
+          {
+            "cosine_similarity": 0.4516645669937134,
+            "sumerian": "bi2se3"
+          },
+          {
+            "cosine_similarity": 0.4405689835548401,
+            "sumerian": "be2se3"
+          },
+          {
+            "cosine_similarity": 0.43788033723831177,
+            "sumerian": "sagge6ga"
+          }
+        ],
+        "sumerian": "u6ga"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6046236753463745,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.6235616207122803,
+            "sumerian": "u6e"
+          },
+          {
+            "cosine_similarity": 0.5776464939117432,
+            "sumerian": "u6di"
+          },
+          {
+            "cosine_similarity": 0.5768486261367798,
+            "sumerian": "u6nir"
+          },
+          {
+            "cosine_similarity": 0.48763519525527954,
+            "sumerian": "u6nirra"
+          },
+          {
+            "cosine_similarity": 0.40856078267097473,
+            "sumerian": "u6ga"
+          }
+        ],
+        "sumerian": "u6"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6031250357627869,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8296488523483276,
+            "sumerian": "tu6tu6"
+          },
+          {
+            "cosine_similarity": 0.49972254037857056,
+            "sumerian": "tu6nilu2sa6"
+          },
+          {
+            "cosine_similarity": 0.49242526292800903,
+            "sumerian": "tu6nilu2sag9"
+          },
+          {
+            "cosine_similarity": 0.4283825159072876,
+            "sumerian": "u\u01617zu"
+          },
+          {
+            "cosine_similarity": 0.42437776923179626,
+            "sumerian": "nuzue"
+          }
+        ],
+        "sumerian": "tu6"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6016746163368225,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8642125725746155,
+            "sumerian": "gakkul"
+          },
+          {
+            "cosine_similarity": 0.8537791967391968,
+            "sumerian": "gakkulani"
+          },
+          {
+            "cosine_similarity": 0.8373781442642212,
+            "sumerian": "gakkul2gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8287665247917175,
+            "sumerian": "gakkul3"
+          },
+          {
+            "cosine_similarity": 0.8271892070770264,
+            "sumerian": "gakkul2"
+          }
+        ],
+        "sumerian": "gakkulam3"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6007914543151855,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8536916971206665,
+            "sumerian": "henbur2"
+          },
+          {
+            "cosine_similarity": 0.5143849849700928,
+            "sumerian": "ninbur"
+          },
+          {
+            "cosine_similarity": 0.5028796792030334,
+            "sumerian": "heenbuur"
+          },
+          {
+            "cosine_similarity": 0.46184855699539185,
+            "sumerian": "\u014bi\u0161gi"
+          },
+          {
+            "cosine_similarity": 0.4475652575492859,
+            "sumerian": "nbur3"
+          }
+        ],
+        "sumerian": "henbur"
+      },
+      {
+        "distance_to_kth_neighbor": 0.6006470918655396,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.6961421966552734,
+            "sumerian": "agaba"
+          },
+          {
+            "cosine_similarity": 0.6507649421691895,
+            "sumerian": "zagaba"
+          },
+          {
+            "cosine_similarity": 0.6282647848129272,
+            "sumerian": "lagaba"
+          },
+          {
+            "cosine_similarity": 0.5675389766693115,
+            "sumerian": "gabagaba"
+          },
+          {
+            "cosine_similarity": 0.491328626871109,
+            "sumerian": "lugalragaba"
+          }
+        ],
+        "sumerian": "ragaba"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5999184846878052,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.643959641456604,
+            "sumerian": "gunuu"
+          },
+          {
+            "cosine_similarity": 0.5991047620773315,
+            "sumerian": "nura"
+          },
+          {
+            "cosine_similarity": 0.5252856016159058,
+            "sumerian": "gunuum"
+          },
+          {
+            "cosine_similarity": 0.4750749468803406,
+            "sumerian": "ura"
+          },
+          {
+            "cosine_similarity": 0.46419113874435425,
+            "sumerian": "guna"
+          }
+        ],
+        "sumerian": "gunura"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5996434688568115,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9169621467590332,
+            "sumerian": "du9du9"
+          },
+          {
+            "cosine_similarity": 0.48565295338630676,
+            "sumerian": "dun5"
+          },
+          {
+            "cosine_similarity": 0.47807297110557556,
+            "sumerian": "dun5dun5"
+          },
+          {
+            "cosine_similarity": 0.466142475605011,
+            "sumerian": "u9"
+          },
+          {
+            "cosine_similarity": 0.4404560923576355,
+            "sumerian": "dune"
+          }
+        ],
+        "sumerian": "du9"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5991495847702026,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5736107230186462,
+            "sumerian": "ebih"
+          },
+          {
+            "cosine_similarity": 0.5143660306930542,
+            "sumerian": "a2sag3a"
+          },
+          {
+            "cosine_similarity": 0.4597770571708679,
+            "sumerian": "a2sag3"
+          },
+          {
+            "cosine_similarity": 0.45582762360572815,
+            "sumerian": "dih2"
+          },
+          {
+            "cosine_similarity": 0.4474416673183441,
+            "sumerian": "ebir"
+          }
+        ],
+        "sumerian": "ebih2"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5982211828231812,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8233737945556641,
+            "sumerian": "nibrua"
+          },
+          {
+            "cosine_similarity": 0.6576756834983826,
+            "sumerian": "nibruce3"
+          },
+          {
+            "cosine_similarity": 0.5708656311035156,
+            "sumerian": "ninnibru"
+          },
+          {
+            "cosine_similarity": 0.5577142238616943,
+            "sumerian": "lu2nibru"
+          },
+          {
+            "cosine_similarity": 0.42936673760414124,
+            "sumerian": "he2naabtum2"
+          }
+        ],
+        "sumerian": "nibru"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5978714227676392,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9015296697616577,
+            "sumerian": "subir4a"
+          },
+          {
+            "cosine_similarity": 0.8896133899688721,
+            "sumerian": "bir4"
+          },
+          {
+            "cosine_similarity": 0.7504754066467285,
+            "sumerian": "subir4ake4"
+          },
+          {
+            "cosine_similarity": 0.6278361082077026,
+            "sumerian": "subirxa"
+          },
+          {
+            "cosine_similarity": 0.5880073308944702,
+            "sumerian": "subi"
+          }
+        ],
+        "sumerian": "subir4"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5969455242156982,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9053245782852173,
+            "sumerian": "mardukra"
+          },
+          {
+            "cosine_similarity": 0.8407131433486938,
+            "sumerian": "mardukkata"
+          },
+          {
+            "cosine_similarity": 0.8406153917312622,
+            "sumerian": "mardu"
+          },
+          {
+            "cosine_similarity": 0.8327033519744873,
+            "sumerian": "mardukmeen"
+          },
+          {
+            "cosine_similarity": 0.8241671323776245,
+            "sumerian": "mardukke4"
+          }
+        ],
+        "sumerian": "marduk"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5959852933883667,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.720328688621521,
+            "sumerian": "tue"
+          },
+          {
+            "cosine_similarity": 0.5198129415512085,
+            "sumerian": "atume"
+          },
+          {
+            "cosine_similarity": 0.499680757522583,
+            "sumerian": "atuta"
+          },
+          {
+            "cosine_similarity": 0.48993465304374695,
+            "sumerian": "esze2la2"
+          },
+          {
+            "cosine_similarity": 0.46834373474121094,
+            "sumerian": "atutu"
+          }
+        ],
+        "sumerian": "atue"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5957257151603699,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.6946045160293579,
+            "sumerian": "inxx"
+          },
+          {
+            "cosine_similarity": 0.467136412858963,
+            "sumerian": "kinx"
+          },
+          {
+            "cosine_similarity": 0.4373628497123718,
+            "sumerian": "ine"
+          },
+          {
+            "cosine_similarity": 0.4322577118873596,
+            "sumerian": "immiinx"
+          },
+          {
+            "cosine_similarity": 0.4320124089717865,
+            "sumerian": "exx"
+          }
+        ],
+        "sumerian": "inx"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5955517292022705,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9182604551315308,
+            "sumerian": "gakkul"
+          },
+          {
+            "cosine_similarity": 0.8607856035232544,
+            "sumerian": "gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8523290157318115,
+            "sumerian": "gakkul2gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8487130403518677,
+            "sumerian": "gakkul3"
+          },
+          {
+            "cosine_similarity": 0.8211476802825928,
+            "sumerian": "gakkulam3"
+          }
+        ],
+        "sumerian": "gakkule"
+      },
+      {
+        "distance_to_kth_neighbor": 0.595535159111023,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.4754320979118347,
+            "sumerian": "gig2"
+          },
+          {
+            "cosine_similarity": 0.44950956106185913,
+            "sumerian": "sa5"
+          },
+          {
+            "cosine_similarity": 0.4308711886405945,
+            "sumerian": "gige"
+          },
+          {
+            "cosine_similarity": 0.4255999028682709,
+            "sumerian": "kukku5"
+          },
+          {
+            "cosine_similarity": 0.42357444763183594,
+            "sumerian": "gigi2"
+          }
+        ],
+        "sumerian": "giggi"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5954096913337708,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7786145210266113,
+            "sumerian": "haia3ta"
+          },
+          {
+            "cosine_similarity": 0.7581685185432434,
+            "sumerian": "haia3sze3"
+          },
+          {
+            "cosine_similarity": 0.4483426809310913,
+            "sumerian": "szulpae3"
+          },
+          {
+            "cosine_similarity": 0.44431790709495544,
+            "sumerian": "szulpae3ra"
+          },
+          {
+            "cosine_similarity": 0.436370849609375,
+            "sumerian": "urszulpae3"
+          }
+        ],
+        "sumerian": "haia3"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5947490334510803,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7786145210266113,
+            "sumerian": "haia3"
+          },
+          {
+            "cosine_similarity": 0.7107332348823547,
+            "sumerian": "haia3sze3"
+          },
+          {
+            "cosine_similarity": 0.5694015026092529,
+            "sumerian": "la2ia3ta"
+          },
+          {
+            "cosine_similarity": 0.4717298746109009,
+            "sumerian": "i3pa3ta"
+          },
+          {
+            "cosine_similarity": 0.45742958784103394,
+            "sumerian": "ia3"
+          }
+        ],
+        "sumerian": "haia3ta"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5944676399230957,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8854733109474182,
+            "sumerian": "gir13gesz"
+          },
+          {
+            "cosine_similarity": 0.8756840825080872,
+            "sumerian": "gir13ge\u0161"
+          },
+          {
+            "cosine_similarity": 0.7321040034294128,
+            "sumerian": "gir13tab"
+          },
+          {
+            "cosine_similarity": 0.609512448310852,
+            "sumerian": "gir14"
+          },
+          {
+            "cosine_similarity": 0.45864567160606384,
+            "sumerian": "gir16"
+          }
+        ],
+        "sumerian": "gir13"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5944381952285767,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9300640821456909,
+            "sumerian": "di4di4"
+          },
+          {
+            "cosine_similarity": 0.9024689197540283,
+            "sumerian": "di4di4la"
+          },
+          {
+            "cosine_similarity": 0.8867416381835938,
+            "sumerian": "di4di4la2"
+          },
+          {
+            "cosine_similarity": 0.8616183996200562,
+            "sumerian": "di4di4la2bi"
+          },
+          {
+            "cosine_similarity": 0.8435940742492676,
+            "sumerian": "di4di4lane"
+          }
+        ],
+        "sumerian": "di4"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5935574173927307,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9563872814178467,
+            "sumerian": "lib4lib4"
+          },
+          {
+            "cosine_similarity": 0.5004603862762451,
+            "sumerian": "libx"
+          },
+          {
+            "cosine_similarity": 0.4684124290943146,
+            "sumerian": "ganzir2"
+          },
+          {
+            "cosine_similarity": 0.4540681838989258,
+            "sumerian": "dilib4"
+          },
+          {
+            "cosine_similarity": 0.4350922405719757,
+            "sumerian": "lib\u2093"
+          }
+        ],
+        "sumerian": "lib4"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5935419797897339,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.571841299533844,
+            "sumerian": "gunu"
+          },
+          {
+            "cosine_similarity": 0.5139081478118896,
+            "sumerian": "guna"
+          },
+          {
+            "cosine_similarity": 0.5127419829368591,
+            "sumerian": "guni"
+          },
+          {
+            "cosine_similarity": 0.48909518122673035,
+            "sumerian": "gun5"
+          },
+          {
+            "cosine_similarity": 0.4763682782649994,
+            "sumerian": "gun2ta"
+          }
+        ],
+        "sumerian": "gun"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5926167964935303,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.9227594137191772,
+            "sumerian": "gakkul"
+          },
+          {
+            "cosine_similarity": 0.8501830101013184,
+            "sumerian": "gakkulgin7"
+          },
+          {
+            "cosine_similarity": 0.8500022888183594,
+            "sumerian": "gakkul2gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8487614989280701,
+            "sumerian": "gakkul2"
+          },
+          {
+            "cosine_similarity": 0.8487130403518677,
+            "sumerian": "gakkule"
+          }
+        ],
+        "sumerian": "gakkul3"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5917626023292542,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.8089982271194458,
+            "sumerian": "ba9ra2"
+          },
+          {
+            "cosine_similarity": 0.7661378383636475,
+            "sumerian": "ba9re6"
+          },
+          {
+            "cosine_similarity": 0.7406712770462036,
+            "sumerian": "ba9ra2aba"
+          },
+          {
+            "cosine_similarity": 0.7105220556259155,
+            "sumerian": "ba9re6de3"
+          },
+          {
+            "cosine_similarity": 0.6613903045654297,
+            "sumerian": "ba9ra2zune"
+          }
+        ],
+        "sumerian": "ba9"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5910001993179321,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.841765284538269,
+            "sumerian": "gigun4"
+          },
+          {
+            "cosine_similarity": 0.7760260105133057,
+            "sumerian": "gigun4na"
+          },
+          {
+            "cosine_similarity": 0.7747459411621094,
+            "sumerian": "gigun4bi"
+          },
+          {
+            "cosine_similarity": 0.7240833044052124,
+            "sumerian": "gigun4nabi"
+          },
+          {
+            "cosine_similarity": 0.7234405875205994,
+            "sumerian": "gigun4nazu"
+          }
+        ],
+        "sumerian": "gun4"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5909792184829712,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5736107230186462,
+            "sumerian": "ebih2"
+          },
+          {
+            "cosine_similarity": 0.5250837206840515,
+            "sumerian": "ebi"
+          },
+          {
+            "cosine_similarity": 0.42047256231307983,
+            "sumerian": "kurbisze3"
+          },
+          {
+            "cosine_similarity": 0.41520246863365173,
+            "sumerian": "tu10"
+          },
+          {
+            "cosine_similarity": 0.4126493036746979,
+            "sumerian": "gaam3migaz"
+          }
+        ],
+        "sumerian": "ebih"
+      },
+      {
+        "distance_to_kth_neighbor": 0.590573787689209,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7656204700469971,
+            "sumerian": "u6nirra"
+          },
+          {
+            "cosine_similarity": 0.6575004458427429,
+            "sumerian": "e2u6nir"
+          },
+          {
+            "cosine_similarity": 0.5768486261367798,
+            "sumerian": "u6"
+          },
+          {
+            "cosine_similarity": 0.542883038520813,
+            "sumerian": "e2u6nirra"
+          },
+          {
+            "cosine_similarity": 0.5172927379608154,
+            "sumerian": "xnir"
+          }
+        ],
+        "sumerian": "u6nir"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5899980068206787,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.49629145860671997,
+            "sumerian": "mueak"
+          },
+          {
+            "cosine_similarity": 0.47534847259521484,
+            "sumerian": "eaka"
+          },
+          {
+            "cosine_similarity": 0.45376914739608765,
+            "sumerian": "baak"
+          },
+          {
+            "cosine_similarity": 0.4468177855014801,
+            "sumerian": "baaak"
+          },
+          {
+            "cosine_similarity": 0.4422363042831421,
+            "sumerian": "edaak"
+          }
+        ],
+        "sumerian": "eak"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5896156430244446,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.47576096653938293,
+            "sumerian": "amer"
+          },
+          {
+            "cosine_similarity": 0.4754576086997986,
+            "sumerian": "meru"
+          },
+          {
+            "cosine_similarity": 0.47068309783935547,
+            "sumerian": "tu15"
+          },
+          {
+            "cosine_similarity": 0.44302791357040405,
+            "sumerian": "us2hia"
+          },
+          {
+            "cosine_similarity": 0.442287802696228,
+            "sumerian": "kurbad3da"
+          }
+        ],
+        "sumerian": "mer"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5893851518630981,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.7914093732833862,
+            "sumerian": "ku7ku7"
+          },
+          {
+            "cosine_similarity": 0.7083823680877686,
+            "sumerian": "ku7ku7da"
+          },
+          {
+            "cosine_similarity": 0.6816802024841309,
+            "sumerian": "ku7ku7dabi"
+          },
+          {
+            "cosine_similarity": 0.6682287454605103,
+            "sumerian": "ku7ku7dagin7"
+          },
+          {
+            "cosine_similarity": 0.6364873647689819,
+            "sumerian": "ku7ku7dam"
+          }
+        ],
+        "sumerian": "ku7"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5885477066040039,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.6012780666351318,
+            "sumerian": "iluni"
+          },
+          {
+            "cosine_similarity": 0.534069299697876,
+            "sumerian": "ilulu"
+          },
+          {
+            "cosine_similarity": 0.5006840229034424,
+            "sumerian": "ilur2"
+          },
+          {
+            "cosine_similarity": 0.4607185125350952,
+            "sumerian": "iluzu"
+          },
+          {
+            "cosine_similarity": 0.4315246641635895,
+            "sumerian": "bala\u014bdi"
+          }
+        ],
+        "sumerian": "ilu"
+      },
+      {
+        "distance_to_kth_neighbor": 0.5884876251220703,
+        "nearest_5_neighbors": [
+          {
+            "cosine_similarity": 0.5309671759605408,
+            "sumerian": "50am3"
+          },
+          {
+            "cosine_similarity": 0.5250740051269531,
+            "sumerian": "50bi"
+          },
+          {
+            "cosine_similarity": 0.5016956329345703,
+            "sumerian": "55"
+          },
+          {
+            "cosine_similarity": 0.4463054835796356,
+            "sumerian": "40"
+          },
+          {
+            "cosine_similarity": 0.43993204832077026,
+            "sumerian": "45"
+          }
+        ],
+        "sumerian": "50"
+      }
+    ]
+  },
+  "lens4_cross_space_divergence": {
+    "rows_anchor_only": [
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ag",
+        "top_k_gemma": [
+          "laag",
+          "agga",
+          "laraag",
+          "paag",
+          "gaag",
+          "zalaag",
+          "aj2bi",
+          "daag",
+          "kiriibulme",
+          "saag"
+        ],
+        "top_k_glove": [
+          "sajzu",
+          "dic",
+          "daqum",
+          "a2ju10",
+          "musa3niqum",
+          "960",
+          "45",
+          "niqum",
+          "ag2am3",
+          "42"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "amra",
+        "top_k_gemma": [
+          "u3suh5",
+          "amgin7",
+          "namra",
+          "aam",
+          "u3suh5bi",
+          "amri2ma",
+          "amx",
+          "u8ra",
+          "kutra",
+          "daam"
+        ],
+        "top_k_glove": [
+          "kun5",
+          "kundar",
+          "ub\u2093",
+          "mira",
+          "kunu\u0161",
+          "kunrim",
+          "amsigin7",
+          "buduug",
+          "an\u0161ema2",
+          "kwu733"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "asag",
+        "top_k_gemma": [
+          "sagabi",
+          "inannaursag",
+          "asagdu3duta",
+          "kusag",
+          "du6karsag",
+          "esag",
+          "aslag4",
+          "ansag",
+          "ki:sag",
+          "gursag"
+        ],
+        "top_k_glove": [
+          "munu4bi",
+          "<sila3>",
+          "asila3",
+          "si4u2lum",
+          "urux",
+          "sze_",
+          "ziz2ga",
+          "iszarlibur",
+          "sila3>",
+          "aszhalum"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ba7",
+        "top_k_gemma": [
+          "ba",
+          "za7",
+          "banmin",
+          "bane\u0161",
+          "zipah",
+          "baedagurreen",
+          "dagi4ata",
+          "zipaah",
+          "e\u01613tagurra",
+          "munaeraa"
+        ],
+        "top_k_glove": [
+          "i3",
+          "<ni>",
+          "muna\u014ba2\u014ba2",
+          "nuumde2",
+          "munadurunxnaa",
+          "bi2insuagin7",
+          "basze3",
+          "u3munanide2a",
+          "im\u014ba2\u014ba2ne",
+          "xbasze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ban",
+        "top_k_gemma": [
+          "bana",
+          "banix",
+          "bane",
+          "banmeskalam",
+          "ban\u0161ur\u2093",
+          "banati",
+          "ban\u0161urra",
+          "banea",
+          "banagar",
+          "banana"
+        ],
+        "top_k_glove": [
+          "sigar",
+          "sa\u014bdun3",
+          "sage3",
+          "sajkul",
+          "sa\u014bza",
+          "sa\u014bgul",
+          "a2gar",
+          "tihar",
+          "sa\u014bta",
+          "a2aszgar"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "be4",
+        "top_k_gemma": [
+          "muezu",
+          "nij2mejar",
+          "be5",
+          "miniinjal2",
+          "usubi",
+          "kad5am3",
+          "labaane3",
+          "muniinjal2",
+          "hamuu3akke4",
+          "i3nimeake4"
+        ],
+        "top_k_glove": [
+          "akgin7",
+          "be7",
+          "mubuumgin7",
+          "i3neec2gin7",
+          "je26gin7",
+          "\u014be26gin7",
+          "imtillagin7",
+          "mubigin7",
+          "bi2ru2ana",
+          "ibi2gin7"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "bir9",
+        "top_k_gemma": [
+          "bir",
+          "ir9",
+          "bir7",
+          "bir8",
+          "birbirre",
+          "dice3",
+          "birri",
+          "he2birre",
+          "birre",
+          "birbir"
+        ],
+        "top_k_glove": [
+          "em",
+          "nuezu",
+          "e\u014ber",
+          "nuzuzu",
+          "nuzuu3ne",
+          "ba9ra2zune",
+          "la2muur2",
+          "mube2",
+          "baezuzu",
+          "badbaddania"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dubkam",
+        "top_k_gemma": [
+          "udu",
+          "aszur4",
+          "udunita2sze3",
+          "udukam",
+          "masz2sze3",
+          "sila4bita",
+          "dube",
+          "masz2x",
+          "masz2nita2sze3",
+          "masz2ud5"
+        ],
+        "top_k_glove": [
+          "dubmu",
+          "uduju10",
+          "ud5gin7",
+          "1(asz@c)kam",
+          "xxkam",
+          "sila4zu",
+          "zagju10",
+          "dubzu",
+          "barzusze3",
+          "enlil2rizuszu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dumdam",
+        "top_k_gemma": [
+          "dam",
+          "dum",
+          "xdam",
+          "dumux",
+          "dumuna\u0161e3",
+          "damdam",
+          "dumua\u0161",
+          "dumuju10ur2",
+          "dumu_",
+          "dumunada"
+        ],
+        "top_k_glove": [
+          "ni",
+          "la",
+          "gu",
+          "e\u014ber",
+          "imza",
+          "urgir15ani\u0161e3",
+          "gi\u0161tura",
+          "duu4",
+          "bi4",
+          "su8babi"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dupsik",
+        "top_k_gemma": [
+          "dusu",
+          "sik",
+          "dusue",
+          "sa\u014bil2",
+          "dusuta",
+          "imsik",
+          "habail2",
+          "mueciinil2la",
+          "mue\u0161iinil2la",
+          "geszhe2"
+        ],
+        "top_k_glove": [
+          "sagba",
+          "szuza",
+          "dusubi",
+          "aguza",
+          "zage3",
+          "zamxelles396",
+          "maranige4en",
+          "huza",
+          "a2szugiri3",
+          "anurudusi"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "he2emdaabkarrene",
+        "top_k_gemma": [
+          "humudug4",
+          "humuniibdug4",
+          "dug4ganaab",
+          "dug4ganaabze2en",
+          "imdaabbe2",
+          "aradug4gaju10",
+          "immaabdug4",
+          "muniibdug4",
+          "xdu11",
+          "du11."
+        ],
+        "top_k_glove": [
+          "he2enzu",
+          "he2emene",
+          "he2em\u0161iak",
+          "he2emciak",
+          "dug4muunnaab",
+          "gaabkar",
+          "he2emzu",
+          "he2emririe",
+          "he2emak",
+          "he2eme3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "i3ta",
+        "top_k_gemma": [
+          "i3bi",
+          "zi3ta",
+          "_2(u)",
+          "itti",
+          "geszi3ta",
+          "_4(u)",
+          "usztamiit",
+          "_1(ban2)",
+          "i3tab",
+          "zi3bu"
+        ],
+        "top_k_glove": [
+          "abanegin7",
+          "dadagasze3",
+          "sagasze3",
+          "i3su8gee\u0161",
+          "i3li2iszmeani",
+          "aani\u0161u",
+          "liq",
+          "i3>",
+          "<i3>",
+          "ndi\u0161kam"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ib",
+        "top_k_gemma": [
+          "szumuumliibszi",
+          "xce3",
+          "bi2ibjar",
+          "he2bi2gi4",
+          "ejerbice3",
+          "nambice3",
+          "immaciingi4",
+          "gaegi4",
+          "he2birre",
+          "gi4niib"
+        ],
+        "top_k_glove": [
+          "lu2",
+          "ib2",
+          "balaani",
+          "gariibzuzu",
+          "\u014bi\u01613ani",
+          "cag4gaani",
+          "sig10bi2ib",
+          "gamiibzu",
+          "muniingumgumne",
+          "baezuzu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "is",
+        "top_k_gemma": [
+          "ci",
+          "tec2",
+          "tec2bi",
+          "is2",
+          "pec2",
+          "tec2e",
+          "cece",
+          "cimacki",
+          "cec2",
+          "cejici3"
+        ],
+        "top_k_glove": [
+          "a",
+          "i",
+          "mackim",
+          "enlil2ce3",
+          "960",
+          "ec5",
+          "cir3ju10",
+          "56",
+          "sud\u0161e3",
+          "ru_"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "kusz7",
+        "top_k_gemma": [
+          "kusz",
+          "kuszbi",
+          "kuc7",
+          "kuszkusz",
+          "kuszla2",
+          "kusza",
+          "kusz2a",
+          "kusze3",
+          "kusze",
+          "isz7"
+        ],
+        "top_k_glove": [
+          "a",
+          "cuju10",
+          "xju10",
+          "eju10",
+          "meju10",
+          "gudju10",
+          "enju10",
+          "suju10",
+          "guruszzu",
+          "ibbubu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "la2",
+        "top_k_gemma": [
+          "mula2",
+          "la2abi",
+          "la2aba",
+          "bi2inla2la2",
+          "imla2la2een",
+          "la2ana",
+          "la2la2bi",
+          "la2*",
+          "la2eda",
+          "la2asze3"
+        ],
+        "top_k_glove": [
+          "a",
+          "ba",
+          "da",
+          "bi",
+          "la",
+          "du",
+          "la2agin7",
+          "zagju10",
+          "he2rela2",
+          "munila2"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "lu2",
+        "top_k_gemma": [
+          "lu2u3",
+          "lu2ta",
+          "lu2lu2",
+          "lu2\u0161e3",
+          "lu2u3ne",
+          "lu2ce3",
+          "lu2*",
+          "lu2lu2u3",
+          "lu2ne\u0161e3",
+          "lu2al"
+        ],
+        "top_k_glove": [
+          "a",
+          "na",
+          "en",
+          "bi",
+          "ni",
+          "la",
+          "zu",
+          "ne",
+          "duu3",
+          "umucju10"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "lu2ju10",
+        "top_k_gemma": [
+          "lu2bi",
+          "lu2lu7",
+          "u2ju10",
+          "lu2_",
+          "lu2kax",
+          "lu2*",
+          "lu2bibi",
+          "lu2al",
+          "lu2xme",
+          "lu2dax"
+        ],
+        "top_k_glove": [
+          "ju10",
+          "muju10",
+          "aj2ju10",
+          "xju10",
+          "diju10",
+          "nij2ju10",
+          "eju10",
+          "muluju10",
+          "du5muju10",
+          "lu8"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "m",
+        "top_k_gemma": [
+          "xtu",
+          "didaka\u0161e3",
+          "xhi",
+          "\u0161ax",
+          "lu2anx",
+          "kaa\u01612",
+          "xxru",
+          "\u0161axx",
+          "xxtu",
+          "\u1e63u2"
+        ],
+        "top_k_glove": [
+          "d",
+          "na",
+          "carruumkiin",
+          "\u0161arruumkiin",
+          "szarruumkiin",
+          "7(imin)",
+          "imzuanna",
+          "alanna\u0161e3",
+          "i\u0161bi",
+          "42"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "marpap",
+        "top_k_gemma": [
+          "pap",
+          "szupappap",
+          "pappap",
+          "sikiud5bi",
+          "marx",
+          "marhalum",
+          "_mana",
+          "aszpapa",
+          "xpap",
+          "mardaum"
+        ],
+        "top_k_glove": [
+          "adtab",
+          "rubatum",
+          "szupesz5a",
+          "aszlagab",
+          "tu3di3da",
+          "tudi3da",
+          "umamim",
+          "na4na4",
+          "bu13luhum",
+          "dim@g"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "murum5",
+        "top_k_gemma": [
+          "muru",
+          "murub2",
+          "murum",
+          "muru9gin7",
+          "muru5",
+          "murub2bi",
+          "muru3",
+          "muru9e",
+          "muru3im",
+          "muruu\u0161"
+        ],
+        "top_k_glove": [
+          "ni",
+          "zu",
+          "ne",
+          "kiju10",
+          "mussame",
+          "mussazumeen",
+          "\u014buru\u0161meen",
+          "jurucmeen",
+          "\u014bu10u\u0161\u0161e3",
+          "bara\u0161ix"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "neennam",
+        "top_k_gemma": [
+          "neen",
+          "ennam",
+          "suenennam",
+          "i3li2ennam",
+          "nammeenna",
+          "nenam",
+          "enlil2ennam",
+          "beennu",
+          "abiidinnam",
+          "sunam"
+        ],
+        "top_k_glove": [
+          "i3neec2",
+          "su13ra2",
+          "barabala",
+          "jurucmeen",
+          "inim\u0161ar2\u0161ar2",
+          "\u014ba2nammaanze2en",
+          "ja2nammaanze2en",
+          "ja2agin7nam",
+          "i3menam",
+          "biizbi"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "negibuum",
+        "top_k_gemma": [
+          "hubuum",
+          "izbuum",
+          "kababuum",
+          "er3ebuum",
+          "mubuumgin7",
+          "idi3nabuum",
+          "xbuum",
+          "szelibuum",
+          "zubabuum",
+          "negi"
+        ],
+        "top_k_glove": [
+          "igsze3",
+          "s,um",
+          "\u0161aqa2",
+          "\u0161uum",
+          "<x",
+          "a\u0161dar",
+          "tu3di3da",
+          "bus,um",
+          "\u0161uumduum",
+          "kwu733"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "nigi4ib2",
+        "top_k_gemma": [
+          "nugi4gi4de3",
+          "hamagi4gi4",
+          "ingi4",
+          "agi4gi4",
+          "gi4gi4ni",
+          "gi4zu",
+          "gi4gi4bi",
+          "igi4gi4",
+          "urgi4gi4",
+          "gi4*"
+        ],
+        "top_k_glove": [
+          "tibalaa",
+          "szibala",
+          "tibala",
+          "gi4maniib",
+          "gi4x",
+          "damszilum",
+          "balaka",
+          "naasz2pa2ru",
+          "enmurbi",
+          "gir2gi4"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "sa",
+        "top_k_gemma": [
+          "us2",
+          "us2sa",
+          "us2saa",
+          "us2saaba",
+          "us2saam3",
+          "us2saabisze3",
+          "us2sa\u014b",
+          "us2sasze3",
+          "us2sada",
+          "us2:sa"
+        ],
+        "top_k_glove": [
+          "a",
+          "x",
+          "mu",
+          "da",
+          "bi",
+          "e",
+          "nu",
+          "si",
+          "70",
+          "mucgin7"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "sa@v",
+        "top_k_gemma": [
+          "x",
+          "pa4\u0161e\u0161",
+          "sa\u2093",
+          "udne",
+          "sa\u014bxx",
+          "sagxx",
+          "sa8",
+          "sagnarlak244",
+          "x\u0161e\u0161",
+          "kakkalaku7"
+        ],
+        "top_k_glove": [
+          "xxkam",
+          "ka\u0161kam",
+          "mu1(a\u0161)",
+          "ga\u02bear",
+          "ka\u0161bir8",
+          "\u0161e6bi",
+          "sig5ni",
+          "<saga>",
+          "\u0161ibaur",
+          "1(u)+5(di\u0161)"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "sza",
+        "top_k_gemma": [
+          "szu",
+          "\u0161a",
+          "szuesz5sza",
+          "is2",
+          "anszaanna",
+          "mac2e",
+          "usztamiit",
+          "{d",
+          "gennani",
+          "anszanake4"
+        ],
+        "top_k_glove": [
+          "d",
+          "a",
+          "ga",
+          "i",
+          "disze3",
+          "munex",
+          "nij2babi",
+          "insu2",
+          "laasze3",
+          "darisze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "u5ne",
+        "top_k_gemma": [
+          "u5",
+          "adne",
+          "habaandaku5rune",
+          "u5x",
+          "habaandaku5ne",
+          "en3ju10",
+          "<ga>",
+          "habadaku5ne",
+          "muniibnu2u3ne",
+          "su8babi"
+        ],
+        "top_k_glove": [
+          "cecju10",
+          "de5ju10",
+          "gaan\u0161i\u014ben",
+          "am3iine",
+          "meejenna",
+          "e5ju10",
+          "er9ene",
+          "du5muju10",
+          "umucju10",
+          "nuduu3da"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ub",
+        "top_k_gemma": [
+          "ubda",
+          "limmu5",
+          "limmu5bake4",
+          "limmu2baka\u0161e3",
+          "limmuba",
+          "ubabib",
+          "let",
+          "limmu2bi",
+          "suubbumani",
+          "limmu4"
+        ],
+        "top_k_glove": [
+          "d",
+          "a",
+          "mu",
+          "na",
+          "ra",
+          "bi",
+          "ni",
+          "e",
+          "ti",
+          "i"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ukkin",
+        "top_k_gemma": [
+          "gi4",
+          "unkin",
+          "a\u01618gi4",
+          "adgi4",
+          "igi4rumah",
+          "cukin",
+          "kiadmahgi4gi4",
+          "balati",
+          "kimugi4",
+          "balat,um"
+        ],
+        "top_k_glove": [
+          "guzabi",
+          "guzazu",
+          "migir",
+          "unkennaka",
+          "ub\u0161uunkenna",
+          "unkenne2",
+          "guzaja2",
+          "mudru",
+          "mehu\u0161a",
+          "anpi4szu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ur5zu",
+        "top_k_gemma": [
+          "ur5",
+          "ur5e",
+          "ur5ur5ra",
+          "ur5ur5re",
+          "ur5am3",
+          "ur5gim",
+          "ur5tu",
+          "ur5x",
+          "ur5me",
+          "ur5ka"
+        ],
+        "top_k_glove": [
+          "nuezu",
+          "inimju10",
+          "he2ensag9",
+          "nuzuu3ne",
+          "akzu",
+          "sag9zu",
+          "inim\u014bu10\u0161e3",
+          "muunsag9",
+          "he2emzu",
+          "he2am3zu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "zatum",
+        "top_k_gemma": [
+          "lamazatum",
+          "abtum",
+          "szaamszatum",
+          "arwatum",
+          "kurzatum",
+          "zaqtum",
+          "gagaartum",
+          "dabil3tum",
+          "bi2zatum",
+          "matum"
+        ],
+        "top_k_glove": [
+          "sig15",
+          "zi3milla",
+          "zi3guta",
+          "zid2sig15",
+          "zi3sig15bi",
+          "zi3sig15ga",
+          "zid2milla",
+          "zi3guka",
+          "zi3sig15ta",
+          "zi3gusze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "zia",
+        "top_k_gemma": [
+          "zii",
+          "ziz",
+          "ziiz",
+          "ziz3",
+          "zigu",
+          "ziza",
+          "zigi",
+          "ziikru",
+          "baziia",
+          "ziizi"
+        ],
+        "top_k_glove": [
+          "zi",
+          "un",
+          "zita",
+          "zigagin7",
+          "tap",
+          "zini\u0161e3",
+          "he2zig3",
+          "zig3bi",
+          "bad3ziabba",
+          "zidce3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "zibu",
+        "top_k_gemma": [
+          "zibi",
+          "zib2",
+          "zib",
+          "zig",
+          "ziz",
+          "ziiz",
+          "ziinbu",
+          "ziba",
+          "zium",
+          "tibu"
+        ],
+        "top_k_glove": [
+          "\u0161ubi",
+          "ziibtum",
+          "zid2gin7",
+          "tap",
+          "gigsze3",
+          "negibuum",
+          "gazibi",
+          "<x",
+          "zigi",
+          "\u0161ibaur"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "abtir",
+        "top_k_gemma": [
+          "tir",
+          "mutir",
+          "tirtir",
+          "ab2tir",
+          "datir",
+          "tirtirra",
+          "tirx",
+          "tirqaan",
+          "abti",
+          "u2tir"
+        ],
+        "top_k_glove": [
+          "xhu",
+          "a\u0161te2",
+          "\u0161e\u014b14",
+          "sig7en",
+          "absu13na",
+          "u2\u014bir2lam",
+          "uzumu2a",
+          "abti",
+          "u2salu2salba",
+          "haszhursze3"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "ad3",
+        "top_k_gemma": [
+          "pad3",
+          "i3pad3",
+          "kad3",
+          "nupad3",
+          "mupad3da",
+          "napad3de3",
+          "i3pad3da",
+          "muepad3",
+          "ad3bi",
+          "nupad3da"
+        ],
+        "top_k_glove": [
+          "udu",
+          "audu",
+          "ad6bi",
+          "uduzu",
+          "uduju10",
+          "ad6a",
+          "szah2sze3",
+          "ad8",
+          "ad3bi",
+          "uduutua2"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "ad4",
+        "top_k_gemma": [
+          "mucen",
+          "kad4",
+          "ku\u01617",
+          "saadnim",
+          "mucenbi",
+          "akuuz",
+          "samaag",
+          "ad8",
+          "adaszgi2",
+          "bad4"
+        ],
+        "top_k_glove": [
+          "i",
+          "ij3",
+          "abbabi",
+          "eq",
+          "pad4",
+          "tarju10",
+          "ca3ab",
+          "muc5",
+          "mac2ji6",
+          "bad4"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "ada",
+        "top_k_gemma": [
+          "gubbani",
+          "lugalgubbani",
+          "adada",
+          "agubbana",
+          "abada",
+          "nada",
+          "gubbada",
+          "gubbana",
+          "banaagub",
+          "gubbaani"
+        ],
+        "top_k_glove": [
+          "age6",
+          "zada",
+          "kada",
+          "abada",
+          "pada",
+          "siada",
+          "hada",
+          "bage6",
+          "durba",
+          "adabi"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "alta",
+        "top_k_gemma": [
+          "ale",
+          "altar",
+          "dalta",
+          "galta",
+          "reata",
+          "ale3",
+          "altur",
+          "tummaalta",
+          "tumalta",
+          "algin7"
+        ],
+        "top_k_glove": [
+          "mubaka",
+          "bi2indarraa",
+          "du3ra",
+          "bi2indag",
+          "munadun",
+          "sigede3",
+          "tumalta",
+          "bi2insuagin7",
+          "bi2indar",
+          "muundu3unnagin7"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "alu2sa",
+        "top_k_gemma": [
+          "lu2saga",
+          "u2dulu2saga",
+          "alu2",
+          "lu2sagaz",
+          "alu2du10",
+          "nannalu2sa6",
+          "lu2sag",
+          "lu2sa6x",
+          "lu2sagaze",
+          "u2salu2salba"
+        ],
+        "top_k_glove": [
+          "edakua",
+          "alu2",
+          "tu7\u0161e3",
+          "alze2eb",
+          "ku6hab2sze3",
+          "ku6ni",
+          "alhabba",
+          "ga\u02bear",
+          "edakuu2a",
+          "alnag4ga2bi"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "alus2sa",
+        "top_k_gemma": [
+          "gir2us2",
+          "muus2sa",
+          "nuus2sa",
+          "abus2sa",
+          "immius2sa",
+          "kius2sa",
+          "salus2",
+          "alluus2saa",
+          "ziz2us2sa",
+          "gu4e2us2sa"
+        ],
+        "top_k_glove": [
+          "barasze6",
+          "alnag4ga2",
+          "alu2sa",
+          "alsze6",
+          "alhab2ba",
+          "u2lal3a",
+          "alluus2saa",
+          "silaxlak636",
+          "alnag4ga2bi",
+          "ebku6gu7"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "amairata",
+        "top_k_gemma": [
+          "amada",
+          "amanira",
+          "amae2",
+          "amaasi",
+          "amau3tu",
+          "amaki",
+          "amauku2ra2",
+          "amanie",
+          "ama5ta",
+          "amaugu"
+        ],
+        "top_k_glove": [
+          "nin9ju10",
+          "ama5na",
+          "amanesage",
+          "gane",
+          "amagi4",
+          "munussze3",
+          "amacbia",
+          "ama5ta",
+          "ga2e2\u0161e3he2ti",
+          "he2tita"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "arua",
+        "top_k_gemma": [
+          "aruata",
+          "narxlak244",
+          "aru",
+          "sagnarxlak244",
+          "aruame",
+          "lu2baa",
+          "lu2nesage",
+          "geme2aga",
+          "lu2nana",
+          "durnarxlak244"
+        ],
+        "top_k_glove": [
+          "namgeme2sze3",
+          "he2dudu",
+          "nig2mumeen8",
+          "aruame",
+          "namibilanisze3",
+          "nig2ginanisze3",
+          "ninmuu\u0161ur4mu",
+          "re\u2093hu",
+          "e2lu2bisu2",
+          "bilxdu10"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "aruame",
+        "top_k_gemma": [
+          "arua",
+          "aruata",
+          "aru",
+          "geme2sukkal",
+          "sig7ame",
+          "geme2e11e",
+          "geme2zikumma",
+          "lu2xme",
+          "lu2pae3",
+          "lu2xga"
+        ],
+        "top_k_glove": [
+          "arua",
+          "<sze3>",
+          "bazah3sze3",
+          "he2su3e",
+          "sza3ga2lu2bi",
+          "namibilanisze3",
+          "baba6\u0161a3annake4badu10",
+          "pa3dame",
+          "maannuumkimae2a",
+          "bilxdu10"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "asz",
+        "top_k_gemma": [
+          "a\u0161",
+          "ac",
+          "asza",
+          "asz7",
+          "<asz>",
+          "asz11",
+          "xasz",
+          "aszta",
+          "aszte2",
+          "asztar2"
+        ],
+        "top_k_glove": [
+          "x",
+          "da",
+          "nu",
+          "gu",
+          "um",
+          "sajzu",
+          "xasz",
+          "70",
+          "7(imin)",
+          "kwu893"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "baanne2",
+        "top_k_gemma": [
+          "kagu7",
+          "baannazi",
+          "enanne2",
+          "muanne2du10",
+          "meanne2",
+          "genne2",
+          "xanne2",
+          "maanne2",
+          "gu3anne2sigin7",
+          "mune2ne2"
+        ],
+        "top_k_glove": [
+          "szum2de3",
+          "baana\u0161",
+          "i3baba",
+          "maanne2",
+          "sila3sze3",
+          "2(min)abi",
+          "2(u@c)am6",
+          "hiata",
+          "sege6de3",
+          "baantahtah"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "ban3dagin7",
+        "top_k_gemma": [
+          "ban3",
+          "ban3da",
+          "\u0161e\u0161ban3da",
+          "ban3dameen",
+          "damban3da",
+          "nuban3da",
+          "cecban3da",
+          "nin9ban3da",
+          "ban3ban3uz",
+          "\u014bi\u0161ban3da"
+        ],
+        "top_k_glove": [
+          "ban3dameen",
+          "mu2dagin7",
+          "riagin7",
+          "tuddagin7",
+          "duagin7",
+          "munatu17agin7",
+          "xagin7",
+          "abagin7",
+          "baagin7",
+          "macagin7"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "bancur",
+        "top_k_gemma": [
+          "banszur",
+          "ban\u0161ur",
+          "ucur",
+          "ban\u0161ur\u2093",
+          "ban\u0161urra",
+          "garac2",
+          "bancurra",
+          "garac",
+          "uz3saj",
+          "baan\u0161ur"
+        ],
+        "top_k_glove": [
+          "tun3pad",
+          "bancurra",
+          "jicbi",
+          "70",
+          "kucbi",
+          "suhbi",
+          "sig5ni",
+          "du7mu",
+          "turbice3",
+          "sa7a"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "bi2dab5",
+        "top_k_gemma": [
+          "dab5bame",
+          "edab5",
+          "dab5dab5be2",
+          "dab5bi",
+          "imdab5",
+          "eb2dab5",
+          "dab5be2da",
+          "baandab5be2ec",
+          "baandab5be2e\u0161",
+          "ma2dab5"
+        ],
+        "top_k_glove": [
+          "immaandab5",
+          "dab5basze3",
+          "immaniindab5be2ne",
+          "dab5bani",
+          "bi2indab5",
+          "dab5bi",
+          "bi2indab5ba",
+          "dab5bazu",
+          "dab5babi",
+          "dab5baju10"
+        ]
+      },
+      {
+        "jaccard_distance": 0.9473684210526316,
+        "sumerian": "bir7",
+        "top_k_gemma": [
+          "bir",
+          "\u0161a3gadu3",
+          "bir9",
+          "\u0161utur",
+          "liib",
+          "bir8",
+          "i\u1e63ur",
+          "naaspa2ru",
+          "tug2sagi4am3",
+          "birre"
+        ],
+        "top_k_glove": [
+          "tug2mudur7ra",
+          "hudu\u0161tu",
+          "lib4lib4",
+          "ku\u0161bi",
+          "tuba4tug2",
+          "mu\u0161tug2",
+          "nusasa",
+          "nij2dara2",
+          "naaspa2ru",
+          "xtug2"
+        ]
+      }
+    ],
+    "rows_unfiltered": [
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "adabkibi",
+        "top_k_gemma": [
+          "dadaata",
+          "adaba",
+          "nakini",
+          "nibaba",
+          "dadasze3",
+          "adamdun",
+          "enkibi",
+          "abi2gan2",
+          "kakibisze3",
+          "abki"
+        ],
+        "top_k_glove": [
+          "<x>",
+          "edinbisze3",
+          "lugalmedu10gata",
+          "en8bi",
+          "nig2mumeen8",
+          "dadanisze3",
+          "abba2iri",
+          "\u0161ubulata",
+          "addaata",
+          "x>"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ag",
+        "top_k_gemma": [
+          "laag",
+          "agga",
+          "laraag",
+          "paag",
+          "gaag",
+          "zalaag",
+          "aj2bi",
+          "daag",
+          "kiriibulme",
+          "saag"
+        ],
+        "top_k_glove": [
+          "sajzu",
+          "dic",
+          "daqum",
+          "a2ju10",
+          "musa3niqum",
+          "960",
+          "45",
+          "niqum",
+          "ag2am3",
+          "42"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ale3",
+        "top_k_gemma": [
+          "e3",
+          "xe3",
+          "am3e3",
+          "ie3",
+          "e3asze3",
+          "be3",
+          "bataae3",
+          "e3aac",
+          "e3aa\u0161",
+          "bataane3e3"
+        ],
+        "top_k_glove": [
+          "al",
+          "he2maalla",
+          "baledabi",
+          "du14daka",
+          "ellagju10",
+          "albubu",
+          "alturre",
+          "guru5agin7",
+          "duru5gin7",
+          "alur5rasze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "alhabba",
+        "top_k_gemma": [
+          "hab",
+          "xabba",
+          "alhia",
+          "saghab2ba",
+          "\u014be\u0161abba",
+          "alhab2ba",
+          "lamhal",
+          "dalhani",
+          "alkunu",
+          "hab2bi"
+        ],
+        "top_k_glove": [
+          "du10gabi",
+          "nualhia",
+          "alze2eb",
+          "gi6bi",
+          "ku7ku7dagin7",
+          "ku6hab2sze3",
+          "nusasa",
+          "du10gasze3",
+          "ni\u014b2tahab",
+          "<i3>"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "aluuttahi",
+        "top_k_gemma": [
+          "ahi",
+          "dahi",
+          "aliahi",
+          "apilkiin",
+          "ahiia",
+          "luudluul",
+          "ibaluut,",
+          "laluu2um",
+          "suenmupahiir",
+          "arahiir"
+        ],
+        "top_k_glove": [
+          "d",
+          "a",
+          "ni",
+          "e",
+          "nu",
+          "uznanam",
+          "munawirum",
+          "naja3",
+          "arwiu2um",
+          "_u2"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "amra",
+        "top_k_gemma": [
+          "u3suh5",
+          "amgin7",
+          "namra",
+          "aam",
+          "u3suh5bi",
+          "amri2ma",
+          "amx",
+          "u8ra",
+          "kutra",
+          "daam"
+        ],
+        "top_k_glove": [
+          "kun5",
+          "kundar",
+          "ub\u2093",
+          "mira",
+          "kunu\u0161",
+          "kunrim",
+          "amsigin7",
+          "buduug",
+          "an\u0161ema2",
+          "kwu733"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "amri2ma",
+        "top_k_gemma": [
+          "am2",
+          "amra",
+          "amma",
+          "gar3mud",
+          "hardahi",
+          "xu3suh5",
+          "amx",
+          "ni2ma",
+          "baba6amadari2",
+          "harlam"
+        ],
+        "top_k_glove": [
+          "as,",
+          "mumami",
+          "datina",
+          "kamari2sze3",
+          "tirqaan",
+          "patihatum",
+          "am6ma",
+          "enda\u0161urimma",
+          "pu2urim",
+          "arszatiata"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "aniad",
+        "top_k_gemma": [
+          "i",
+          "ani",
+          "kaani",
+          "zania",
+          "bania",
+          "uddaani",
+          "dania",
+          "nania",
+          "badbaddania",
+          "e2addakam"
+        ],
+        "top_k_glove": [
+          "_x",
+          "\u014bi\u01613ani",
+          "i3tizu",
+          "eju10",
+          "e5ju10",
+          "\u014be26gin7",
+          "e*",
+          "daaasze3",
+          "anaju10",
+          "t,a3abs,ilaszu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "apilsza",
+        "top_k_gemma": [
+          "apil",
+          "apil2",
+          "apilkubi",
+          "suenmuszalim",
+          "api5ak",
+          "d*",
+          "apilkiin",
+          "apilasza",
+          "apil2kubi",
+          "lumursza"
+        ],
+        "top_k_glove": [
+          "d",
+          "nut,u3uptum",
+          "musa3niqum",
+          "e2zu\u0161e3",
+          "t,a3abs,ilaszu",
+          "sa3niqum",
+          "ali2abusza",
+          "inneeb2gurra",
+          "<u3>",
+          "u4labada\u0161u4"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "aq",
+        "top_k_gemma": [
+          "lu2geme2zida",
+          "eteelpi4",
+          "ummiwaaqraat",
+          "adamu",
+          "aqbani",
+          "bituu2a",
+          "is,rupaanni",
+          "e2szemi",
+          "dadawaqar",
+          "suenszamuuh2"
+        ],
+        "top_k_glove": [
+          "ju10",
+          "e2bisze3",
+          "damuazu",
+          "murum5",
+          "ibi2suenju10",
+          "nuzuu3ne",
+          "d*",
+          "haniisz",
+          "enlil2anzu",
+          "suenemiid"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "aridubuuk",
+        "top_k_gemma": [
+          "zitian",
+          "zitia",
+          "dubuul",
+          "hi+a\u01612+ri",
+          "\u0161aatx",
+          "\u0161aatmami",
+          "\u0161arumium",
+          "szubuultum",
+          "mac2ud5",
+          "10(u)"
+        ],
+        "top_k_glove": [
+          "igmulum",
+          "niga\u0161e3",
+          "eq",
+          "niiskugin7",
+          "duluqum",
+          "mu\u0161iduun",
+          "gudju10",
+          "t,a3abs,ilaszu",
+          "enlil2rizuszu",
+          "\u0161a3du10\u0161e3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "asag",
+        "top_k_gemma": [
+          "sagabi",
+          "inannaursag",
+          "asagdu3duta",
+          "kusag",
+          "du6karsag",
+          "esag",
+          "aslag4",
+          "ansag",
+          "ki:sag",
+          "gursag"
+        ],
+        "top_k_glove": [
+          "munu4bi",
+          "<sila3>",
+          "asila3",
+          "si4u2lum",
+          "urux",
+          "sze_",
+          "ziz2ga",
+          "iszarlibur",
+          "sila3>",
+          "aszhalum"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "aslag4",
+        "top_k_gemma": [
+          "_sze",
+          "szeru",
+          "axxx",
+          "aiti1(u)",
+          "sze_",
+          "<ur>",
+          "szepa",
+          "adkup4bi",
+          "u3suh5sze3",
+          "adkup4sze3"
+        ],
+        "top_k_glove": [
+          "adhal",
+          "il2eiszar",
+          "ac7gi4gin7",
+          "ahuasze3",
+          "munasze3ru",
+          "luasze3",
+          "daaasze3",
+          "girxadbil",
+          "szegurxam3",
+          "i3ag2ge26"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ba7",
+        "top_k_gemma": [
+          "ba",
+          "za7",
+          "banmin",
+          "bane\u0161",
+          "zipah",
+          "baedagurreen",
+          "dagi4ata",
+          "zipaah",
+          "e\u01613tagurra",
+          "munaeraa"
+        ],
+        "top_k_glove": [
+          "i3",
+          "<ni>",
+          "muna\u014ba2\u014ba2",
+          "nuumde2",
+          "munadurunxnaa",
+          "bi2insuagin7",
+          "basze3",
+          "u3munanide2a",
+          "im\u014ba2\u014ba2ne",
+          "xbasze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ban",
+        "top_k_gemma": [
+          "bana",
+          "banix",
+          "bane",
+          "banmeskalam",
+          "ban\u0161ur\u2093",
+          "banati",
+          "ban\u0161urra",
+          "banea",
+          "banagar",
+          "banana"
+        ],
+        "top_k_glove": [
+          "sigar",
+          "sa\u014bdun3",
+          "sage3",
+          "sajkul",
+          "sa\u014bza",
+          "sa\u014bgul",
+          "a2gar",
+          "tihar",
+          "sa\u014bta",
+          "a2aszgar"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ba\u0161im",
+        "top_k_gemma": [
+          "1/2(di\u0161)",
+          "\u0161im",
+          "cim",
+          "ba\u0161iinak",
+          "i\u0161im",
+          "ha\u0161i",
+          "ba\u0161iinlu",
+          "e3ba\u0161e3",
+          "gi\u0161im",
+          "\u0161imim"
+        ],
+        "top_k_glove": [
+          "an",
+          "cej6",
+          "\u0161e\u014b\u2093",
+          "gacam",
+          "22",
+          "\u0161e\u014b14",
+          "eh3",
+          "icin",
+          "\u0161e\u014b3\u0161e\u014b3",
+          "_u2"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "be4",
+        "top_k_gemma": [
+          "muezu",
+          "nij2mejar",
+          "be5",
+          "miniinjal2",
+          "usubi",
+          "kad5am3",
+          "labaane3",
+          "muniinjal2",
+          "hamuu3akke4",
+          "i3nimeake4"
+        ],
+        "top_k_glove": [
+          "akgin7",
+          "be7",
+          "mubuumgin7",
+          "i3neec2gin7",
+          "je26gin7",
+          "\u014be26gin7",
+          "imtillagin7",
+          "mubigin7",
+          "bi2ru2ana",
+          "ibi2gin7"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "be6buru",
+        "top_k_gemma": [
+          "buru",
+          "buru\u2093gan2",
+          "\u0161uruu\u0161kiin",
+          "buru\u2093",
+          "buruuqta",
+          "peruru",
+          "diuru",
+          "munuruur2",
+          "u3ruru",
+          "ruruburu5"
+        ],
+        "top_k_glove": [
+          "d",
+          "a",
+          "x",
+          "e",
+          "cebi",
+          "eq",
+          "ec5",
+          "cir3ju10",
+          "55",
+          "ru_"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "bi2szea",
+        "top_k_gemma": [
+          "gaszea",
+          "bi2se3",
+          "bi2szu4",
+          "szea",
+          "bi2si",
+          "ibi2suen",
+          "bi2szahidingir",
+          "bi2silim",
+          "bi2ba",
+          "iszdu11gin7"
+        ],
+        "top_k_glove": [
+          "balaasze3",
+          "muezu",
+          "anaszeam3",
+          "ur5bisze3badu11",
+          "nudu11gagin7",
+          "daaasze3",
+          "abi2t,aab",
+          "dugkam",
+          "laasze3",
+          "nuhasaabze2en"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "bibi",
+        "top_k_gemma": [
+          "ibi",
+          "bibad",
+          "ejerbi",
+          "ribi",
+          "sagkibi",
+          "lu2bibi",
+          "gibaba",
+          "kakibisze3",
+          "sajkibi",
+          "biizbi"
+        ],
+        "top_k_glove": [
+          "a",
+          "nu",
+          "ka",
+          "gin7",
+          "sibi",
+          "<du>",
+          "bi2zuzu",
+          "saman3ta",
+          "ummiasze3",
+          "bara\u0161ix"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "bir9",
+        "top_k_gemma": [
+          "bir",
+          "ir9",
+          "bir7",
+          "bir8",
+          "birbirre",
+          "dice3",
+          "birri",
+          "he2birre",
+          "birre",
+          "birbir"
+        ],
+        "top_k_glove": [
+          "em",
+          "nuezu",
+          "e\u014ber",
+          "nuzuzu",
+          "nuzuu3ne",
+          "ba9ra2zune",
+          "la2muur2",
+          "mube2",
+          "baezuzu",
+          "badbaddania"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "danu2pi2",
+        "top_k_gemma": [
+          "pi2",
+          "danum2",
+          "dannum2",
+          "mudanu2",
+          "ganu2",
+          "u2pil7",
+          "anu2",
+          "iinnu2",
+          "dan4",
+          "badanu2"
+        ],
+        "top_k_glove": [
+          "nuur2ma",
+          "duhta",
+          "kum4",
+          "kum4ma",
+          "u2lum",
+          "enu2mii3li2",
+          "elamda",
+          "kurgirinna",
+          "kurun5",
+          "elambi"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "di\u014birgubba",
+        "top_k_gemma": [
+          "agubba",
+          "mugubba",
+          "angubba",
+          "bagubba",
+          "gubgubba",
+          "i3gubba",
+          "gubbuzu",
+          "agubgub",
+          "muungubba",
+          "gubbaju10"
+        ],
+        "top_k_glove": [
+          "di\u014birrana",
+          "di\u014bir\u014ba2",
+          "di\u014birbi",
+          "di\u014birene",
+          "di\u014birda",
+          "di\u014birdi\u014bir",
+          "di\u014birraani",
+          "di\u014birrane2",
+          "di\u014birraam3",
+          "di\u014birza"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dubkam",
+        "top_k_gemma": [
+          "udu",
+          "aszur4",
+          "udunita2sze3",
+          "udukam",
+          "masz2sze3",
+          "sila4bita",
+          "dube",
+          "masz2x",
+          "masz2nita2sze3",
+          "masz2ud5"
+        ],
+        "top_k_glove": [
+          "dubmu",
+          "uduju10",
+          "ud5gin7",
+          "1(asz@c)kam",
+          "xxkam",
+          "sila4zu",
+          "zagju10",
+          "dubzu",
+          "barzusze3",
+          "enlil2rizuszu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "duma",
+        "top_k_gemma": [
+          "dum",
+          "dumume",
+          "dumume\u0161",
+          "dumux",
+          "dumubi",
+          "dumua\u0161",
+          "dumuga",
+          "dumuki",
+          "dumu_",
+          "dume"
+        ],
+        "top_k_glove": [
+          "ni",
+          "un",
+          "dumunasze3",
+          "_e2",
+          "bur\u0161uma",
+          "paxra2",
+          "mumaal",
+          "burcuma",
+          "duu4",
+          "\u0161e\u0161ra"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dumdam",
+        "top_k_gemma": [
+          "dam",
+          "dum",
+          "xdam",
+          "dumux",
+          "dumuna\u0161e3",
+          "damdam",
+          "dumua\u0161",
+          "dumuju10ur2",
+          "dumu_",
+          "dumunada"
+        ],
+        "top_k_glove": [
+          "ni",
+          "la",
+          "gu",
+          "e\u014ber",
+          "imza",
+          "urgir15ani\u0161e3",
+          "gi\u0161tura",
+          "duu4",
+          "bi4",
+          "su8babi"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dun4",
+        "top_k_gemma": [
+          "dun",
+          "gun4",
+          "duna",
+          "sila4bi",
+          "sila4sze3",
+          "sila4sila4",
+          "udunna",
+          "bardun",
+          "sila4bida",
+          "dunna"
+        ],
+        "top_k_glove": [
+          "kun4",
+          "mu\u0161\u014biri2",
+          "gigun4nazu",
+          "gigun4bi",
+          "kababu",
+          "udka",
+          "i\u0161kurgin7",
+          "na4na4",
+          "iszkurgin7",
+          "udsza"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "dupsik",
+        "top_k_gemma": [
+          "dusu",
+          "sik",
+          "dusue",
+          "sa\u014bil2",
+          "dusuta",
+          "imsik",
+          "habail2",
+          "mueciinil2la",
+          "mue\u0161iinil2la",
+          "geszhe2"
+        ],
+        "top_k_glove": [
+          "sagba",
+          "szuza",
+          "dusubi",
+          "aguza",
+          "zage3",
+          "zamxelles396",
+          "maranige4en",
+          "huza",
+          "a2szugiri3",
+          "anurudusi"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ebugeszpial",
+        "top_k_gemma": [
+          "geszx",
+          "esirxlak173",
+          "geszpu2",
+          "engargeszi3",
+          "ugula1(gesz2)",
+          "bugaa",
+          "geszkun",
+          "ngesz2",
+          "lak046@v",
+          "sagsur"
+        ],
+        "top_k_glove": [
+          "eszpesz",
+          "lamhal",
+          "adarszen",
+          "ma\u0161sila3",
+          "ga\u02bear",
+          "haszuum",
+          "puhalum",
+          "girixlak085",
+          "haszhurbi",
+          "haszhursze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "eems,ium",
+        "top_k_gemma": [
+          "s,i",
+          "suenmalik",
+          "malik",
+          "eszuubdingir",
+          "du6ku3sze3",
+          "imlik",
+          "akusum2",
+          "sa3bium",
+          "du6ku3ge",
+          "mali"
+        ],
+        "top_k_glove": [
+          "kid7",
+          "muuncub",
+          "basig3",
+          "kid7a",
+          "umtaankid7",
+          "imlike2a",
+          "immadaante",
+          "immadaantab",
+          "madlabu",
+          "barrim4gula"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "endim2gig",
+        "top_k_gemma": [
+          "andim2dim2",
+          "indim2",
+          "xdim2",
+          "mudim2dim2",
+          "zadim2",
+          "kudim2",
+          "ingadim2",
+          "bandim2",
+          "gidim2",
+          "urdim2"
+        ],
+        "top_k_glove": [
+          "endingirmuta",
+          "endingirmu",
+          "enda",
+          "enxta",
+          "en_",
+          "ensa6ag",
+          "enda\u0161urimma",
+          "ar3ar3rene",
+          "nintinugxga",
+          "engi7"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ensa6ag",
+        "top_k_gemma": [
+          "baansa6",
+          "sa6aga",
+          "ninensa6",
+          "unsa6ga",
+          "ninsa6ga",
+          "amanibaansa6",
+          "ninsa6",
+          "sa6x",
+          "xxsa6",
+          "sa6a"
+        ],
+        "top_k_glove": [
+          "d",
+          "ensze3",
+          "dingirazuta",
+          "lammarai3sa6",
+          "ninxta",
+          "enxta",
+          "lammaju10",
+          "ningiszkimti",
+          "amaesz3",
+          "nintinugxga"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "erased",
+        "top_k_gemma": [
+          "erasure",
+          "amarabzu",
+          "enabzu",
+          "erane",
+          "erraxkisz",
+          "da*",
+          "amalal3abzu",
+          "enabzusi",
+          "liburnia\u01612",
+          "\u0161ita\u2093kwu777abba"
+        ],
+        "top_k_glove": [
+          "bazah3sze3",
+          "aguani",
+          "ummiasze3",
+          "kulisze3",
+          "ta2hiszeen",
+          "daaasze3",
+          "aani\u0161u",
+          "urtag4ma",
+          "girxadbil",
+          "ga2e2\u0161e3he2ti"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ex",
+        "top_k_gemma": [
+          "x",
+          "nex",
+          "mex",
+          "muex",
+          "tex",
+          "xbax",
+          "exx",
+          "xlax",
+          "xmex",
+          "xtax"
+        ],
+        "top_k_glove": [
+          "da",
+          "ra",
+          "la",
+          "nu",
+          "gin7",
+          "em",
+          "jic3ani",
+          "\u014bi\u01613ani",
+          "didie",
+          "bid3dani"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "ez",
+        "top_k_gemma": [
+          "a",
+          "x",
+          "eze2",
+          "mac2e",
+          "cece",
+          "eq",
+          "840",
+          "cejici3",
+          "mac2ji6",
+          "_u2"
+        ],
+        "top_k_glove": [
+          "muudnaju10",
+          "_e2",
+          "lu4",
+          "ce10",
+          "ulu3ta",
+          "nijire",
+          "cir3ju10",
+          "muluju10ra",
+          "ka+ud",
+          "_i3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "gabanikur2",
+        "top_k_gemma": [
+          "kur2",
+          "bakur2",
+          "gabani",
+          "cukur2",
+          "inkur2",
+          "badakur2",
+          "i3kur2",
+          "ankur2kur2",
+          "baabkur2",
+          "i3kur2kur2"
+        ],
+        "top_k_glove": [
+          "ba",
+          "ni",
+          "nu",
+          "in",
+          "nuzuu3ne",
+          "zaaam3",
+          "duanita",
+          "70",
+          "zagju10",
+          "muunsuhsuhu3ne"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "gamaarda",
+        "top_k_gemma": [
+          "amaa",
+          "amaargi4",
+          "maar",
+          "amaabzusi",
+          "amaargi4bi",
+          "amaasi",
+          "amaarhu\u0161",
+          "amaargi4ni",
+          "amaar",
+          "amaargi"
+        ],
+        "top_k_glove": [
+          "kinsze3",
+          "he2kud",
+          "sigagin7",
+          "<ga>",
+          "gamiibzu",
+          "he2endaze2eb",
+          "luasze3",
+          "<a",
+          "ma\u0161agin7",
+          "munu10de3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "gini",
+        "top_k_gemma": [
+          "gina",
+          "igini",
+          "gin",
+          "gine2",
+          "dini",
+          "ginaa",
+          "ini",
+          "sa\u014bkini",
+          "ginuba",
+          "ginna"
+        ],
+        "top_k_glove": [
+          "madaga2ka",
+          "negibuum",
+          "gij4e",
+          "gi\u014b4e",
+          "\u014bi\u0161bi",
+          "lagiipta",
+          "kagee",
+          "lubbigin7",
+          "gien",
+          "gin2\u0161e3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "gir16da",
+        "top_k_gemma": [
+          "gir16",
+          "lu2ulu3gin7",
+          "lu2es3sa2",
+          "lu2ezem",
+          "ka5mu",
+          "gir14",
+          "lu2zuh",
+          "giri16da",
+          "ningiri16da",
+          "giri3amu"
+        ],
+        "top_k_glove": [
+          "jenna",
+          "muu4nagu10",
+          "duzune",
+          "zaemeenze2en",
+          "ninlil2he2emti",
+          "gidlamgu10",
+          "meejenna",
+          "muu8tagub",
+          "mee\u014benna",
+          "he2emtagub"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "girixlak085",
+        "top_k_gemma": [
+          "giri\u0161",
+          "girix",
+          "girisz",
+          "lak004",
+          "lak025",
+          "lak225",
+          "utuwalak777",
+          "lak046@v",
+          "lak060",
+          "lak050"
+        ],
+        "top_k_glove": [
+          "ku6ju10",
+          "uduju10",
+          "teze2en6mama",
+          "giskim",
+          "ahuasze3",
+          "ummigu7",
+          "ad8",
+          "gudju10",
+          "muszgu7",
+          "sze3."
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "gud10",
+        "top_k_gemma": [
+          "d",
+          "min",
+          "guda2",
+          "ese\u0161",
+          "gudx",
+          "gudju10",
+          "di\u0161\u0161eku",
+          "u\u1e6d",
+          "par2daat",
+          "u\u01618"
+        ],
+        "top_k_glove": [
+          "dijirju10",
+          "enegir3",
+          "zirru",
+          "di\u014birgubba",
+          "dijirja2",
+          "di\u014birda",
+          "dijirda",
+          "di\u014birraani",
+          "lammani",
+          "enlil2dingirzu"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "hapadu",
+        "top_k_gemma": [
+          "padpadra2",
+          "nadu",
+          "pada",
+          "me\u01613anne2pad3da",
+          "sa\u014bza",
+          "pad4",
+          "papa\u014ba2",
+          "idadu",
+          "sa\u014bta",
+          "pa6"
+        ],
+        "top_k_glove": [
+          "x",
+          "da",
+          "la",
+          "i",
+          "sajzu",
+          "2(man)",
+          "<du>",
+          "biizbi",
+          "ku\u01613gin7",
+          "ku\u01613am3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "he2emdaabkarrene",
+        "top_k_gemma": [
+          "humudug4",
+          "humuniibdug4",
+          "dug4ganaab",
+          "dug4ganaabze2en",
+          "imdaabbe2",
+          "aradug4gaju10",
+          "immaabdug4",
+          "muniibdug4",
+          "xdu11",
+          "du11."
+        ],
+        "top_k_glove": [
+          "he2enzu",
+          "he2emene",
+          "he2em\u0161iak",
+          "he2emciak",
+          "dug4muunnaab",
+          "gaabkar",
+          "he2emzu",
+          "he2emririe",
+          "he2emak",
+          "he2eme3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "hee",
+        "top_k_gemma": [
+          "he",
+          "dee",
+          "he\u01615",
+          "ee",
+          "gi\u0161pu",
+          "he2emririe",
+          "hebur\u2093kak",
+          "deh3",
+          "see",
+          "baur5"
+        ],
+        "top_k_glove": [
+          "nu",
+          "tukumxbi",
+          "he2entum2mude3",
+          "he2kud",
+          "muimma",
+          "he2maalzu",
+          "i3nee\u01612gin7",
+          "sig9gaam3",
+          "he2nibe7",
+          "he2endaze2eb"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "he\u01615",
+        "top_k_gemma": [
+          "\u0161a",
+          "e\u01615",
+          "\u0161ue\u01615\u0161a",
+          "pe\u01615",
+          "hac4",
+          "ku\u0161x",
+          "gae\u01615",
+          "\u0161e18",
+          "ku\u016110",
+          "hee"
+        ],
+        "top_k_glove": [
+          "a",
+          "en3zu",
+          "en3\u0161e3",
+          "u\u01612am3",
+          "a2ku\u01612u3ani",
+          "3(e\u01615)",
+          "u\u01617zu",
+          "xe\u0161e",
+          "saman3ta",
+          "dadani\u0161e3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "hubi2dam",
+        "top_k_gemma": [
+          "kunga2nita2",
+          "bi2da",
+          "abi2du10",
+          "xnita2",
+          "si2si2nita2",
+          "hupi5tam2",
+          "kunga2nita2gesz",
+          "gu2gur5nita2",
+          "nita2bi",
+          "bi2dar"
+        ],
+        "top_k_glove": [
+          "aul4gal",
+          "uduju10",
+          "ug7ug7gaam3",
+          "sila4zu",
+          "zuurzuruum",
+          "urgi7sze3",
+          "e3:li",
+          "u8da",
+          "urnita",
+          "urtursze3"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "hug",
+        "top_k_gemma": [
+          "hula",
+          "huj",
+          "hulhul",
+          "hulam3",
+          "hullu",
+          "munaabhulhul",
+          "hulame",
+          "hulhullude3",
+          "hulx",
+          "hulata"
+        ],
+        "top_k_glove": [
+          "mu",
+          "nuzua",
+          "ur5zu",
+          "ge26emeen",
+          "gu10sze3",
+          "nuzuu3ne",
+          "giggazu",
+          "naangigge",
+          "eju10",
+          "muluju10"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "i3labunigadu",
+        "top_k_gemma": [
+          "i3du",
+          "i3lala",
+          "gadu",
+          "sagadu",
+          "bu3lala",
+          "i3dudu",
+          "durebla",
+          "zigada",
+          "kwu893",
+          "uri7nigin6"
+        ],
+        "top_k_glove": [
+          "<ni>",
+          "gu2abbasze3",
+          "edua",
+          "zagju10",
+          "hedaandu",
+          "miniti",
+          "puzur4laba",
+          "sigada",
+          "ibbubu",
+          "kunigara"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "i3mie3",
+        "top_k_gemma": [
+          "e3abi",
+          "i3e3",
+          "ie3",
+          "e3e3",
+          "e3asze3",
+          "bi2ae3",
+          "muuntae3",
+          "i3ae3",
+          "minie3",
+          "e3ae"
+        ],
+        "top_k_glove": [
+          "tagin7",
+          "munatu17agin7",
+          "he2nie3",
+          "xagin7",
+          "bi2insuagin7",
+          "baagin7",
+          "sigagin7",
+          "luggagin7",
+          "bar7agin7",
+          "u3nagin7"
+        ]
+      },
+      {
+        "jaccard_distance": 1.0,
+        "sumerian": "i3ta",
+        "top_k_gemma": [
+          "i3bi",
+          "zi3ta",
+          "_2(u)",
+          "itti",
+          "geszi3ta",
+          "_4(u)",
+          "usztamiit",
+          "_1(ban2)",
+          "i3tab",
+          "zi3bu"
+        ],
+        "top_k_glove": [
+          "abanegin7",
+          "dadagasze3",
+          "sagasze3",
+          "i3su8gee\u0161",
+          "i3li2iszmeani",
+          "aani\u0161u",
+          "liq",
+          "i3>",
+          "<i3>",
+          "ndi\u0161kam"
+        ]
+      }
+    ]
+  },
+  "lens5_doppelgangers": {
+    "histogram": {
+      "bin_edges": [
+        0.85,
+        0.86,
+        0.87,
+        0.88,
+        0.89,
+        0.9,
+        0.91,
+        0.9199999999999999,
+        0.9299999999999999,
+        0.94,
+        0.95,
+        0.96,
+        0.97,
+        0.98,
+        0.99,
+        1.0
+      ],
+      "counts": [
+        6813,
+        5904,
+        5145,
+        4371,
+        3661,
+        3022,
+        2521,
+        2041,
+        1722,
+        1234,
+        963,
+        586,
+        322,
+        119,
+        13
+      ]
+    },
+    "rows": [
+      {
+        "cosine_similarity": 0.9978564381599426,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "baandab5be2ec",
+        "sumerian_b": "baandab5be2e\u0161"
+      },
+      {
+        "cosine_similarity": 0.9942988157272339,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "ciingaantum2mu",
+        "sumerian_b": "\u0161iingaantum2mu"
+      },
+      {
+        "cosine_similarity": 0.9937067031860352,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "ummit,abat5",
+        "sumerian_b": "ummit,abat5e"
+      },
+      {
+        "cosine_similarity": 0.9924567937850952,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "imciingi4gi4",
+        "sumerian_b": "im\u0161iingi4gi4"
+      },
+      {
+        "cosine_similarity": 0.9915117025375366,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "5(n01@f)",
+        "sumerian_b": "6(n01@f)"
+      },
+      {
+        "cosine_similarity": 0.9914916753768921,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "e2temenni2guru3",
+        "sumerian_b": "e2temenni2guru3a"
+      },
+      {
+        "cosine_similarity": 0.9914183020591736,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "nambadaansiilsiil",
+        "sumerian_b": "nambadaansiilsiili"
+      },
+      {
+        "cosine_similarity": 0.9913687109947205,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "\u0161e\u2093sig7",
+        "sumerian_b": "\u0161e\u2093sig7\u0161e\u2093sig7"
+      },
+      {
+        "cosine_similarity": 0.9907078146934509,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "9kammaam3",
+        "sumerian_b": "8kammaam3"
+      },
+      {
+        "cosine_similarity": 0.9906932711601257,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "a\u0161+dun3@g",
+        "sumerian_b": "a\u0161+dun3@ga\u0161+dun3@g"
+      },
+      {
+        "cosine_similarity": 0.9903450012207031,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "hirin\u2093kwu318",
+        "sumerian_b": "hirin\u2093kwu318na"
+      },
+      {
+        "cosine_similarity": 0.9902883768081665,
+        "in_anchor_set": [
+          true,
+          false
+        ],
+        "sumerian_a": "dug3dug3ga",
+        "sumerian_b": "dug3dug3gax"
+      },
+      {
+        "cosine_similarity": 0.9900784492492676,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "4(n01@f)",
+        "sumerian_b": "5(n01@f)"
+      },
+      {
+        "cosine_similarity": 0.9898166060447693,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "hirinxkwu318",
+        "sumerian_b": "hirinxkwu318na"
+      },
+      {
+        "cosine_similarity": 0.9897499084472656,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "narxrsp468ter",
+        "sumerian_b": "narxrsp468terda"
+      },
+      {
+        "cosine_similarity": 0.9895088076591492,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "10kammaam3",
+        "sumerian_b": "9kammaam3"
+      },
+      {
+        "cosine_similarity": 0.9892688989639282,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "nuumga2ga2nea",
+        "sumerian_b": "nuumga2ga2ne"
+      },
+      {
+        "cosine_similarity": 0.989223062992096,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "4(n01@f)",
+        "sumerian_b": "6(n01@f)"
+      },
+      {
+        "cosine_similarity": 0.9889135360717773,
+        "in_anchor_set": [
+          true,
+          false
+        ],
+        "sumerian_a": "munadaanku4ku4",
+        "sumerian_b": "munadaanku4ku4u3"
+      },
+      {
+        "cosine_similarity": 0.9888114333152771,
+        "in_anchor_set": [
+          true,
+          true
+        ],
+        "sumerian_a": "inpa3de3esz",
+        "sumerian_b": "inpa3de3esz2"
+      },
+      {
+        "cosine_similarity": 0.9886837005615234,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "sag9gaac",
+        "sumerian_b": "sag9gaa\u0161"
+      },
+      {
+        "cosine_similarity": 0.9885398745536804,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "lugalki",
+        "sumerian_b": "lugalkix"
+      },
+      {
+        "cosine_similarity": 0.9883909821510315,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "mueciingi4innam",
+        "sumerian_b": "mue\u0161iingi4innam"
+      },
+      {
+        "cosine_similarity": 0.988318681716919,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "muungi4gi4a",
+        "sumerian_b": "muungi4gi4"
+      },
+      {
+        "cosine_similarity": 0.9882562160491943,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "lak263",
+        "sumerian_b": "lak264"
+      },
+      {
+        "cosine_similarity": 0.9882411360740662,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "e2temenni2gur3ru",
+        "sumerian_b": "e2temenni2gur3ruza"
+      },
+      {
+        "cosine_similarity": 0.9879720211029053,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "2(n01@f)",
+        "sumerian_b": "5(n01@f)"
+      },
+      {
+        "cosine_similarity": 0.9876556396484375,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "guruszgin7du",
+        "sumerian_b": "guruszgin7dua"
+      },
+      {
+        "cosine_similarity": 0.9875518679618835,
+        "in_anchor_set": [
+          true,
+          false
+        ],
+        "sumerian_a": "libi2indug4ga",
+        "sumerian_b": "libi2indug4"
+      },
+      {
+        "cosine_similarity": 0.9874498844146729,
+        "in_anchor_set": [
+          true,
+          true
+        ],
+        "sumerian_a": "sag9sag9",
+        "sumerian_b": "sag9sag9ga"
+      },
+      {
+        "cosine_similarity": 0.9873146414756775,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "1kammaam3",
+        "sumerian_b": "8kammaam3"
+      },
+      {
+        "cosine_similarity": 0.9872878193855286,
+        "in_anchor_set": [
+          false,
+          true
+        ],
+        "sumerian_a": "baandab5be2e\u0161",
+        "sumerian_b": "baandab5be2esz"
+      },
+      {
+        "cosine_similarity": 0.9871846437454224,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "uszxlak672a",
+        "sumerian_b": "uszxlak672"
+      },
+      {
+        "cosine_similarity": 0.9869832396507263,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "1kammaam3",
+        "sumerian_b": "9kammaam3"
+      },
+      {
+        "cosine_similarity": 0.9869106411933899,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "5kammaam3",
+        "sumerian_b": "6kammaam3"
+      },
+      {
+        "cosine_similarity": 0.9868563413619995,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "lugalmee3",
+        "sumerian_b": "lugalmee3a"
+      },
+      {
+        "cosine_similarity": 0.9867254495620728,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "burud\u2093uburud\u2093u",
+        "sumerian_b": "burud\u2093uburud\u2093uda"
+      },
+      {
+        "cosine_similarity": 0.9865343570709229,
+        "in_anchor_set": [
+          true,
+          true
+        ],
+        "sumerian_a": "sag9sag9ga",
+        "sumerian_b": "sag9sag9gaju10"
+      },
+      {
+        "cosine_similarity": 0.9865289926528931,
+        "in_anchor_set": [
+          true,
+          false
+        ],
+        "sumerian_a": "mu2mu2",
+        "sumerian_b": "mu2mu2mu2"
+      },
+      {
+        "cosine_similarity": 0.9863481521606445,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "szexsig7",
+        "sumerian_b": "szexsig7szexsig7"
+      },
+      {
+        "cosine_similarity": 0.9863272905349731,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "sagia\u2093",
+        "sumerian_b": "sagia\u2093x"
+      },
+      {
+        "cosine_similarity": 0.9862976670265198,
+        "in_anchor_set": [
+          true,
+          true
+        ],
+        "sumerian_a": "sag9sag9gani",
+        "sumerian_b": "sag9sag9gaju10"
+      },
+      {
+        "cosine_similarity": 0.9862741827964783,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "inhu\u014b",
+        "sumerian_b": "inhu\u014be"
+      },
+      {
+        "cosine_similarity": 0.9861314296722412,
+        "in_anchor_set": [
+          false,
+          true
+        ],
+        "sumerian_a": "baandab5be2ec",
+        "sumerian_b": "baandab5be2esz"
+      },
+      {
+        "cosine_similarity": 0.9861233830451965,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "hirinxkwu318na",
+        "sumerian_b": "hirinxkwu318nabi"
+      },
+      {
+        "cosine_similarity": 0.9860838651657104,
+        "in_anchor_set": [
+          true,
+          true
+        ],
+        "sumerian_a": "sag9sag9ga",
+        "sumerian_b": "sag9sag9gani"
+      },
+      {
+        "cosine_similarity": 0.9859849214553833,
+        "in_anchor_set": [
+          true,
+          false
+        ],
+        "sumerian_a": "baniindug4",
+        "sumerian_b": "baniindug4ga"
+      },
+      {
+        "cosine_similarity": 0.9859464764595032,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "2(n01@f)",
+        "sumerian_b": "6(n01@f)"
+      },
+      {
+        "cosine_similarity": 0.9859291315078735,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "ciimdiriggeen",
+        "sumerian_b": "\u0161iimdiriggeen"
+      },
+      {
+        "cosine_similarity": 0.9859092235565186,
+        "in_anchor_set": [
+          false,
+          false
+        ],
+        "sumerian_a": "lugalku3",
+        "sumerian_b": "lugalku3x"
+      }
+    ]
+  },
+  "lens6_structural_bridges": {
+    "k_clusters": 40,
+    "rows": [
+      {
+        "bridge_score": 0.9999969005584717,
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "cluster_9_members": [
+          "nin",
+          "geme2",
+          "ningir2su",
+          "ninazu",
+          "ninlil2"
+        ],
+        "nearest_cluster": 9,
+        "second_nearest_cluster": 4,
+        "sumerian": "ningir2su2kake4"
+      },
+      {
+        "bridge_score": 0.9999930262565613,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_19_members": [
+          "du11",
+          "be2",
+          "dug4",
+          "du11ga",
+          "u3naadu11"
+        ],
+        "nearest_cluster": 19,
+        "second_nearest_cluster": 13,
+        "sumerian": "he2naabzizi"
+      },
+      {
+        "bridge_score": 0.9999922513961792,
+        "cluster_0_members": [
+          "zi",
+          "ziga",
+          "il2",
+          "bazi",
+          "gen"
+        ],
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "nearest_cluster": 13,
+        "second_nearest_cluster": 0,
+        "sumerian": "zimudar"
+      },
+      {
+        "bridge_score": 0.9999891519546509,
+        "cluster_1_members": [
+          "1(u)",
+          "sze",
+          "sza3",
+          "sar",
+          "2(u)"
+        ],
+        "cluster_33_members": [
+          "1(di\u0161)",
+          "\u0161e",
+          "2(di\u0161)",
+          "5(di\u0161)",
+          "ge\u0161"
+        ],
+        "nearest_cluster": 33,
+        "second_nearest_cluster": 1,
+        "sumerian": "karzidda"
+      },
+      {
+        "bridge_score": 0.9999889135360718,
+        "cluster_20_members": [
+          "sa6",
+          "du10",
+          "lamma",
+          "dug3",
+          "sag9"
+        ],
+        "cluster_35_members": [
+          "nig2",
+          "tug2",
+          "mana",
+          "siki",
+          "usz"
+        ],
+        "nearest_cluster": 35,
+        "second_nearest_cluster": 20,
+        "sumerian": "nig2du10"
+      },
+      {
+        "bridge_score": 0.9999882578849792,
+        "cluster_1_members": [
+          "1(u)",
+          "sze",
+          "sza3",
+          "sar",
+          "2(u)"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 1,
+        "sumerian": "ilu5lu5"
+      },
+      {
+        "bridge_score": 0.9999877214431763,
+        "cluster_29_members": [
+          "1(disz)",
+          "2(disz)",
+          "5(disz)",
+          "3(disz)",
+          "udu"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 29,
+        "sumerian": "kas4ke4nesze3"
+      },
+      {
+        "bridge_score": 0.9999810457229614,
+        "cluster_22_members": [
+          "sila3",
+          "gin2",
+          "gur",
+          "ninda",
+          "kasz"
+        ],
+        "cluster_35_members": [
+          "nig2",
+          "tug2",
+          "mana",
+          "siki",
+          "usz"
+        ],
+        "nearest_cluster": 22,
+        "second_nearest_cluster": 35,
+        "sumerian": "ubaruum"
+      },
+      {
+        "bridge_score": 0.9999809861183167,
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 31,
+        "sumerian": "ku3dim2e"
+      },
+      {
+        "bridge_score": 0.9999786019325256,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_18_members": [
+          "ga2",
+          "gar",
+          "ag2",
+          "za3",
+          "\u014ba2"
+        ],
+        "nearest_cluster": 18,
+        "second_nearest_cluster": 13,
+        "sumerian": "immanix"
+      },
+      {
+        "bridge_score": 0.99997478723526,
+        "cluster_24_members": [
+          "gesz",
+          "giri3",
+          "ma2",
+          "gurusz",
+          "\u014be\u0161"
+        ],
+        "cluster_37_members": [
+          "d",
+          "x",
+          "ur",
+          "gi",
+          "1(asz@c)"
+        ],
+        "nearest_cluster": 24,
+        "second_nearest_cluster": 37,
+        "sumerian": "u3huin"
+      },
+      {
+        "bridge_score": 0.9999724626541138,
+        "cluster_0_members": [
+          "zi",
+          "ziga",
+          "il2",
+          "bazi",
+          "gen"
+        ],
+        "cluster_6_members": [
+          "iti",
+          "u4",
+          "kam",
+          "us2",
+          "ezem"
+        ],
+        "nearest_cluster": 0,
+        "second_nearest_cluster": 6,
+        "sumerian": "ilanuum"
+      },
+      {
+        "bridge_score": 0.9999657869338989,
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "nearest_cluster": 31,
+        "second_nearest_cluster": 36,
+        "sumerian": "us"
+      },
+      {
+        "bridge_score": 0.9999650120735168,
+        "cluster_18_members": [
+          "ga2",
+          "gar",
+          "ag2",
+          "za3",
+          "\u014ba2"
+        ],
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "nearest_cluster": 18,
+        "second_nearest_cluster": 4,
+        "sumerian": "kalammara"
+      },
+      {
+        "bridge_score": 0.9999629259109497,
+        "cluster_27_members": [
+          "kal",
+          "akalla",
+          "aakalla",
+          "azu",
+          "nuzu"
+        ],
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "nearest_cluster": 27,
+        "second_nearest_cluster": 36,
+        "sumerian": "nij2namma"
+      },
+      {
+        "bridge_score": 0.9999558925628662,
+        "cluster_23_members": [
+          "ku5",
+          "tar",
+          "sarta",
+          "ze2",
+          "en3"
+        ],
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "nearest_cluster": 23,
+        "second_nearest_cluster": 4,
+        "sumerian": "namkur2re"
+      },
+      {
+        "bridge_score": 0.9999532699584961,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_24_members": [
+          "gesz",
+          "giri3",
+          "ma2",
+          "gurusz",
+          "\u014be\u0161"
+        ],
+        "nearest_cluster": 24,
+        "second_nearest_cluster": 13,
+        "sumerian": "u3bi"
+      },
+      {
+        "bridge_score": 0.9999505281448364,
+        "cluster_0_members": [
+          "zi",
+          "ziga",
+          "il2",
+          "bazi",
+          "gen"
+        ],
+        "cluster_2_members": [
+          "tum",
+          "nibru",
+          "de6",
+          "tum2",
+          "genna"
+        ],
+        "nearest_cluster": 0,
+        "second_nearest_cluster": 2,
+        "sumerian": "laahlaah"
+      },
+      {
+        "bridge_score": 0.9999451637268066,
+        "cluster_18_members": [
+          "ga2",
+          "gar",
+          "ag2",
+          "za3",
+          "\u014ba2"
+        ],
+        "cluster_1_members": [
+          "1(u)",
+          "sze",
+          "sza3",
+          "sar",
+          "2(u)"
+        ],
+        "nearest_cluster": 18,
+        "second_nearest_cluster": 1,
+        "sumerian": "i3szubbaga2rata"
+      },
+      {
+        "bridge_score": 0.9999432563781738,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_37_members": [
+          "d",
+          "x",
+          "ur",
+          "gi",
+          "1(asz@c)"
+        ],
+        "nearest_cluster": 13,
+        "second_nearest_cluster": 37,
+        "sumerian": "tesz2a"
+      },
+      {
+        "bridge_score": 0.9999431371688843,
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "nearest_cluster": 36,
+        "second_nearest_cluster": 31,
+        "sumerian": "elali"
+      },
+      {
+        "bridge_score": 0.999940812587738,
+        "cluster_22_members": [
+          "sila3",
+          "gin2",
+          "gur",
+          "ninda",
+          "kasz"
+        ],
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "nearest_cluster": 22,
+        "second_nearest_cluster": 4,
+        "sumerian": "i7data"
+      },
+      {
+        "bridge_score": 0.9999397993087769,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_38_members": [
+          "du8",
+          "enki",
+          "baabdu8",
+          "dara3",
+          "i3du8"
+        ],
+        "nearest_cluster": 13,
+        "second_nearest_cluster": 38,
+        "sumerian": "aldim2"
+      },
+      {
+        "bridge_score": 0.9999330639839172,
+        "cluster_15_members": [
+          "lum",
+          "ku6",
+          "tur",
+          "gin7",
+          "dar"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 15,
+        "sumerian": "du5ta"
+      },
+      {
+        "bridge_score": 0.9999325275421143,
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "nearest_cluster": 4,
+        "second_nearest_cluster": 3,
+        "sumerian": "urib2"
+      },
+      {
+        "bridge_score": 0.9999215602874756,
+        "cluster_1_members": [
+          "1(u)",
+          "sze",
+          "sza3",
+          "sar",
+          "2(u)"
+        ],
+        "cluster_29_members": [
+          "1(disz)",
+          "2(disz)",
+          "5(disz)",
+          "3(disz)",
+          "udu"
+        ],
+        "nearest_cluster": 29,
+        "second_nearest_cluster": 1,
+        "sumerian": "u2kaka"
+      },
+      {
+        "bridge_score": 0.9999135136604309,
+        "cluster_24_members": [
+          "gesz",
+          "giri3",
+          "ma2",
+          "gurusz",
+          "\u014be\u0161"
+        ],
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "nearest_cluster": 24,
+        "second_nearest_cluster": 31,
+        "sumerian": "luhszu"
+      },
+      {
+        "bridge_score": 0.9999058246612549,
+        "cluster_10_members": [
+          "lu2",
+          "arad2",
+          "erin2",
+          "lu2kalla",
+          "lu2du10ga"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 10,
+        "sumerian": "sur\u2093erin2"
+      },
+      {
+        "bridge_score": 0.9999023675918579,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_39_members": [
+          "gal",
+          "mah",
+          "gal2",
+          "nun",
+          "sa2"
+        ],
+        "nearest_cluster": 39,
+        "second_nearest_cluster": 13,
+        "sumerian": "namsu"
+      },
+      {
+        "bridge_score": 0.9999019503593445,
+        "cluster_18_members": [
+          "ga2",
+          "gar",
+          "ag2",
+          "za3",
+          "\u014ba2"
+        ],
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "nearest_cluster": 18,
+        "second_nearest_cluster": 4,
+        "sumerian": "marax"
+      },
+      {
+        "bridge_score": 0.9998924136161804,
+        "cluster_18_members": [
+          "ga2",
+          "gar",
+          "ag2",
+          "za3",
+          "\u014ba2"
+        ],
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "nearest_cluster": 36,
+        "second_nearest_cluster": 18,
+        "sumerian": "kitucba"
+      },
+      {
+        "bridge_score": 0.9998879432678223,
+        "cluster_34_members": [
+          "dumu",
+          "dam",
+          "munus",
+          "szesz",
+          "ad"
+        ],
+        "cluster_39_members": [
+          "gal",
+          "mah",
+          "gal2",
+          "nun",
+          "sa2"
+        ],
+        "nearest_cluster": 39,
+        "second_nearest_cluster": 34,
+        "sumerian": "zibiim"
+      },
+      {
+        "bridge_score": 0.9998841285705566,
+        "cluster_13_members": [
+          "ab",
+          "inim",
+          "de2",
+          "gu3",
+          "gu3de2a"
+        ],
+        "cluster_34_members": [
+          "dumu",
+          "dam",
+          "munus",
+          "szesz",
+          "ad"
+        ],
+        "nearest_cluster": 13,
+        "second_nearest_cluster": 34,
+        "sumerian": "innanide2a"
+      },
+      {
+        "bridge_score": 0.9998705983161926,
+        "cluster_4_members": [
+          "ba",
+          "i3",
+          "sze3",
+          "za",
+          "igi"
+        ],
+        "cluster_9_members": [
+          "nin",
+          "geme2",
+          "ningir2su",
+          "ninazu",
+          "ninlil2"
+        ],
+        "nearest_cluster": 4,
+        "second_nearest_cluster": 9,
+        "sumerian": "ninur4rake4"
+      },
+      {
+        "bridge_score": 0.9998549222946167,
+        "cluster_15_members": [
+          "lum",
+          "ku6",
+          "tur",
+          "gin7",
+          "dar"
+        ],
+        "cluster_24_members": [
+          "gesz",
+          "giri3",
+          "ma2",
+          "gurusz",
+          "\u014be\u0161"
+        ],
+        "nearest_cluster": 15,
+        "second_nearest_cluster": 24,
+        "sumerian": "kusag"
+      },
+      {
+        "bridge_score": 0.9998519420623779,
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "cluster_37_members": [
+          "d",
+          "x",
+          "ur",
+          "gi",
+          "1(asz@c)"
+        ],
+        "nearest_cluster": 37,
+        "second_nearest_cluster": 31,
+        "sumerian": "ubar"
+      },
+      {
+        "bridge_score": 0.9998424649238586,
+        "cluster_34_members": [
+          "dumu",
+          "dam",
+          "munus",
+          "szesz",
+          "ad"
+        ],
+        "cluster_9_members": [
+          "nin",
+          "geme2",
+          "ningir2su",
+          "ninazu",
+          "ninlil2"
+        ],
+        "nearest_cluster": 34,
+        "second_nearest_cluster": 9,
+        "sumerian": "am6ma"
+      },
+      {
+        "bridge_score": 0.999838650226593,
+        "cluster_17_members": [
+          "li2",
+          "kuxdu",
+          "mukuxdu",
+          "puzur4",
+          "iszkur"
+        ],
+        "cluster_25_members": [
+          "szum2",
+          "\u0161um2",
+          "cum2",
+          "maanszum2",
+          "szum2ma"
+        ],
+        "nearest_cluster": 25,
+        "second_nearest_cluster": 17,
+        "sumerian": "ganszubur"
+      },
+      {
+        "bridge_score": 0.9998369812965393,
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "cluster_6_members": [
+          "iti",
+          "u4",
+          "kam",
+          "us2",
+          "ezem"
+        ],
+        "nearest_cluster": 6,
+        "second_nearest_cluster": 36,
+        "sumerian": "limmu5"
+      },
+      {
+        "bridge_score": 0.9998252391815186,
+        "cluster_26_members": [
+          "ti",
+          "bati",
+          "te",
+          "baanti",
+          "til"
+        ],
+        "cluster_6_members": [
+          "iti",
+          "u4",
+          "kam",
+          "us2",
+          "ezem"
+        ],
+        "nearest_cluster": 6,
+        "second_nearest_cluster": 26,
+        "sumerian": "i3su3"
+      },
+      {
+        "bridge_score": 0.9998244047164917,
+        "cluster_20_members": [
+          "sa6",
+          "du10",
+          "lamma",
+          "dug3",
+          "sag9"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 20,
+        "sumerian": "he2madu"
+      },
+      {
+        "bridge_score": 0.9998208284378052,
+        "cluster_12_members": [
+          "e3",
+          "szul",
+          "pa",
+          "szulpae3",
+          "munae3"
+        ],
+        "cluster_17_members": [
+          "li2",
+          "kuxdu",
+          "mukuxdu",
+          "puzur4",
+          "iszkur"
+        ],
+        "nearest_cluster": 12,
+        "second_nearest_cluster": 17,
+        "sumerian": "mukuxdurata"
+      },
+      {
+        "bridge_score": 0.9998134970664978,
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "cluster_37_members": [
+          "d",
+          "x",
+          "ur",
+          "gi",
+          "1(asz@c)"
+        ],
+        "nearest_cluster": 36,
+        "second_nearest_cluster": 37,
+        "sumerian": "szar2ur3e"
+      },
+      {
+        "bridge_score": 0.9998069405555725,
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "cluster_37_members": [
+          "d",
+          "x",
+          "ur",
+          "gi",
+          "1(asz@c)"
+        ],
+        "nearest_cluster": 31,
+        "second_nearest_cluster": 37,
+        "sumerian": "dubur"
+      },
+      {
+        "bridge_score": 0.9997991919517517,
+        "cluster_36_members": [
+          "a",
+          "ki",
+          "mu",
+          "na",
+          "ta"
+        ],
+        "cluster_39_members": [
+          "gal",
+          "mah",
+          "gal2",
+          "nun",
+          "sa2"
+        ],
+        "nearest_cluster": 39,
+        "second_nearest_cluster": 36,
+        "sumerian": "u\u0161umgalanna"
+      },
+      {
+        "bridge_score": 0.9997981190681458,
+        "cluster_1_members": [
+          "1(u)",
+          "sze",
+          "sza3",
+          "sar",
+          "2(u)"
+        ],
+        "cluster_22_members": [
+          "sila3",
+          "gin2",
+          "gur",
+          "ninda",
+          "kasz"
+        ],
+        "nearest_cluster": 22,
+        "second_nearest_cluster": 1,
+        "sumerian": "lulubum2"
+      },
+      {
+        "bridge_score": 0.9997949600219727,
+        "cluster_18_members": [
+          "ga2",
+          "gar",
+          "ag2",
+          "za3",
+          "\u014ba2"
+        ],
+        "cluster_24_members": [
+          "gesz",
+          "giri3",
+          "ma2",
+          "gurusz",
+          "\u014be\u0161"
+        ],
+        "nearest_cluster": 24,
+        "second_nearest_cluster": 18,
+        "sumerian": "gir2@g"
+      },
+      {
+        "bridge_score": 0.9997947812080383,
+        "cluster_0_members": [
+          "zi",
+          "ziga",
+          "il2",
+          "bazi",
+          "gen"
+        ],
+        "cluster_11_members": [
+          "ib",
+          "ib2",
+          "ku4",
+          "uh2",
+          "siga"
+        ],
+        "nearest_cluster": 11,
+        "second_nearest_cluster": 0,
+        "sumerian": "imrara"
+      },
+      {
+        "bridge_score": 0.9997910857200623,
+        "cluster_31_members": [
+          "szu",
+          "ku3",
+          "ke4",
+          "lil2",
+          "sza"
+        ],
+        "cluster_37_members": [
+          "d",
+          "x",
+          "ur",
+          "gi",
+          "1(asz@c)"
+        ],
+        "nearest_cluster": 31,
+        "second_nearest_cluster": 37,
+        "sumerian": "en_"
+      },
+      {
+        "bridge_score": 0.9997901916503906,
+        "cluster_0_members": [
+          "zi",
+          "ziga",
+          "il2",
+          "bazi",
+          "gen"
+        ],
+        "cluster_3_members": [
+          "dub",
+          "dubsar",
+          "ugula",
+          "ensi2",
+          "szara2"
+        ],
+        "nearest_cluster": 3,
+        "second_nearest_cluster": 0,
+        "sumerian": "i3damu"
+      }
+    ]
+  },
+  "source_artifacts": {
+    "aligned_gemma_path": "/Users/crashy/Development/cuneiformy/final_output/sumerian_aligned_gemma_vectors.npz",
+    "aligned_glove_path": "/Users/crashy/Development/cuneiformy/final_output/sumerian_aligned_vectors.npz",
+    "anchors_path": "/Users/crashy/Development/cuneiformy/data/processed/english_anchors.json",
+    "anchors_sha256": "058b9ce4b4d71a86e1e3eb082b9b306151a7ee9518d1ad091fbcac27acae56b5",
+    "corpus_frequency_path": "/Users/crashy/Development/cuneiformy/data/processed/cleaned_corpus.txt",
+    "corpus_frequency_sha256": "c29ed900a8349f52a0de157bef31d634f9f636f6d418380a46c0828d6f3747df",
+    "doppelganger_threshold": 0.95,
+    "isolation_k": 10,
+    "k_clusters": 40,
+    "seed": 42,
+    "source_vocab_path": "/Users/crashy/Development/cuneiformy/final_output/sumerian_aligned_vocab.pkl",
+    "top_n_per_lens": 50
+  },
+  "summary": {
+    "anchor_tokens_in_vocab": 8998,
+    "non_anchor_tokens_in_vocab": 26510,
+    "top1_per_lens": {
+      "lens1_english_displacement": "rin2 -> lord (cos=-0.0877)",
+      "lens2_no_counterpart": "1(disz) (freq=115478, top1_cos=0.4568)",
+      "lens3_isolation": "had2 (d_k=0.6334)",
+      "lens4_cross_space_divergence": "adabkibi (jaccard=1.0000)",
+      "lens5_doppelgangers": "baandab5be2ec == baandab5be2e\u0161 (cos=0.9979)",
+      "lens6_structural_bridges": "ningir2su2kake4 (bridge=1.0000, clusters 9/4)"
+    },
+    "total_aligned_tokens": 35508
+  }
+}
