@@ -121,3 +121,95 @@ def test_lens3_returns_histogram():
     assert "bin_edges" in result["histogram"]
     assert "counts" in result["histogram"]
     assert sum(result["histogram"]["counts"]) == len(aligned)
+
+
+# --- Lens 2: No counterpart ---------------------------------------------
+
+
+def test_lens2_score_combines_frequency_and_low_top1():
+    from scripts.analysis.anomaly_lenses import lens2_no_counterpart
+
+    # Two non-anchor tokens: token A has freq=100 and top-1 cosine 0.1 (score=90);
+    # token B has freq=10 and top-1 cosine 0.9 (score=1).
+    aligned = _normalize_rows(np.array([[1.0, 0.0], [0.0, 1.0]], dtype=np.float32))
+    source_vocab = ["alpha", "beta"]
+    anchor_source_tokens = frozenset()  # both are non-anchor
+    target_vectors = _normalize_rows(np.array([[0.9, 0.436]], dtype=np.float32))  # 0.9 cos to [1,0]; ~0.44 cos to [0,1]
+    target_vocab = ["x"]
+    corpus_freq = {"alpha": 100, "beta": 10}
+
+    result = lens2_no_counterpart(
+        aligned, source_vocab, anchor_source_tokens,
+        target_vectors, target_vocab, corpus_freq, top_n=10,
+    )
+    rows = result["rows"]
+    # Alpha: cos(alpha, x) = 0.9  -> score = 100 * (1 - 0.9) = 10
+    # Beta:  cos(beta, x)  = 0.436 -> score = 10 * (1 - 0.436) = 5.64
+    # Alpha ranks first (higher score).
+    assert rows[0]["sumerian"] == "alpha"
+
+
+def test_lens2_skips_anchor_tokens():
+    from scripts.analysis.anomaly_lenses import lens2_no_counterpart
+
+    aligned = _normalize_rows(np.array([[1.0, 0.0], [0.0, 1.0]], dtype=np.float32))
+    source_vocab = ["alpha", "beta"]
+    anchor_source_tokens = frozenset({"alpha"})
+    target_vectors = _normalize_rows(np.ones((1, 2), dtype=np.float32))
+    target_vocab = ["x"]
+    corpus_freq = {"alpha": 100, "beta": 10}
+
+    result = lens2_no_counterpart(
+        aligned, source_vocab, anchor_source_tokens,
+        target_vectors, target_vocab, corpus_freq, top_n=10,
+    )
+    # 'alpha' is in anchor_source_tokens, so it should not appear.
+    assert all(r["sumerian"] != "alpha" for r in result["rows"])
+
+
+# --- Lens 4: Cross-space divergence -------------------------------------
+
+
+def test_lens4_jaccard_distance_all_different():
+    from scripts.analysis.anomaly_lenses import lens4_cross_space_divergence
+
+    # Build two spaces where every token has completely different top-K in each.
+    # Use 4 tokens. In gemma space: a ~ [b,c]. In glove space: a ~ [c,d].
+    gemma = _normalize_rows(np.array([
+        [1.0, 0.0],
+        [0.99, 0.05],    # close to a in gemma
+        [0.98, -0.05],   # close to a in gemma
+        [-1.0, 0.0],
+    ], dtype=np.float32))
+    # In glove: a ~ [d, c]; a and b are orthogonal.
+    glove = _normalize_rows(np.array([
+        [1.0, 0.0],
+        [0.0, 1.0],      # orthogonal to a in glove
+        [0.95, 0.312],   # close to a in glove
+        [0.9, 0.436],    # close to a in glove
+    ], dtype=np.float32))
+    source_vocab = ["a", "b", "c", "d"]
+    anchor_source_tokens = frozenset({"a"})
+
+    result = lens4_cross_space_divergence(
+        gemma, glove, source_vocab, anchor_source_tokens,
+        top_n=5, neighbors_k=2,
+    )
+    rows_unfiltered = result["rows_unfiltered"]
+    a_row = next(r for r in rows_unfiltered if r["sumerian"] == "a")
+    assert a_row["jaccard_distance"] >= 0.0
+
+
+def test_lens4_jaccard_distance_identical_neighbors():
+    from scripts.analysis.anomaly_lenses import lens4_cross_space_divergence
+
+    # Two identical spaces -> Jaccard distance = 0 for every token.
+    rng = np.random.default_rng(0)
+    mat = _normalize_rows(rng.standard_normal((6, 4)).astype(np.float32))
+    source_vocab = [f"t{i}" for i in range(6)]
+    result = lens4_cross_space_divergence(
+        mat, mat, source_vocab, frozenset({source_vocab[0]}),
+        top_n=6, neighbors_k=3,
+    )
+    for row in result["rows_unfiltered"]:
+        assert row["jaccard_distance"] == pytest.approx(0.0, abs=1e-9)

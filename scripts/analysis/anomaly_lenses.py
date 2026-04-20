@@ -152,3 +152,99 @@ def lens3_isolation(
             "counts": counts.tolist(),
         },
     }
+
+
+def lens2_no_counterpart(
+    aligned_gemma: np.ndarray,
+    source_vocab: list[str],
+    anchor_source_tokens: frozenset[str],
+    target_gemma_vectors: np.ndarray,
+    target_gemma_vocab: list[str],
+    corpus_frequency: dict[str, int],
+    top_n: int,
+    chunk_size: int = 500,
+) -> dict:
+    """Lens 2: rank non-anchor source tokens by
+       corpus_frequency * (1 - top_1_target_cosine)
+
+    "High-value but no English counterpart." Assumes both `aligned_gemma` and
+    `target_gemma_vectors` are L2-normalized.
+    """
+    non_anchor_indices = [
+        i for i, tok in enumerate(source_vocab)
+        if tok not in anchor_source_tokens
+    ]
+    rows: list[dict] = []
+    for start in range(0, len(non_anchor_indices), chunk_size):
+        batch_idx = non_anchor_indices[start : start + chunk_size]
+        source_chunk = aligned_gemma[batch_idx]          # (chunk, dim)
+        sims = source_chunk @ target_gemma_vectors.T     # (chunk, N_target)
+        top1_target_idx = np.argmax(sims, axis=1)
+        top1_cos = sims[np.arange(len(batch_idx)), top1_target_idx]
+        for row_i, global_i in enumerate(batch_idx):
+            tok = source_vocab[global_i]
+            freq = corpus_frequency.get(tok, 0)
+            cos = float(np.clip(top1_cos[row_i], -1.0, 1.0))
+            score = freq * (1.0 - cos)
+            rows.append({
+                "sumerian": tok,
+                "corpus_frequency": freq,
+                "top1_english": target_gemma_vocab[int(top1_target_idx[row_i])],
+                "top1_cosine": cos,
+                "score": float(score),
+            })
+
+    rows.sort(key=lambda r: (-r["score"], r["sumerian"]))
+    return {"rows": rows[:top_n]}
+
+
+def _top_k_neighbors(aligned: np.ndarray, idx: int, k: int) -> set[int]:
+    sims = aligned[idx] @ aligned.T
+    sims[idx] = -np.inf
+    top = np.argsort(-sims)[:k]
+    return {int(j) for j in top}
+
+
+def lens4_cross_space_divergence(
+    aligned_gemma: np.ndarray,
+    aligned_glove: np.ndarray,
+    source_vocab: list[str],
+    anchor_source_tokens: frozenset[str],
+    top_n: int,
+    neighbors_k: int = 10,
+) -> dict:
+    """Lens 4: Jaccard distance between a source token's top-K neighbors in
+    two different aligned spaces (gemma vs glove). High divergence = the two
+    alignments disagree on the word's semantic neighborhood — either noise in
+    one space, or a real facet visible only to one target.
+
+    Assumes both spaces' vectors are L2-normalized and aligned row-index-wise
+    with `source_vocab`.
+    """
+    n = aligned_gemma.shape[0]
+    assert aligned_glove.shape[0] == n, "spaces must share source vocab row ordering"
+
+    rows: list[dict] = []
+    for i in range(n):
+        gemma_top = _top_k_neighbors(aligned_gemma, i, neighbors_k)
+        glove_top = _top_k_neighbors(aligned_glove, i, neighbors_k)
+        union = gemma_top | glove_top
+        inter = gemma_top & glove_top
+        if not union:
+            jaccard_distance = 0.0
+        else:
+            jaccard_distance = 1.0 - (len(inter) / len(union))
+        rows.append({
+            "sumerian": source_vocab[i],
+            "jaccard_distance": float(jaccard_distance),
+            "top_k_gemma": [source_vocab[j] for j in sorted(gemma_top)],
+            "top_k_glove": [source_vocab[j] for j in sorted(glove_top)],
+        })
+
+    rows.sort(key=lambda r: (-r["jaccard_distance"], r["sumerian"]))
+    rows_anchor_only = [r for r in rows if r["sumerian"] in anchor_source_tokens]
+
+    return {
+        "rows_unfiltered": rows[:top_n],
+        "rows_anchor_only": rows_anchor_only[:top_n],
+    }
