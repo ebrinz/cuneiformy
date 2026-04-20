@@ -12,6 +12,11 @@ import json
 import sys
 from pathlib import Path
 
+# Ensure repo root is importable when invoked directly (pytest.ini only affects pytest).
+_ROOT = Path(__file__).parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 import numpy as np
 from sklearn.model_selection import train_test_split
 
