@@ -1,0 +1,59 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$]{article}
+
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{longtable,booktabs,array}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage{calc}
+
+% ucharclasses provides XeTeX block-based font auto-switching.
+% Load only the Cuneiform block to keep compile overhead minimal.
+\usepackage[Cuneiform]{ucharclasses}
+
+$if(geometry)$
+\geometry{$geometry$}
+$endif$
+
+$if(mainfont)$
+\setmainfont{$mainfont$}
+$endif$
+$if(monofont)$
+\setmonofont{$monofont$}
+$endif$
+
+% Noto Sans Cuneiform for Unicode cuneiform (U+12000..U+123FF).
+% Path is relative to the command's --resource-path resolution.
+\newfontfamily{\cuneiformfont}{NotoSansCuneiform-Regular.ttf}[Path=./docs/fonts/]
+
+% Auto-switch to cuneiform font for any character in the Sumero-Akkadian
+% Cuneiform Unicode block; return to the document's main font on exit.
+\setTransitionsFor{Cuneiform}{\cuneiformfont}{\normalfont}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!70!black,
+  urlcolor=blue!70!black,
+}
+
+\title{$title$}
+\author{$for(author)$$author$$sep$ \\ $endfor$}
+\date{$date$}
+
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+\end{document}
