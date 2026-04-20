@@ -71,7 +71,7 @@
       "sumerian_in_vocab": true,
       "english_in_gemma": true,
       "english_in_glove": true,
-      "etcsl_passages": 167,
+      "etcsl_passages": 193,
       "degenerate_fraction_top5": 0.0,
       "failure_reasons": [],
       "warnings": [],
@@ -130,7 +130,7 @@
       "sumerian_in_vocab": true,
       "english_in_gemma": true,
       "english_in_glove": true,
-      "etcsl_passages": 541,
+      "etcsl_passages": 561,
       "degenerate_fraction_top5": 0.0,
       "failure_reasons": [],
       "warnings": [],
@@ -181,60 +181,60 @@
     },
     {
       "concept": {
-        "sumerian": "kur",
-        "english": "mountain",
-        "theme": "netherworld"
+        "sumerian": "namtar",
+        "english": "fate",
+        "theme": "decree"
       },
       "status": "pass",
       "sumerian_in_vocab": true,
       "english_in_gemma": true,
       "english_in_glove": true,
-      "etcsl_passages": 502,
+      "etcsl_passages": 35,
       "degenerate_fraction_top5": 0.0,
       "failure_reasons": [],
       "warnings": [],
       "top5_gemma": [
         [
-          "kurkurraka",
-          0.8872833251953125
+          "namtar",
+          0.4591572880744934
         ],
         [
-          "kurkurrara",
-          0.8770326375961304
+          "namtag2",
+          0.4522727131843567
         ],
         [
-          "kurkurrake4",
-          0.8743037581443787
+          "namta",
+          0.4501533508300781
         ],
         [
-          "kurkurra",
-          0.8740742802619934
+          "namtag",
+          0.4181610643863678
         ],
         [
-          "kurra",
-          0.8720831871032715
+          "namtarra",
+          0.40660491585731506
         ]
       ],
       "top5_glove": [
         [
-          "kurkurraka",
-          0.9179383516311646
+          "namtar",
+          0.5673750638961792
         ],
         [
-          "kurraka",
-          0.9118995666503906
+          "namtag2",
+          0.5673490762710571
         ],
         [
-          "kurraa2",
-          0.9102976322174072
+          "namtarzu",
+          0.5647132992744446
         ],
         [
-          "kurra",
-          0.9036977887153625
+          "namtag",
+          0.5640577077865601
         ],
         [
-          "kurkurra",
-          0.9021350741386414
+          "namtarju10",
+          0.5566401481628418
         ]
       ]
     },
@@ -248,7 +248,7 @@
       "sumerian_in_vocab": true,
       "english_in_gemma": true,
       "english_in_glove": true,
-      "etcsl_passages": 542,
+      "etcsl_passages": 561,
       "degenerate_fraction_top5": 0.0,
       "failure_reasons": [],
       "warnings": [],
@@ -294,244 +294,6 @@
         [
           "ensi2kam",
           0.34804263710975647
-        ]
-      ]
-    },
-    {
-      "concept": {
-        "sumerian": "ima",
-        "english": "clay",
-        "theme": "matter"
-      },
-      "status": "fail",
-      "sumerian_in_vocab": true,
-      "english_in_gemma": true,
-      "english_in_glove": true,
-      "etcsl_passages": 0,
-      "degenerate_fraction_top5": 0.1,
-      "failure_reasons": [
-        "zero_etcsl_passages"
-      ],
-      "warnings": [],
-      "top5_gemma": [
-        [
-          "ima",
-          0.47203508019447327
-        ],
-        [
-          "imta",
-          0.42012152075767517
-        ],
-        [
-          "imbi",
-          0.39503684639930725
-        ],
-        [
-          "im",
-          0.39140820503234863
-        ],
-        [
-          "imba",
-          0.37646523118019104
-        ]
-      ],
-      "top5_glove": [
-        [
-          "imsar",
-          0.46127140522003174
-        ],
-        [
-          "imbabbar2",
-          0.44944530725479126
-        ],
-        [
-          "imbi",
-          0.4471697509288788
-        ],
-        [
-          "imba",
-          0.44337552785873413
-        ],
-        [
-          "ima",
-          0.43678146600723267
-        ]
-      ]
-    },
-    {
-      "concept": {
-        "sumerian": "kur",
-        "english": "mountain",
-        "theme": "netherworld"
-      },
-      "status": "pass",
-      "sumerian_in_vocab": true,
-      "english_in_gemma": true,
-      "english_in_glove": true,
-      "etcsl_passages": 502,
-      "degenerate_fraction_top5": 0.0,
-      "failure_reasons": [],
-      "warnings": [],
-      "top5_gemma": [
-        [
-          "kurkurraka",
-          0.8872833251953125
-        ],
-        [
-          "kurkurrara",
-          0.8770326375961304
-        ],
-        [
-          "kurkurrake4",
-          0.8743037581443787
-        ],
-        [
-          "kurkurra",
-          0.8740742802619934
-        ],
-        [
-          "kurra",
-          0.8720831871032715
-        ]
-      ],
-      "top5_glove": [
-        [
-          "kurkurraka",
-          0.9179383516311646
-        ],
-        [
-          "kurraka",
-          0.9118995666503906
-        ],
-        [
-          "kurraa2",
-          0.9102976322174072
-        ],
-        [
-          "kurra",
-          0.9036977887153625
-        ],
-        [
-          "kurkurra",
-          0.9021350741386414
-        ]
-      ]
-    },
-    {
-      "concept": {
-        "sumerian": "an",
-        "english": "heaven",
-        "theme": "primordial"
-      },
-      "status": "pass",
-      "sumerian_in_vocab": true,
-      "english_in_gemma": true,
-      "english_in_glove": true,
-      "etcsl_passages": 716,
-      "degenerate_fraction_top5": 0.0,
-      "failure_reasons": [],
-      "warnings": [],
-      "top5_gemma": [
-        [
-          "hul2leda",
-          0.2650391161441803
-        ],
-        [
-          "hul2le",
-          0.2636042535305023
-        ],
-        [
-          "hul2lede3",
-          0.25484907627105713
-        ],
-        [
-          "hul2ledam",
-          0.24670928716659546
-        ],
-        [
-          "hul2hul2le",
-          0.24274420738220215
-        ]
-      ],
-      "top5_glove": [
-        [
-          "le2",
-          0.5320999026298523
-        ],
-        [
-          "e11dazune",
-          0.5260751247406006
-        ],
-        [
-          "iti6gin7",
-          0.5231804847717285
-        ],
-        [
-          "er9azu",
-          0.5202318429946899
-        ],
-        [
-          "iti6zu",
-          0.5180867314338684
-        ]
-      ]
-    },
-    {
-      "concept": {
-        "sumerian": "ki",
-        "english": "earth",
-        "theme": "primordial"
-      },
-      "status": "pass",
-      "sumerian_in_vocab": true,
-      "english_in_gemma": true,
-      "english_in_glove": true,
-      "etcsl_passages": 1699,
-      "degenerate_fraction_top5": 0.0,
-      "failure_reasons": [],
-      "warnings": [],
-      "top5_gemma": [
-        [
-          "kiszar2ra",
-          0.41895177960395813
-        ],
-        [
-          "kiszar2rake4",
-          0.4175649881362915
-        ],
-        [
-          "urasza",
-          0.36582136154174805
-        ],
-        [
-          "szar2ra",
-          0.35692524909973145
-        ],
-        [
-          "urasz",
-          0.34526413679122925
-        ]
-      ],
-      "top5_glove": [
-        [
-          "su3ra2aj2",
-          0.6092897057533264
-        ],
-        [
-          "kiszar2ra",
-          0.5949724316596985
-        ],
-        [
-          "u4sakarsze3",
-          0.5919997096061707
-        ],
-        [
-          "su3u4bi",
-          0.5856627225875854
-        ],
-        [
-          "su3ra2a\u014b2",
-          0.581222414970398
         ]
       ]
     }

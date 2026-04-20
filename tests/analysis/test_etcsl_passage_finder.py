@@ -51,6 +51,24 @@ def test_zero_passages_when_token_absent():
     assert find_passages("me", etcsl) == []
 
 
+def test_normalized_query_matches_hyphenated_transliteration():
+    """nam-tar in transliteration matches both 'namtar' and 'nam-tar' queries."""
+    from scripts.analysis.etcsl_passage_finder import find_passages
+
+    etcsl = [
+        {
+            "text_id": "t.1",
+            "title": "",
+            "lines": [
+                {"line_no": 1, "transliteration": "nam-tar gal", "translation": "great fate"},
+            ],
+        },
+    ]
+    # Both the normalized query and the hyphenated query should find the passage.
+    assert len(find_passages("namtar", etcsl)) == 1
+    assert len(find_passages("nam-tar", etcsl)) == 1
+
+
 def test_context_lines_captured():
     from scripts.analysis.etcsl_passage_finder import find_passages
 

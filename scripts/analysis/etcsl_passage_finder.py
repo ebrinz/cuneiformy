@@ -11,6 +11,8 @@ See: docs/superpowers/specs/2026-04-19-sumerian-cosmogony-document-design.md
 """
 from __future__ import annotations
 
+from scripts.sumerian_normalize import normalize_sumerian_token
+
 
 def find_passages(
     sumerian_token: str,
@@ -18,20 +20,25 @@ def find_passages(
     max_passages: int = 3,
     context_lines: int = 2,
 ) -> list[dict]:
-    """Find ETCSL passages containing the token.
+    """Find ETCSL passages containing the token (normalized match).
+
+    Both the query and each transliteration word are run through
+    normalize_sumerian_token before matching, so callers can pass either the
+    ASCII-normalized form (e.g. 'namtar') or the conventional Sumerological
+    form (e.g. 'nam-tar') and get the same results.
 
     Returns a list of {text_id, title, matched_line_no, transliteration,
     translation, context} dicts. `context` is [context_lines before] +
     matched line + [context_lines after].
     """
+    query_normalized = normalize_sumerian_token(sumerian_token)
     results = []
     for text in etcsl_texts:
         lines = text.get("lines", [])
         for i, line in enumerate(lines):
             trans = line.get("transliteration", "") or ""
-            # Whitespace-split to match whole tokens (avoids false positives
-            # inside compound words the way substring-search would).
-            if sumerian_token in trans.split():
+            normalized_tokens = {normalize_sumerian_token(t) for t in trans.split()}
+            if query_normalized in normalized_tokens:
                 start = max(0, i - context_lines)
                 end = min(len(lines), i + context_lines + 1)
                 results.append({

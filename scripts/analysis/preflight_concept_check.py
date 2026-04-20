@@ -17,6 +17,8 @@ from __future__ import annotations
 
 import datetime as _dt
 
+from scripts.sumerian_normalize import normalize_sumerian_token
+
 PREFLIGHT_SCHEMA_VERSION = 1
 DEGENERATE_LEN_THRESHOLD = 2  # tokens of length <= 2 are flagged as degenerate
 DEGENERATE_TOP5_MIN_FRACTION = 0.4  # <=40% multi-char tokens in top 5 -> flagged
@@ -52,16 +54,21 @@ def preflight_check(
         # Supports two schemas:
         #   - Nested: [{text_id, title, lines: [{line_no, transliteration, ...}]}, ...]
         #   - Flat:   [{transliteration, translation, line_id, source}, ...]
+        # Both query and transliteration tokens are normalized so that e.g.
+        # 'namtar' (pipeline form) matches 'nam-tar' (raw ETCSL form).
+        query_normalized = normalize_sumerian_token(sum_tok)
         etcsl_count = 0
         for text in etcsl_texts:
             if "lines" in text:
                 # Nested schema (used in tests and etcsl_passage_finder).
                 for line in text.get("lines", []):
-                    if sum_tok in (line.get("transliteration") or "").split():
+                    normalized_tokens = {normalize_sumerian_token(t) for t in (line.get("transliteration") or "").split()}
+                    if query_normalized in normalized_tokens:
                         etcsl_count += 1
             else:
                 # Flat schema (data/raw/etcsl_texts.json actual format).
-                if sum_tok in (text.get("transliteration") or "").split():
+                normalized_tokens = {normalize_sumerian_token(t) for t in (text.get("transliteration") or "").split()}
+                if query_normalized in normalized_tokens:
                     etcsl_count += 1
 
         failure_reasons = []

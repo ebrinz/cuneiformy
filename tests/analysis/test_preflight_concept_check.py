@@ -93,6 +93,24 @@ def test_flags_zero_etcsl_passages():
     assert verdict["status"] == "fail"
 
 
+def test_etcsl_count_with_hyphenated_transliteration():
+    """Concept 'namtar' should find ETCSL hits in 'nam-tar' transliterations."""
+    from scripts.analysis.preflight_concept_check import preflight_check
+
+    lookup = _preflight_stub()
+    # 'namtar' is in the stub vocab; 'fate' is in both eng_vocabs.
+    etcsl = [
+        {"text_id": "t.1", "title": "", "lines": [
+            {"line_no": 1, "transliteration": "nam-tar gal", "translation": "great fate"},
+        ]},
+    ]
+    concepts = [{"sumerian": "namtar", "english": "fate", "theme": "decree"}]
+    report = preflight_check(lookup, concepts, etcsl)
+    verdict = report["concepts"][0]
+    assert verdict["etcsl_passages"] >= 1
+    assert verdict["status"] == "pass"
+
+
 def test_report_schema_stable():
     from scripts.analysis.preflight_concept_check import preflight_check
 
