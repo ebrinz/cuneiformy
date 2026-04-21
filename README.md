@@ -57,19 +57,16 @@ Sumerian corpus (ETCSL + CDLI + ORACC)
         |
   Zero-padding fusion (768d + 768d = 1536d)
         |
-  Ridge Regression (alpha=100)
-        |
-  GloVe 300d English space
-        |
-  Nearest-neighbor retrieval
+  Ridge Regression ──┬── whitened-EmbeddingGemma 768d ── Nearest-neighbor retrieval
+                     └── GloVe 300d                    ── Nearest-neighbor retrieval
 ```
 
-The approach follows a cross-lingual embedding alignment strategy:
+The approach follows a cross-lingual embedding alignment strategy with a dual target:
 
-1. **Train monolingual embeddings** on a large Sumerian corpus using FastText
-2. **Fuse** text embeddings with zero-padding (dimensionality regularization)
-3. **Learn a linear mapping** from Sumerian embedding space to English GloVe space using anchor word pairs (Sumerian words with known English translations)
-4. **Evaluate** by checking if the nearest English neighbor of a projected Sumerian vector is the correct translation
+1. **Train monolingual embeddings** on a large Sumerian corpus using FastText.
+2. **Fuse** text embeddings with zero-padding (dimensionality regularization).
+3. **Learn a linear mapping** from the fused Sumerian space into both (a) whitened EmbeddingGemma 768d (primary target) and (b) GloVe 300d (secondary target), using anchor word pairs from ePSD2 and ETCSL co-occurrence.
+4. **Evaluate** by checking if the nearest English neighbor of a projected Sumerian vector is the correct translation; both target spaces are queryable via one `SumerianLookup` class.
 
 ## Usage
 
@@ -135,7 +132,7 @@ python scripts/10_export_production.py
 ### Tests
 
 ```bash
-pytest tests/ --ignore=tests/test_integration.py -v    # 110 tests
+pytest tests/ --ignore=tests/test_integration.py -v    # 167 tests
 ```
 
 ## Data Sources
@@ -149,7 +146,7 @@ pytest tests/ --ignore=tests/test_integration.py -v    # 110 tests
 
 ## Architecture
 
-Mirrors [heiroglyphy](https://github.com/ebrinz/heiroglyphy) V15 with Sumerian-specific adaptations:
+Originated as a port of [heiroglyphy](https://github.com/ebrinz/heiroglyphy) V15 to Sumerian; has since diverged in significant ways (dual-target alignment, whitening, normalization fix, anomaly atlas):
 
 | Parameter | Value |
 |-----------|-------|
@@ -157,27 +154,44 @@ Mirrors [heiroglyphy](https://github.com/ebrinz/heiroglyphy) V15 with Sumerian-s
 | FastText window | 10 |
 | FastText min_count | 5 |
 | FastText algorithm | skip-gram |
-| Fusion | 768d text + 768d zero-padding |
-| Alignment | Ridge Regression |
-| Optimal alpha | 100 |
-| Target space | GloVe 6B 300d |
+| Fusion | 768d text + 768d zero-padding → 1,536d |
+| Alignment | Ridge Regression (one per target) |
+| Ridge alpha (GloVe) | 0.001 (post-Workstream 2b; pre-2b was 100 due to an underdetermined system) |
+| Ridge alpha (whitened-Gemma) | 100 |
+| Target spaces | GloVe 6B 300d + whitened EmbeddingGemma 768d |
+| Training anchors | 6,867 (post-Workstream 2b; was 1,572 pre-fix) |
 
-### Key Finding
+### Key findings
 
-The optimal Ridge alpha is **100** (vs heiroglyphy's 0.001). With only 1,572 training anchors and 1,536 dimensions, the system is underdetermined &mdash; higher regularization prevents overfitting. Zero-padding has no measurable effect at this sample size.
+- **Normalization drift was the dominant blocker.** Workstream 2b found that 64.85% of anchor-dropout was a ~20-line unicode-normalization gap between ORACC citation forms and the ATF corpus (subscripts → ASCII, strip determinatives, drop hyphens). Fixing it 3×-multiplied top-1 on whitened Gemma (19.85% → 52.13%). See [`docs/EXPERIMENT_JOURNAL.md`](docs/EXPERIMENT_JOURNAL.md).
+- **Whitening is mandatory for contextual-encoder targets.** BERT-whitening (Su et al. 2021) applied to raw EmbeddingGemma is the difference between an alignment that works and one that fails the baseline.
+- **Atlas-driven anomaly analysis** surfaces specific Sumerian words where the alignment's geometry genuinely diverges from English translation conventions — see [`docs/anomaly_atlas_findings.md`](docs/anomaly_atlas_findings.md) and its [PDF rendering](docs/anomaly_atlas_findings.pdf).
 
 ## Project Structure
 
 ```
 cuneiformy/
-├── scripts/           # Numbered pipeline scripts (01-10)
+├── scripts/           # Numbered pipeline scripts (01-10) + analysis/ + docs/
+│   ├── sumerian_normalize.py         # canonical token-normalization module (Workstream 2b)
+│   ├── audit_anchors.py              # anchor-survival diagnostic
+│   ├── coverage_diagnostic.py        # what-would-each-intervention-recover
+│   ├── analysis/                     # cosmogony + anomaly-atlas infrastructure
+│   └── docs/                         # PDF rendering (pandoc + xelatex + cuneiform font)
 ├── data/              # Raw and processed data (gitignored)
-├── models/            # Trained FastText models (gitignored)
-├── results/           # Evaluation results
-├── final_output/      # Production vectors + lookup API
-├── tests/             # 34 unit + integration tests
-└── docs/              # Design spec and implementation plan
+├── models/            # Trained FastText + whitened-Gemma caches (gitignored)
+├── results/           # Audit + diagnostic reports (dated, committed)
+├── final_output/      # Production aligned vectors + SumerianLookup API
+├── tests/             # 167 unit + integration tests
+└── docs/              # Specs, plans, journal, roadmap, research artifacts
+    ├── ROADMAP.md                    # queued workstreams (see below)
+    ├── EXPERIMENT_JOURNAL.md         # dated log of experiments + findings
+    ├── sumerian_cosmogony.md         # Phase 3 narrative extraction (Anunnaki cosmogony)
+    └── anomaly_atlas_findings.md     # thematic interpretation of the atlas
 ```
+
+## Roadmap
+
+See [`docs/ROADMAP.md`](docs/ROADMAP.md) for queued workstreams. Near-term priority: **hyper-glyphy monorepo reorganization** to host multiple ancient-language embedding spaces (Egyptian, Akkadian, Classical Greek, Hattusian, oracle-bone Chinese) using the same dual-target alignment pattern.
 
 ## License
 
