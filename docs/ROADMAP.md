@@ -1,14 +1,14 @@
-# Cuneiformy Roadmap
+# Hyper-glyphy Roadmap
 
 Queued workstreams, ordered by priority. Each item is shippable on its own; items lower on the list assume items above have landed.
 
-For historical context on what's already shipped, see [`EXPERIMENT_JOURNAL.md`](EXPERIMENT_JOURNAL.md).
+For historical context on what's already shipped, see [`EXPERIMENT_JOURNAL.md`](../languages/sumerian/docs/EXPERIMENT_JOURNAL.md).
 
 ---
 
 ## 1. Hyper-glyphy monorepo reorganization
 
-**Status:** queued, not started.
+**Status:** shipped (2026-05-03).
 **Estimated scope:** ~1 week (Phase α only — structural move).
 **Prerequisite:** none.
 **Unblocks:** everything below item 2.
@@ -116,7 +116,7 @@ Result could be positive (ancient-language alignment is a novel source of interp
 
 ## Shipped (for reference)
 
-See [`EXPERIMENT_JOURNAL.md`](EXPERIMENT_JOURNAL.md) for dated entries. In chronological order, this repo has shipped:
+See [`EXPERIMENT_JOURNAL.md`](../languages/sumerian/docs/EXPERIMENT_JOURNAL.md) for dated entries. In chronological order, this repo has shipped:
 
 1. v1 baseline — 17.30% top-1 GloVe (direct port of Heiroglyphy V15).
 2. Phase A whitening — BERT-whitening for EmbeddingGemma target; +2.54pp top-1.
@@ -127,3 +127,4 @@ See [`EXPERIMENT_JOURNAL.md`](EXPERIMENT_JOURNAL.md) for dated entries. In chron
 7. Sumerian cosmogony document — 14,026-word case study on five Anunnaki-related concepts.
 8. Anomaly atlas — civilization-agnostic diagnostic framework + six-lens atlas over 35,508 tokens.
 9. Anomaly atlas interpretive document — 9,896-word thematic interpretation + PDF with embedded cuneiform font.
+10. Hyper-glyphy Phase α — monorepo reorganization: `languages/sumerian/`, `framework/`, `shared/`.

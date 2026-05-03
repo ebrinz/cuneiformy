@@ -71,13 +71,13 @@ The approach follows a cross-lingual embedding alignment strategy with a dual ta
 ## Usage
 
 ```python
-from final_output.sumerian_lookup import SumerianLookup
+from languages.sumerian.final_output.sumerian_lookup import SumerianLookup
 
 lookup = SumerianLookup(
-    gemma_vectors_path="final_output/sumerian_aligned_gemma_vectors.npz",
-    glove_vectors_path="final_output/sumerian_aligned_vectors.npz",
-    vocab_path="final_output/sumerian_aligned_vocab.pkl",
-    gemma_english_path="models/english_gemma_whitened_768d.npz",
+    gemma_vectors_path="languages/sumerian/final_output/sumerian_aligned_gemma_vectors.npz",
+    glove_vectors_path="languages/sumerian/final_output/sumerian_aligned_vectors.npz",
+    vocab_path="languages/sumerian/final_output/sumerian_aligned_vocab.pkl",
+    gemma_english_path="shared/models/english_gemma_whitened_768d.npz",
     glove_english_vectors=glove_vectors,
     glove_english_vocab=glove_vocab,
 )
@@ -110,29 +110,29 @@ pip install -r requirements.txt
 
 ```bash
 # 1. Scrape corpora (ETCSL ~5MB, CDLI ~230MB, ORACC ~700MB)
-python scripts/01_scrape_etcsl.py
-python scripts/02_scrape_cdli.py
-python scripts/03_scrape_oracc.py
+python languages/sumerian/scripts/01_scrape_etcsl.py
+python languages/sumerian/scripts/02_scrape_cdli.py
+python languages/sumerian/scripts/03_scrape_oracc.py
 
 # 2. Process corpus
-python scripts/04_deduplicate_corpus.py
-python scripts/05_clean_and_tokenize.py
-python scripts/06_extract_anchors.py
+python languages/sumerian/scripts/04_deduplicate_corpus.py
+python languages/sumerian/scripts/05_clean_and_tokenize.py
+python languages/sumerian/scripts/06_extract_anchors.py
 
 # 3. Download GloVe (862MB, or symlinks from heiroglyphy)
-python scripts/download_glove.py
+python shared/scripts/download_glove.py
 
 # 4. Train and evaluate
-python scripts/07_train_fasttext.py     # ~30-60 min
-python scripts/08_fuse_embeddings.py
-python scripts/09_align_and_evaluate.py
-python scripts/10_export_production.py
+python languages/sumerian/scripts/07_train_fasttext.py     # ~30-60 min
+python languages/sumerian/scripts/08_fuse_embeddings.py
+python languages/sumerian/scripts/09_align_and_evaluate.py
+python languages/sumerian/scripts/10_export_production.py
 ```
 
 ### Tests
 
 ```bash
-pytest tests/ --ignore=tests/test_integration.py -v    # 167 tests
+pytest languages/sumerian/tests/ shared/tests/ --ignore=languages/sumerian/tests/test_integration.py -v
 ```
 
 ## Data Sources
@@ -171,18 +171,26 @@ Originated as a port of [heiroglyphy](https://github.com/ebrinz/heiroglyphy) V15
 
 ```
 cuneiformy/
-├── scripts/           # Numbered pipeline scripts (01-10) + analysis/ + docs/
-│   ├── sumerian_normalize.py         # canonical token-normalization module (Workstream 2b)
-│   ├── audit_anchors.py              # anchor-survival diagnostic
-│   ├── coverage_diagnostic.py        # what-would-each-intervention-recover
-│   ├── analysis/                     # cosmogony + anomaly-atlas infrastructure
-│   └── docs/                         # PDF rendering (pandoc + xelatex + cuneiform font)
-├── data/              # Raw and processed data (gitignored)
-├── models/            # Trained FastText + whitened-Gemma caches (gitignored)
-├── results/           # Audit + diagnostic reports (dated, committed)
-├── final_output/      # Production aligned vectors + SumerianLookup API
-├── tests/             # 167 unit + integration tests
-└── docs/              # Specs, plans, journal, roadmap, research artifacts
+├── languages/
+│   └── sumerian/
+│       ├── scripts/       # Numbered pipeline scripts (01-10) + analysis/ + docs/
+│       │   ├── sumerian_normalize.py     # canonical token-normalization module
+│       │   ├── audit_anchors.py          # anchor-survival diagnostic
+│       │   ├── coverage_diagnostic.py    # what-would-each-intervention-recover
+│       │   ├── analysis/                 # cosmogony + anomaly-atlas orchestration
+│       │   └── docs/                     # PDF rendering (pandoc + xelatex + cuneiform font)
+│       ├── data/          # Raw and processed data (gitignored)
+│       ├── models/        # Trained FastText caches (gitignored)
+│       ├── results/       # Audit + diagnostic reports (dated, committed)
+│       ├── final_output/  # Production aligned vectors + SumerianLookup API
+│       └── tests/         # Sumerian-specific unit + integration tests
+├── framework/
+│   └── analysis/          # Language-agnostic anomaly atlas + analysis lenses
+├── shared/
+│   ├── scripts/           # English target embedding tools (Gemma, GloVe, whitening)
+│   ├── models/            # Whitened-Gemma caches (gitignored)
+│   └── tests/             # Shared script tests
+└── docs/                  # Specs, plans, journal, roadmap, research artifacts
     ├── ROADMAP.md                    # queued workstreams (see below)
     ├── EXPERIMENT_JOURNAL.md         # dated log of experiments + findings
     ├── sumerian_cosmogony.md         # Phase 3 narrative extraction (Anunnaki cosmogony)

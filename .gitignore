@@ -1,20 +1,21 @@
 # Data (too large for git)
-data/raw/
-data/processed/glove.6B.*
-data/processed/cleaned_corpus.txt
-data/processed/merged_corpus.json
-data/processed/english_anchors.json
-data/dictionaries/
+languages/*/data/raw/
+languages/*/data/processed/glove.6B.*
+languages/*/data/processed/cleaned_corpus.txt
+languages/*/data/processed/merged_corpus.json
+languages/*/data/processed/english_anchors.json
+languages/*/data/dictionaries/
 
 # Models (too large for git)
-models/
+languages/*/models/
+shared/models/
 
 # Results (regenerable)
-results/
+languages/*/results/
 
 # Production vectors (too large for git)
-final_output/*.npz
-final_output/*.pkl
+languages/*/final_output/*.npz
+languages/*/final_output/*.pkl
 
 # Python
 __pycache__/
